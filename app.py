@@ -2,8 +2,6 @@ import os
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
 
-import db_connection
-
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = "online-cookbook"
