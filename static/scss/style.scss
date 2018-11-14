@@ -1,0 +1,318 @@
+@import "colors", "hover";
+%flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-size: 16px;
+    color: $main;
+}
+
+.background {
+    background: {
+        image: url("../assets/spices.jpg");
+        repeat: no-repeat;
+        size: cover;
+        attachment: fixed;
+    }
+    height: 370px;
+    @media (min-width: 600px) {
+        height: 450px;
+    }
+    position: relative;
+}
+
+nav {
+    background-color: white;
+    .brand-logo {
+        font-size: .9em;
+        font-weight: 500;
+        color: $main;
+        @media (min-width: 400px) {
+            font-size: 1.5em;
+        }
+        @media (min-width: 600px) {
+            font-size: 2em;
+            padding-left: 20px;
+        }
+        
+        span:last-child {
+            color: $primary_orange;
+        }
+    }
+    
+    a.sidenav-trigger {
+        color: $primary_orange;
+    }
+    
+    .nav-wrapper > ul a {
+        color: $main;
+        font-weight: 500;
+        background-color: white;
+        position: relative;
+        z-index: 2;
+        top: -3px;
+        
+        &:hover {
+            background-color: transparent;
+        }
+    }
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.row.login_box {
+    position: absolute;
+    top: 100px;
+    left: 5%;
+    right: 5%;
+    z-index: 2;
+    
+    @media (min-width: 600px) {
+        top: 150px;
+        left: 0;
+        right: 0;
+    }
+    
+    .col {
+        padding: 0;
+        background-color: white;
+        
+        h5 {
+            margin-top: 0;
+        }
+        
+        form {
+            padding: 20px;
+        }
+        
+        p {
+            font-size: 13px;
+            margin: 0;
+            @extend %flex-column;
+            @media (min-width: 600px) {
+                flex-direction: row;
+            }
+            
+            a {
+                @media (min-width: 600px) {
+                    padding-left: 7px;
+                }
+                color: $primary_orange;
+                
+                &:hover {
+                    color: $teritiary_orange;
+                }
+            }
+        }
+        
+        input {
+            &:focus {
+                border-bottom: 1px solid $primary_orange;
+                -webkit-box-shadow: 0 1px 0 0 $primary_orange;
+                box-shadow: 0 1px 0 0 $primary_orange;
+            }
+        }
+            
+        input:last-of-type {
+            margin-bottom: 20px;
+        }
+    }
+    
+    button {
+        width: 100%;
+        background-color: $primary_orange;
+        border-radius: 0;
+        -webkit-box-shadow: 3px 3px 0px 0px $secondary_orange;
+        -moz-box-shadow: 3px 3px 0px 0px $secondary_orange;
+        box-shadow: 3px 3px 0px 0px $secondary_orange;
+        @media (min-width: 600px) {
+            width: initial;
+        }
+    }
+}
+
+.container {
+    margin-top: 50px;
+    
+    .row {
+        &.small_screen_hide {
+            display: none;
+            
+            @media (min-width: 600px){
+                display: initial;
+            }
+        }
+        
+        &.small_screen_show {
+            @media (min-width: 600px){
+                display: none;
+            }
+            
+            .col {
+                border-bottom: none;
+            }
+            
+            .dropdown-trigger {
+                border-color: $primary_orange;
+                border-width: 2px;
+                text-align: center;
+                font-weight: 500;
+                color: #141414;
+            }
+            
+            .dropdown-content li > span {
+                color: $teritiary_orange;
+                text-align: center;
+            }
+        }
+    }
+
+    .col {
+        padding: 0;
+        border-bottom: 2px solid #9e9e9e;
+        
+        h3 {
+            margin-bottom: 0;
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            transition: background-color .3s, border-bottom .3s, color .3s, font-weight .3s;
+            
+            &:hover {
+                cursor: pointer;
+                color: #333333;
+                font-weight: 500;
+            }
+            
+            &.active {
+                color: white;
+                background-color: $primary_orange;
+                font-weight: normal;
+                
+                &:hover {
+                    background-color: $secondary_orange;
+                }
+            }
+        }
+    }
+}
+
+.carousel {
+    height: 400px !important;
+    margin-top: 50px;
+    
+    @media (min-width: 600px) {
+        height: 500px !important;
+    }
+    
+    .recipe_slide {
+        background-color: white;
+        font-size: 18px;
+        font-weight: 500;
+        @extend %flex-column;
+        align-items: center;
+        cursor: grab;
+        
+        .recipe_card {
+            @extend %flex-column;
+            align-items: center;
+            text-align: center;
+            max-width: 200px;
+            
+            @media (min-width: 600px) {
+                max-width: 300px;
+            }
+            
+            p {
+                margin: 0;
+            }
+            
+            div {
+                @extend %flex-column;
+                width: 100%;
+                align-items: center;
+                justify-content: space-around;
+                color: $main;
+                margin-top: 5px;
+                
+                > p {
+                    padding: 10px;
+                }
+                
+                span {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-around;
+                    
+                    p {
+                        padding: 0 10px;
+                    }
+                }
+            }
+            
+            i {
+                color: $primary_orange;
+                padding-right: 10px;
+                
+                &.far:hover {
+                    color: $secondary_orange;
+                }
+            }
+            
+            img {
+            width: 100%;
+            }
+        }
+    }
+    
+    ul {
+        padding-top: 20px;
+    }
+    
+    .indicators .indicator-item {
+        background-color: $secondary_orange;
+        
+        &.active {
+            background-color: $primary_orange;
+        }
+    }
+}
+
+.page-footer {
+    background-color: $primary_orange;
+    padding-top: 0;
+    margin-top: 50px;
+    
+    .footer-copyright {
+        min-height: 0;
+        @extend %flex-column;
+        align-content: center;
+        @media (min-width: 600px) {
+           flex-direction: row;
+           justify-content: center;
+        }
+        
+        p {
+            padding: 20px;
+            margin: 0;
+            &:first-child {
+                @media (min-width: 600px) {
+                    padding-right: 20px 0 0 0;
+                }
+            }
+            
+            &:last-child {
+                padding-top: 0;
+                @media (min-width: 600px) {
+                    padding: 0 0 0 20px;
+                }
+            }
+        }
+    }
+}
