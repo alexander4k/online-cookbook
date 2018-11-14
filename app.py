@@ -1,19 +1,22 @@
 import os
+import time
 from flask import Flask, render_template
-from flask_pymongo import PyMongo
 
-app = Flask(__name__)
+from utils import setup, queries 
 
-app.config["MONGO_DBNAME"] = "online-cookbook"
-app.config["MONGO_URI"] = "mongodb://admin:kawaii1010@ds259463.mlab.com:59463/online-cookbook"
 
-mongo = PyMongo(app)
+app = setup.app
 
 @app.route("/")
-def hello():
-    recipes = mongo.db.recipes.find()
+def home():
     
-    return render_template("home.html", recipes=recipes)
+    
+    recent = queries.get_top_ten_descending("creation_date")
+    most_popular = queries.get_top_ten_descending("votes")
+    least_popular = queries.get_top_ten_ascending("votes")
+    
+    formatted_dates = queries.format_dates()
+    return render_template("home.html", most_popular=most_popular, recent=recent, least_popular=least_popular, formatted_dates=formatted_dates)
     
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
