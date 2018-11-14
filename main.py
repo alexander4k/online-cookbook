@@ -2,10 +2,10 @@ import os
 import time
 from flask import Flask, render_template
 
-from utils import setup, queries 
+from utils import app, queries 
 
 
-app = setup.app
+app = app.app
 
 @app.route("/")
 def home():
