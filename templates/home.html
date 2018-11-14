@@ -1,18 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Online Cookbook</title>
-</head>
-<body>
-    <ul>
-        {% for recipe in recipes %}
-        <li>{{ recipe.title }}</li>
-        {% endfor %}
-    </ul>
-    
-    
-</body>
-</html>
+{% extends "base.html" %} {% block content %}
+<div class="background"></div>
+<div class="row login_box">
+    <div class="col s12 m6 offset-m3 l4 offset-l4">
+        <form>
+            <div>
+                <h5>Login to start sharing recipes</h5>
+                <p>Don't have an account yet? <a href="" class="hvr-forward">register now!</a></p>
+                <input placeholder="Username" id="first_name" type="text" class="validate" required>
+                <input placeholder="Password" id="first_name" type="text" class="validate" required>
+            </div>
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+
+    </div>
+</div>
+<div class="container">
+    <div class="row small_screen_hide">
+        <div class="col s4">
+            <h3 class="option1 active">Most Popular</h3>
+        </div>
+        <div class="col s4">
+            <h3 class="option2">Recent</h3>
+        </div>
+        <div class="col s4">
+            <h3 class="option3">Least Popular</h3>
+        </div>
+    </div>
+    <div class="row small_screen_show">
+        <div class="input-field col s12">
+            <select id="options">
+                <option value="1">Popular</option>
+                <option value="2">Recent</option>
+                <option value="3">Least Popular</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="carousel carousel-slider popular">
+            {% for recipe in most_popular %}
+            <a class="carousel-item">
+                <div class="recipe_slide">
+                    <div class="recipe_card">
+                        <img src="{{ recipe.image }}">
+                        <div>
+                            <p>{{ recipe.title }}</p>
+                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="carousel carousel-slider recent">
+            {% for recipe in recent %}
+            <a class="carousel-item" href="#one!">
+                <div class="recipe_slide">
+                    <div class="recipe_card">
+                        <img src="{{ recipe.image }}">
+                        <div>
+                            <p>{{ recipe.title }}</p>
+                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="carousel carousel-slider least_popular">
+            {% for recipe in least_popular %}
+            <a class="carousel-item" href="#one!">
+                <div class="recipe_slide">
+                    <div class="recipe_card">
+                        <img src="{{ recipe.image }}">
+                        <div>
+                            <p>{{ recipe.title }}</p>
+                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
