@@ -2,7 +2,7 @@ import os
 import time
 from flask import Flask, render_template
 
-from utils import app_setup, queries 
+import app_setup, queries 
 
 
 app = app_setup.app
