@@ -1,6 +1,6 @@
 import time
 from flask_pymongo import PyMongo, pymongo
-from app import mongo
+from app_setup import mongo
 
 
 def get_top_ten_descending(field):
