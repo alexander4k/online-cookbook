@@ -1,6 +1,7 @@
 import time
 from flask_pymongo import PyMongo, pymongo
-from app_setup import *
+from utils import app_setup
+from app_setup import mongo
 
 def get_top_ten_descending(field):
     return mongo.db.recipes.find().sort(field, pymongo.DESCENDING).limit(10)
