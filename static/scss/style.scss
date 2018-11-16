@@ -1,13 +1,16 @@
-@import "colors", "hover";
-%flex-column {
-    display: flex;
-    flex-direction: column;
-}
+@import "colors",
+"mixins",
+"hover",
+"extensions";
 
 body {
     font-size: 16px;
-    color: $main;
+    color: $primary_font;
 }
+
+/* 
+=== BACKGROUND ===
+*/
 
 .background {
     background: {
@@ -17,18 +20,24 @@ body {
         attachment: fixed;
     }
     height: 370px;
+
     @media (min-width: 600px) {
         height: 450px;
     }
     position: relative;
 }
 
+/* 
+=== NAVIGATION ===
+*/
+
 nav {
     background-color: white;
     .brand-logo {
         font-size: .9em;
         font-weight: 500;
-        color: $main;
+        color: $primary_font;
+
         @media (min-width: 400px) {
             font-size: 1.5em;
         }
@@ -36,24 +45,24 @@ nav {
             font-size: 2em;
             padding-left: 20px;
         }
-        
+
         span:last-child {
             color: $primary_orange;
         }
     }
-    
+
     a.sidenav-trigger {
         color: $primary_orange;
     }
-    
-    .nav-wrapper > ul a {
-        color: $main;
+
+    .nav-wrapper>ul a {
+        color: $primary_font;
         font-weight: 500;
         background-color: white;
         position: relative;
         z-index: 2;
         top: -3px;
-        
+
         &:hover {
             background-color: transparent;
         }
@@ -64,117 +73,123 @@ nav {
     width: 200px;
 }
 
+/* 
+=== HOME PAGE ===
+*/
+
+/* 
+=== Login Form ===
+*/
+
 .row.login_box {
     position: absolute;
     top: 100px;
     left: 5%;
     right: 5%;
     z-index: 2;
-    
+
     @media (min-width: 600px) {
         top: 150px;
         left: 0;
         right: 0;
     }
-    
+
     .col {
         padding: 0;
         background-color: white;
-        
+
         h5 {
             margin-top: 0;
         }
-        
+
         form {
             padding: 20px;
         }
-        
+
         p {
             font-size: 13px;
             margin: 0;
-            @extend %flex-column;
+            @extend %flex_column;
+
             @media (min-width: 600px) {
                 flex-direction: row;
             }
-            
+
             a {
                 @media (min-width: 600px) {
                     padding-left: 7px;
                 }
                 color: $primary_orange;
-                
+
                 &:hover {
                     color: $teritiary_orange;
                 }
             }
         }
-        
+
         input {
             &:focus {
-                border-bottom: 1px solid $primary_orange;
-                -webkit-box-shadow: 0 1px 0 0 $primary_orange;
-                box-shadow: 0 1px 0 0 $primary_orange;
+                @include border_and_shadow($primary_orange);
             }
         }
-            
+
         input:last-of-type {
             margin-bottom: 20px;
         }
     }
-    
+
     button {
         width: 100%;
-        background-color: $primary_orange;
+        background-color: $primary_purple;
         border-radius: 0;
-        -webkit-box-shadow: 3px 3px 0px 0px $secondary_orange;
-        -moz-box-shadow: 3px 3px 0px 0px $secondary_orange;
-        box-shadow: 3px 3px 0px 0px $secondary_orange;
+        @include button_shadow($secondary_purple);
+
+        &:hover {
+            background-color: $secondary_purple;
+            @include button_shadow($secondary_purple);
+        }
+
         @media (min-width: 600px) {
             width: initial;
         }
     }
 }
 
-.container {
+/* 
+=== Main content ===
+*/
+.container.main_content {
     margin-top: 50px;
-    
+
     .row {
+
         &.small_screen_hide {
             display: none;
-            
-            @media (min-width: 600px){
+
+            @media (min-width: 600px) {
                 display: initial;
             }
         }
-        
+
         &.small_screen_show {
-            @media (min-width: 600px){
+            @media (min-width: 600px) {
                 display: none;
             }
-            
+
             .col {
                 border-bottom: none;
             }
-            
-            .dropdown-trigger {
-                border-color: $primary_orange;
-                border-width: 2px;
-                text-align: center;
-                font-weight: 500;
-                color: #141414;
-            }
-            
-            .dropdown-content li > span {
-                color: $teritiary_orange;
-                text-align: center;
-            }
+
+            @extend %modify_dropdown_trigger;
+            @extend %modify_dropdown_span;
+            @extend %modify_dropdown_focus;
         }
     }
 
-    .col {
+    .option {
         padding: 0;
         border-bottom: 2px solid #9e9e9e;
-        
+
         h3 {
             margin-bottom: 0;
             width: 100%;
@@ -183,135 +198,384 @@ nav {
             padding: 10px;
             background-color: white;
             transition: background-color .3s, border-bottom .3s, color .3s, font-weight .3s;
-            
+
             &:hover {
                 cursor: pointer;
                 color: #333333;
                 font-weight: 500;
             }
-            
+
             &.active {
                 color: white;
                 background-color: $primary_orange;
                 font-weight: normal;
-                
+
                 &:hover {
                     background-color: $secondary_orange;
                 }
             }
         }
     }
-}
 
-.carousel {
-    height: 400px !important;
-    margin-top: 50px;
-    
-    @media (min-width: 600px) {
-        height: 500px !important;
-    }
-    
-    .recipe_slide {
-        background-color: white;
-        font-size: 18px;
-        font-weight: 500;
-        @extend %flex-column;
-        align-items: center;
-        cursor: grab;
-        
-        .recipe_card {
-            @extend %flex-column;
-            align-items: center;
-            text-align: center;
-            max-width: 200px;
-            
-            @media (min-width: 600px) {
-                max-width: 300px;
+    .carousel {
+        height: 450px !important;
+        margin-top: 50px;
+
+        @media (min-width: 600px) {
+            height: 500px !important;
+        }
+
+        .left,
+        .right {
+            margin-top: 100px;
+
+            i {
+                position: relative;
+                z-index: 10;
+                font-size: 70px;
+                color: $primary_orange;
             }
-            
-            p {
-                margin: 0;
-            }
-            
-            div {
-                @extend %flex-column;
-                width: 100%;
-                align-items: center;
-                justify-content: space-around;
-                color: $main;
-                margin-top: 5px;
-                
-                > p {
-                    padding: 10px;
+        }
+
+        .item_container {
+            height: 100%;
+
+
+            .item {
+                display: flex;
+                justify-content: center;
+
+                i {
+                    font-size: 70px;
+                    color: $primary_orange;
                 }
-                
-                span {
-                    display: flex;
+
+                .recipe_card {
+                    @extend %flex_column;
                     align-items: center;
-                    justify-content: space-around;
-                    
-                    p {
-                        padding: 0 10px;
+                    width: 250px;
+                    text-align: center;
+
+                    @media (min-width: 600px) {
+                        width: 300px;
+                    }
+
+                    img {
+                        max-width: 100%;
+                    }
+
+                    .card_info {
+                        @extend %flex_column;
+                        align-items: center;
+                        width: 100%;
+                        color: white;
+                        font-weight: 500;
+                        margin-top: 5px;
+                        background-color: $secondary_purple;
+
+                        span {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        p {
+                            margin: 10px;
+                        }
+
+                        i {
+                            font-size: 20px;
+                            color: $secondary_orange;
+                        }
                     }
                 }
             }
-            
-            i {
-                color: $primary_orange;
-                padding-right: 10px;
-                
-                &.far:hover {
-                    color: $secondary_orange;
-                }
-            }
-            
-            img {
-            width: 100%;
-            }
         }
-    }
-    
-    ul {
-        padding-top: 20px;
-    }
-    
-    .indicators .indicator-item {
-        background-color: $secondary_orange;
-        
-        &.active {
-            background-color: $primary_orange;
+
+        ul {
+            padding-top: 20px;
+        }
+
+        .indicators .indicator-item {
+            background-color: $secondary_orange;
+
+            &.active {
+                background-color: $primary_orange;
+            }
         }
     }
 }
+
+/* 
+=== FOOTER ===
+*/
 
 .page-footer {
     background-color: $primary_orange;
     padding-top: 0;
     margin-top: 50px;
-    
+
     .footer-copyright {
         min-height: 0;
-        @extend %flex-column;
+        @extend %flex_column;
         align-content: center;
+
         @media (min-width: 600px) {
-           flex-direction: row;
-           justify-content: center;
+            flex-direction: row;
+            justify-content: center;
         }
-        
+
         p {
             padding: 20px;
             margin: 0;
+
             &:first-child {
                 @media (min-width: 600px) {
                     padding-right: 20px 0 0 0;
                 }
             }
-            
+
             &:last-child {
                 padding-top: 0;
+
                 @media (min-width: 600px) {
                     padding: 0 0 0 20px;
                 }
+            }
+        }
+    }
+}
+
+/* 
+=== ADD RECIPE PAGE ===
+*/
+
+.add_recipe {
+
+    h1 {
+        font-size: 1.3em;
+        font-weight: 500;
+        border-bottom: 1px solid #9e9e9e;
+        padding-bottom: 20px;
+        margin: 50px 0 30px 0;
+        text-align: center;
+
+        @media (min-width: 600px) {
+            font-size: 1.5em;
+        }
+    }
+
+    h2 {
+        font-size: 1em;
+        font-weight: 500;
+        border-bottom: 2px dashed $primary_orange;
+        padding-bottom: 10px;
+        margin: 0 0 20px 0;
+        text-align: center;
+
+        @media (min-width: 600px) {
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        @media (min-width: 700px) {
+            font-size: 1.3em;
+        }
+    }
+
+    .row {
+        margin {
+            top: 0;
+            bottom: 0;
+        }
+
+        .col.left {
+            @media (min-width: 600px) {
+                border-right: 1px solid #9e9e9e;
+            }
+        }
+    }
+
+    .section {
+
+        &.nutrition {
+
+            #fibre,
+            #protein {
+                margin-bottom: 50px;
+            }
+        }
+        &.allergens {
+
+            .col:last-child {
+                margin-bottom: 50px;
+            }
+        }
+    }
+
+    p {
+        margin: 0;
+        margin-bottom: 20px;
+
+        @media (min-width: 600px) {
+            max-width: 200px;
+        }
+    }
+
+    #cook_time {
+        margin-bottom: 50px;
+        @extend %flex_column;
+
+        @media (min-width: 600px) {
+            max-width: 150px;
+        }
+    }
+
+    &#prep_time {
+        @extend %flex_column;
+
+        @media (min-width: 600px) {
+            max-width: 150px;
+        }
+    }
+
+    label {
+        color: $secondary_font;
+    }
+
+    .general {
+        span {
+            font-size: 11px;
+            font-weight: 700;
+        }
+    }
+
+    input[type=text] {
+        margin-bottom: 15px;
+    }
+
+    input[type=text].validate.valid,
+    input[type=text].validate.invalid,
+    textarea.materialize-textarea:required:valid {
+        border-bottom: 1px solid #9e9e9e;
+        box-shadow: none;
+
+    }
+    textarea.materialize-textarea:required:valid+label,
+    input[type=text].validate.valid+label {
+        color: $secondary_font;
+    }
+    textarea.materialize-textarea:required:invalid+label,
+    input[type=text].validate.invalid+label {
+        color: $secondary_font;
+
+    }
+
+    .input-field input[type=text]:focus+label,
+    textarea.materialize-textarea:focus+label {
+        color: $primary_orange;
+    }
+
+    .input-field input[type=text]:focus,
+    textarea.materialize-textarea:focus {
+        @include border_and_shadow($primary_orange);
+    }
+
+    textarea {
+        height: 60px;
+        margin-bottom: 20px;
+    }
+
+    p.range-field {
+        margin-bottom: 20px;
+    }
+
+    input[type=range]+.thumb {
+        background-color: $primary_orange;
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        background-color: $primary_orange;
+    }
+
+    input[type=range]::-moz-range-thumb {
+        background-color: $primary_orange;
+    }
+
+    input[type=range]::-ms-thumb {
+        background-color: $primary_orange;
+    }
+
+    .select-wrapper {
+        margin-bottom: 20px;
+        @extend %modify_dropdown_trigger;
+        @extend %modify_dropdown_span;
+        @extend %modify_dropdown_focus;
+        @media (min-width: 600px) {
+            max-width: 200px;
+        }
+
+        &:nth-of-type(3) {
+            @media (min-width: 600px) {
+                max-width: 100px;
+            }
+        }
+    }
+
+    input[type="checkbox"]:checked+span:not(.lever):before {
+        border-right: 3px solid $teritiary_orange;
+        border-bottom: 3px solid $teritiary_orange;
+    }
+
+    .ingredients_controls,
+    .instructions_controls {
+
+        .col {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        a {
+            margin: {
+                top: 20px;
+                bottom: 50px;
+            }
+        }
+
+        .add {
+            background-color: $teritiary_orange;
+
+            &:hover {
+                background-color: $secondary_orange;
+            }
+        }
+
+        .remove {
+            background-color: $primary_red;
+
+            &:hover {
+                background-color: $secondary_red;
+            }
+        }
+    }
+
+    .submit_recipe {
+        display: flex;
+        justify-content: center;
+
+        button {
+            width: 90%;
+            background-color: $primary_purple;
+            border-radius: 0;
+            @include button_shadow($secondary_purple);
+
+            &:hover {
+                background-color: $primary_purple;
+                @include button_shadow($secondary_purple);
+            }
+
+            @media (min-width: 600px) {
+                width: initial;
+                margin-top: 70px;
             }
         }
     }

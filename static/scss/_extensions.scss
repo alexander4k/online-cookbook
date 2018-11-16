@@ -1,0 +1,27 @@
+%flex_column {
+    display: flex;
+    flex-direction: column;
+}
+
+%modify_dropdown_trigger {
+    .dropdown-trigger {
+        color: $primary_font;
+        @media (min-width: 600px) {
+            max-width: 200px;
+        }
+    }
+}
+
+%modify_dropdown_span {
+    .dropdown-content li>span {
+        color: $teritiary_orange;
+        font-weight: 500;
+        @media (min-width: 600px) {}
+    }
+}
+
+%modify_dropdown_focus {
+    input.select-dropdown:focus {
+        border-color: $primary_orange;
+    }
+}
