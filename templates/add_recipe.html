@@ -1,0 +1,222 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container add_recipe">
+    <form action="{{ url_for('insert_recipe') }}" method="POST">
+        <div class="row">
+            <h1>New Recipe</h1>
+            <div class="col s12 m6 left">
+                <div class="section general">
+                    <div class="input-field col s12 m11">
+                        <h2>General Information</h2>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <input id="title" name="title" type="text" class="validate" placeholder="Title" required maxlength="50">
+                        <label for="title">Add title <span>(required)</span></label>
+                    </div>
+                    <div class="input-field col s12 m11">
+
+                        <textarea id="description" name="description" class="materialize-textarea" placeholder="Description" required></textarea>
+                        <label for="description">Fill in description <span>(required)</span></label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <input id="image" name="image" type="text" class="validate" placeholder="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=350" required>
+                        <label for="image">Upload image url <span>(required)</span></label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <p class="range-field">
+                            <label for="servings" id="range_label">Specify number of servings</label>
+                            <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
+                        </p>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <select id="cuisine" name="cuisine">
+                                {% for cuisine in cuisines %}
+                                    {% if loop.index == 1 %}
+                                    <option value="{{ cuisine }} selected">{{ cuisine }}</option>
+                                    {% else %}
+                                    <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        <label for="cuisine">Select cuisine</label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <select id="category" name="category">
+                                {% for category in categories %}
+                                    {% if loop.index == 1 %}
+                                    <option value="{{ category }} selected">{{ category }}</option>
+                                    {% else %}
+                                    <option value="{{ category }}">{{ category }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        <label for="category">Select category</label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <select id="difficulty" name="difficulty">
+                                <option clas="selected" value="easy">Easy</option>
+                                <option value="medium">Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        <label for="difficulty">Select difficulty</label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <input id="prep_time" name="cook_time" type="text" class="validate" placeholder="20 minutes" required>
+                        <label for="prep_time">Add preparation time <span>(required)</span></label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="1 hour">
+                        <label for="cook_time">Add cooking time</label>
+                    </div>
+                </div>
+                <div class="section nutrition">
+                    <div class="input-field col s12 m11">
+                        <h2>Nutritional Information</h2>
+                    </div>
+                    <div class="input-field col s6 m4">
+                        <input id="calories" name="calories" type="text" class="validate" placeholder="10kcal">
+                        <label>Calories</label>
+                    </div>
+                    <div class="input-field col s6 m4 offset-m3">
+                        <input id="fat" name="fat" type="text" class="validate" placeholder="Fat">
+                        <label>Fat</label>
+                    </div>
+                    <div class="input-field col s6 m4">
+                        <input id="saturates" name="saturates" type="text" class="validate" placeholder="10g">
+                        <label>Saturates</label>
+                    </div>
+                    <div class="input-field col s6 m4 offset-m3">
+                        <input id="carbs" name="carbs" type="text" class="validate" placeholder="10g">
+                        <label>Carbs</label>
+                    </div>
+                    <div class="input-field col s6 m4">
+                        <input id="sugars" name="sugars" type="text" class="validate" placeholder="10g">
+                        <label>Sugars</label>
+                    </div>
+                    <div class="input-field col s6 m4 offset-m3">
+                        <input id="salt" name="salt" type="text" class="validate" placeholder="10g">
+                        <label>Salt</label>
+                    </div>
+                    <div class="input-field col s6 m4">
+                        <input id="fibre" name="fibre" type="text" class="validate" placeholder="10g">
+                        <label>Fibre</label>
+                    </div>
+                    <div class="input-field col s6 m4 offset-m3">
+                        <input id="protein" name="protein" type="text" class="validate" placeholder="10g">
+                        <label>Protein</label>
+                    </div>
+                </div>
+                <div class="section allergens">
+                    <div class="input-field col s12 m11">
+                        <h2>Allergen Information</h2>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="dairy" type="checkbox" />
+                                <span>Dairy</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="eggs" type="checkbox" />
+                                <span>Eggs</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="peanuts" type="checkbox" />
+                                <span>Peanuts</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="fish" type="checkbox" />
+                                <span>Fish</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="shellfish" type="checkbox" />
+                                <span>Shellfish</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="soy" type="checkbox" />
+                                <span>Soy</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="wheat" type="checkbox" />
+                                <span>Wheat</span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="input-field col s6">
+                        <p>
+                            <label>
+                                <input name="allergen" value="tree nuts" type="checkbox" />
+                                <span>Tree nuts</span>
+                            </label>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m6 right">
+                <div class="section ingredients">
+                    <div class="input-field col s12 m11 offset-m1">
+                        <h2>Add ingredients</h2>
+                    </div>
+                    <div class="input-field col s12 m11 offset-m1">
+                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="200grams carrots" required></textarea>
+                    </div>
+                    <div class="input-field col s12 m11 offset-m1">
+                        <textarea id="ingredient_2" name="ingredient" class="materialize-textarea" placeholder="1 pepper" required></textarea>
+                    </div>
+                </div>
+                <div class="section ingredients_controls">
+                    <div class="col s12 m11 offset-m1">
+                        <a class="btn-floating btn-small waves-effect waves-light add_ingredient tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_ingredient tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                    </div>
+                </div>
+                <div class="section instructions">
+                    <div class="input-field col s12 m11 offset-m1">
+                        <h2>Add instructions</h2>
+                    </div>
+                    <div class="input-field col s12 m11 offset-m1">
+                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="Cut the carrots into disks about .5cm thin and the pepper into 2cm cubes" required></textarea>
+                    </div>
+                    <div class="input-field col s12 m11 offset-m1">
+                        <textarea id="instruction_2" name="instruction" class="materialize-textarea" placeholder="Boil a pot of water, put a teaspoon of salt in and toss the vegetables in" required></textarea>
+                    </div>
+                </div>
+                <div class="section instructions_controls">
+                    <div class="col s12 m11 offset-m1">
+                        <a class="btn-floating btn-small waves-effect waves-light add_instruction tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_instruction tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="col s12 submit_recipe">
+                <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create recipe
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+    </form>
+</div>
+{% endblock %}
