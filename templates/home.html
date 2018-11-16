@@ -16,15 +16,15 @@
 
     </div>
 </div>
-<div class="container">
+<div class="container main_content">
     <div class="row small_screen_hide">
-        <div class="col s4">
+        <div class="col s4 option">
             <h3 class="option1 active">Most Popular</h3>
         </div>
-        <div class="col s4">
+        <div class="col s4 option">
             <h3 class="option2">Recent</h3>
         </div>
-        <div class="col s4">
+        <div class="col s4 option">
             <h3 class="option3">Least Popular</h3>
         </div>
     </div>
@@ -38,32 +38,48 @@
         </div>
     </div>
     <div class="row">
-        <div class="carousel carousel-slider popular">
+        <div class="carousel carousel-slider center popular">
+            <div class="left">
+                <a href="Previo" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="Siguiente" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
             {% for recipe in most_popular %}
-            <a class="carousel-item">
-                <div class="recipe_slide">
-                    <div class="recipe_card">
-                        <img src="{{ recipe.image }}">
-                        <div>
-                            <p>{{ recipe.title }}</p>
-                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
-                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+            <div class="carousel-item">
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <p>{{ recipe.title }}</p>
+                                <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
             {% endfor %}
         </div>
         <div class="carousel carousel-slider recent">
+            <div class="left">
+                <a href="Previo" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="Siguiente" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
             {% for recipe in recent %}
             <a class="carousel-item" href="#one!">
-                <div class="recipe_slide">
-                    <div class="recipe_card">
-                        <img src="{{ recipe.image }}">
-                        <div>
-                            <p>{{ recipe.title }}</p>
-                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
-                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <p>{{ recipe.title }}</p>
+                                <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,15 +87,23 @@
             {% endfor %}
         </div>
         <div class="carousel carousel-slider least_popular">
+            <div class="left">
+                <a href="Previo" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="Siguiente" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
             {% for recipe in least_popular %}
             <a class="carousel-item" href="#one!">
-                <div class="recipe_slide">
-                    <div class="recipe_card">
-                        <img src="{{ recipe.image }}">
-                        <div>
-                            <p>{{ recipe.title }}</p>
-                            <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
-                            <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <p>{{ recipe.title }}</p>
+                                <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
