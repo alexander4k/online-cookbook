@@ -52,7 +52,7 @@
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <p>{{ recipe.title }}</p>
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}"><p>{{ recipe.title }}</p></a>
                                 <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
                                 <p class="date">{{ formatted_dates[loop.index0] }}</p>
                             </div>
@@ -70,20 +70,20 @@
                 <a href="Siguiente" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
             </div>
             {% for recipe in recent %}
-            <a class="carousel-item" href="#one!">
+            <div class="carousel-item" href="#one!">
                 <div class="item_container">
                     <div class="item">
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <p>{{ recipe.title }}</p>
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}"><p>{{ recipe.title }}</p></a>
                                 <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
                                 <p class="date">{{ formatted_dates[loop.index0] }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
             {% endfor %}
         </div>
         <div class="carousel carousel-slider least_popular">
@@ -94,20 +94,20 @@
                 <a href="Siguiente" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
             </div>
             {% for recipe in least_popular %}
-            <a class="carousel-item" href="#one!">
+            <div class="carousel-item" href="#one!">
                 <div class="item_container">
                     <div class="item">
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <p>{{ recipe.title }}</p>
-                                <span><p>Liked {{ recipe.votes }} times</p><i class="far fa-star"></i></span>
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}"><p>{{ recipe.title }}</p></a>
+                                <span><p>Liked {{ recipe.votes }} times</p><a href="{{ url_for('add_vote', recipe_id=recipe._id) }}"><i class="far fa-star"></i></a></span>
                                 <p class="date">{{ formatted_dates[loop.index0] }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </a>
+            </div>
             {% endfor %}
         </div>
     </div>

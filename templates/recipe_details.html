@@ -1,0 +1,107 @@
+{% extends "base.html" %} {% block content %}
+<div class="container recipe_details">
+    <form action="{{ url_for('insert_recipe') }}" method="POST">
+        <div class="section general_details">
+            <div class="row top">
+                <div class="col s12">
+                    <h1>{{ recipe.title }}</h1>
+                </div>
+                <div class="col s12 l6 left">
+                    <img src="{{ recipe.image }}">
+                </div>
+                <div class="col s12 l6 right">
+                    <div class="col s12">
+                        <p id="author"><strong>Author:</strong> {{ recipe.author }}</p>
+                    </div>
+                    <div class="col s12">
+                        <p><strong>Date of creation:</strong> {{ creation_date }}</p>
+                    </div>
+                    <div class="col s12">
+                        {% if recipe.description == "" %}
+                        <p><em>no description</em></p>
+                        {% else %}
+                        <p>{{ recipe.description }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col s12">
+                        <div class="prep">
+                            {% if recipe.time.prep == "" %}
+                            <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> none</p>
+                            {% else %}
+                            <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> {{ recipe.time.prep }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="cook">
+                            {% if recipe.time.cook == "" %}
+                            <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> none</p>
+                            {% else %}
+                            <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> {{ recipe.time.cook }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <p><i class="fas fa-utensils"></i><strong>Serves:</strong> {{ recipe.servings }}</p>
+                    </div>
+                    <div class="col s12">
+                        <p><a href="{{ url_for('add_vote', recipe_id=recipe._id) }}"><i class="fas fa-star"></i></a>{{ recipe.votes }} people liked this recipe</p>
+                    </div>
+                    <div class="col s12">
+                        <p><i class="fas fa-print"></i>Print this recipe</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row bottom">
+                <div class="col s12 l6 left border_left">
+                    <div class="col s12">
+                        <h2 id="ingredients_expand">Ingredients<i class="fas fa-chevron-down"></i></h2>
+                        <ul class="browser-default ingredients_list">
+                            {% for ingredient in recipe.ingredients %}
+                            <li><span>{{ ingredient }}</span></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="col s12">
+                        <h2 id="instructions_expand">Instructions<i class="fas fa-chevron-down"></i></h2>
+                        <ol class="instructions_list">
+                            {% for instruction in recipe.instructions %}
+                            <li><span>{{ instruction }}</span></li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+                <div class="col s12 l6 right border_right">
+                    <div class="col s12">
+                        <h2 id="allergens_expand">Allergnens<i class="fas fa-chevron-down"></i></h2>
+                        <ul class="browser-default ingredients_list">
+                            {% if recipe.allergens|length == 0 %}
+                            <span><em>No allergens</em></span>
+                            {% else %} {% for allergen in recipe.allergens %}
+                            <li><span>{{ allergen }}</span></li>
+                            {% endfor %}{% endif %}
+                        </ul>
+                    </div>
+                    <div class="col s12">
+                        <h2 id="nutrition_expand">Nutrition<i class="fas fa-chevron-down"></i></h2>
+                        <div class="col s12 nutrition_list">
+                            {% for nutrition in recipe.nutritional %}
+                            <div class="col s6 m4 xl3">
+                                <div class="nutrition_name">
+                                    <p>{{ nutrition_names[loop.index0] }}</p>
+                                </div>
+                                <div class="nutrition_value">
+                                    {% if nutrition_values[loop.index0] == "" %}
+                                    <p>N/A</p>
+                                    {% else %}
+                                    <p>{{ nutrition_values[loop.index0] }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
