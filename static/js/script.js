@@ -11,7 +11,11 @@ $(document).ready(function() {
     carouselOptionsBehaviour(1)
     carouselOptionsBehaviour(2)
     carouselOptionsBehaviour(3)
-    
+    collapsibleLists(["#ingredients_expand",
+                      "#instructions_expand",
+                      "#allergens_expand",
+                      "#nutrition_expand"])
+
 });
 
 function changeLikeIconAndCursor() {
@@ -101,7 +105,7 @@ function carouselOptionsBehaviour(num_of_option) {
     })
 }
 
-function carouselArrows(){
+function carouselArrows() {
     $('.moveNextCarousel').click(function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -132,3 +136,27 @@ function addAndRemoveElements() {
         $(".instructions .another:last-child").last().remove()
     })
 }
+
+function collapsibleLists(selectors) {
+    list_of_selectors = selectors
+    for (var i = 0; i < list_of_selectors.length; i++) {
+        $(list_of_selectors[i]).click(function() {
+            if($("#" + this.id + " i").hasClass("fa-chevron-down")){
+                $("#" + this.id + " i").removeClass("fa-chevron-down").addClass("fa-chevron-up")
+            } else if($("#" + this.id + " i").hasClass("fa-chevron-up")) {
+                $("#" + this.id + " i").removeClass("fa-chevron-up").addClass("fa-chevron-down")
+            }
+            var list = this.nextElementSibling;
+            if (list.style.maxHeight) {
+                list.style.maxHeight = null;
+            }
+            else {
+                list.style.maxHeight = list.scrollHeight + 100 + "px";
+            }
+        })
+    }
+}
+
+
+
+
