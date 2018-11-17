@@ -8,14 +8,19 @@ def get_top_ten_descending(field):
 def get_top_ten_ascending(field):
     return app_setup.mongo.db.recipes.find().sort(field, pymongo.ASCENDING).limit(10)
     
-def format_dates():
-    recipes = get_top_ten_descending("creation_date")
+def format_dates(data):
+    recipes = data
     formatted_dates = []
-    
+        
     for recipe in recipes:
         formatted_dates.append(time.strftime("%d-%m-%Y", time.gmtime(recipe["creation_date"])))
-    
+        
     return formatted_dates
+
+def format_date(data):
+    formatted_date = time.strftime("%d-%m-%Y", time.gmtime(data))
+        
+    return formatted_date
     
 def insert_recipe(title,
                 description,
@@ -73,17 +78,22 @@ def find_unique_items_in_list(list_of_items):
     list_lowercase = misc.convert_items_in_list_to_lower(list_of_items)
     list_set = set(list_lowercase)
     unique_items = list(list_set)
-    print(unique_items)
     return (unique_items)
     
 def sort_list(list_to_sort):
     sorted_list = sorted(list_to_sort)
-    print(sorted_list)
     return(sorted_list)
     
 def return_capitalized_unique_items_in_list(list_to_search):
     unique_items = find_unique_items_in_list(list_to_search)
     sorted_list = sort_list(unique_items)
     capitalized = misc.convert_items_in_list_to_capitalized(sorted_list)
-    print(capitalized)
     return(capitalized)
+    
+def list_values(record):
+    list_of_values = []
+    for key, value in record.items():
+        list_of_values.append(value)
+        
+    return(list_of_values)
+    
