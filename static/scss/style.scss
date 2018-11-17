@@ -1,11 +1,42 @@
-@import "colors",
-"mixins",
-"hover",
-"extensions";
+@import "modules/colors",
+"modules/extensions",
+"modules/hover",
+"modules/mixins";
 
 body {
     font-size: 16px;
     color: $primary_font;
+
+    h1 {
+        font-size: 1.3em;
+        font-weight: 500;
+        border-bottom: 1px solid $primary_border;
+        padding-bottom: 20px;
+        margin: 50px 0 30px 0;
+        text-align: center;
+
+        @media (min-width: 600px) {
+            font-size: 1.8em;
+        }
+    }
+
+    h2 {
+        font-size: 1em;
+        font-weight: 500;
+        border-bottom: 3px dashed $primary_orange;
+        padding-bottom: 10px;
+        margin: 0 0 20px 0;
+        text-align: center;
+
+        @media (min-width: 600px) {
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+
+        @media (min-width: 700px) {
+            font-size: 1.3em;
+        }
+    }
 }
 
 /* 
@@ -158,6 +189,7 @@ nav {
 /* 
 === Main content ===
 */
+
 .container.main_content {
     margin-top: 50px;
 
@@ -227,7 +259,7 @@ nav {
 
         .left,
         .right {
-            margin-top: 100px;
+            margin-top: 80px;
 
             i {
                 position: relative;
@@ -276,6 +308,14 @@ nav {
                         span {
                             display: flex;
                             align-items: center;
+                        }
+                        
+                        a {
+                            text-decoration: none;
+                            color: white;
+                            &:hover {
+                                text-decoration: underline;
+                            }
                         }
 
                         p {
@@ -350,37 +390,6 @@ nav {
 */
 
 .add_recipe {
-
-    h1 {
-        font-size: 1.3em;
-        font-weight: 500;
-        border-bottom: 1px solid #9e9e9e;
-        padding-bottom: 20px;
-        margin: 50px 0 30px 0;
-        text-align: center;
-
-        @media (min-width: 600px) {
-            font-size: 1.5em;
-        }
-    }
-
-    h2 {
-        font-size: 1em;
-        font-weight: 500;
-        border-bottom: 2px dashed $primary_orange;
-        padding-bottom: 10px;
-        margin: 0 0 20px 0;
-        text-align: center;
-
-        @media (min-width: 600px) {
-            font-size: 1.2em;
-            font-weight: normal;
-        }
-
-        @media (min-width: 700px) {
-            font-size: 1.3em;
-        }
-    }
 
     .row {
         margin {
@@ -578,5 +587,155 @@ nav {
                 margin-top: 70px;
             }
         }
+    }
+}
+
+/* 
+=== RECIPE DETAILS PAGE ===
+*/
+
+.recipe_details {
+    
+    .col {
+        @media (max-width: 1000px) {
+            padding: 0;
+        }
+    }
+    .top {
+        padding-bottom: 30px;
+        margin-bottom: 50px;
+        border-bottom: 1px solid $primary_border;
+        text-align: center;
+        @media (min-width: 1000px) {
+            text-align: left;
+        }
+        
+        p#author {
+            margin-top: 0;
+        }
+        
+    }
+    .bottom {
+        
+        @media (min-width: 1000px) {
+            position: relative;
+            .left {
+                border-right: 1px solid $primary_border;
+                position: relative;
+            }
+            
+            .right {
+                border-left: 1px solid $primary_border;
+                position: relative;
+                right: 1px;
+            }
+        }
+        
+    }
+    
+    h1 {
+        text-align: center;
+        @media (min-width: 1000px) {
+            text-align: left;
+        }
+    }
+
+    h2 {
+        position: relative;
+        cursor: pointer;
+        
+        i {
+            position: absolute;
+            right: 0;
+        }
+        
+    }
+
+    p {
+        margin: 10px 0;
+    }
+    img {
+        width: 100%;
+    }
+
+    i {
+        margin-right: 10px;
+        color: $teritiary_orange;
+
+        &.fa-print {
+            color: $secondary_font;
+        }
+    }
+
+    ul {
+        padding: 0px 20px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        li {
+            list-style-type: square;
+            color: $secondary_font;
+            margin-bottom: 15px;
+            padding-right: 0;
+
+            span {
+                color: $primary_font;
+            }
+        }
+    }
+
+    ol {
+        padding: 0px 15px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        li {
+            color: $secondary_font;
+            font-weight: 600;
+            margin-bottom: 15px;
+            span {
+                color: $primary_font;
+                font-weight: normal;
+            }
+        }
+    }
+    
+    .nutrition_list {
+        padding-top: 1px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+        margin-bottom: 20px;
+        
+        .col {
+            padding: .75rem;
+            p {
+                margin: 0;
+                text-align: center;
+                
+            }
+            
+            .nutrition_name {
+                padding: 5px;
+                background-color: $primary_orange;
+                color: white;
+            }
+            
+            .nutrition_value {
+                padding: 5px;
+                border: {
+                    bottom: 1px solid $primary_border;
+                    left: 1px solid $primary_border;
+                    right: 1px solid $primary_border;
+                }
+            }
+        }
+    }
+    
+    #instructions_expand, 
+    #ingredients_expand, 
+    #allergens_expand, 
+    #nutrition_expand {
+        margin-top: 25px;
     }
 }
