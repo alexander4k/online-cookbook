@@ -83,7 +83,7 @@ def insert_user(username, password):
         "username": username,
         "password": password,
         "my_recipes": [],
-        "favorite_recipes": []
+        "favourite_recipes": []
     }
     app_setup.mongo.db.users.insert_one(user)
 

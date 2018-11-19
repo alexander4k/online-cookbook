@@ -68,8 +68,8 @@ def register_user():
 def insert_user():
     queries.insert_user(request.form.get("username"),
                         request.form.get("password"))
-                        
-    return redirect(url_for("register_user"))
+    session["user"] = request.form.get("username")
+    return redirect(url_for("index"))
     
 @app.route("/account")
 def account():
