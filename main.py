@@ -218,7 +218,7 @@ def recipe_details(recipe_title):
                             
 @app.route("/favourite/<recipe_title>/<page>")
 def favourite(recipe_title, page):
-    username = ""
+    username = None
     
     if "user" in session:
         username = session["user"]

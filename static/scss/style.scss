@@ -53,10 +53,14 @@ body {
 
 .background {
     background: {
-        image: url("../assets/spices.jpg");
+        image: url("../assets/spices_small.jpg");
         repeat: no-repeat;
         size: cover;
         attachment: fixed;
+    }
+    
+    @media (min-width: 1000px) {
+        background-image: url("../assets/spices.jpg");
     }
     height: 370px;
     position: relative;
