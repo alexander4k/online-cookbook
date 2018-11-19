@@ -1,25 +1,28 @@
 $(document).ready(function() {
     $(".recent").hide()
     $(".least_popular").hide()
+    $(".favourites").hide()
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
     refreshSlide()
     refreshSelect()
-    changeLikeIconAndCursor()
+    changeFavouriteIconAndCursor()
     addAndRemoveElements()
     carouselArrows()
     carouselOptionsBehaviour(1)
     carouselOptionsBehaviour(2)
     carouselOptionsBehaviour(3)
+    profileOptionsBehaviour(1)
+    profileOptionsBehaviour(2)
     collapsibleLists(["#ingredients_expand",
                       "#instructions_expand",
                       "#allergens_expand",
                       "#nutrition_expand"])
-
+    
 });
 
-function changeLikeIconAndCursor() {
-    $(".fa-star").on({
+function changeFavouriteIconAndCursor() {
+    $(".not_favourited").on({
         mousedown: function() {
             $(this).css("cursor", "pointer");
             $(this).removeClass("far").addClass("fas");
@@ -51,7 +54,7 @@ function removeClass(options_list) {
     }
 }
 
-function showAndHideRest(show_option) {
+function showAndHideRestCarousel(show_option) {
     var options_to_hide = [".popular", ".recent", ".least_popular"]
     for (var i = 0; i < options_to_hide.length; i++) {
         $(options_to_hide[i]).hide()
@@ -60,24 +63,24 @@ function showAndHideRest(show_option) {
 }
 
 function carouselOptionsBehaviour(num_of_option) {
-    $(".option" + String(num_of_option)).click(function() {
+    $(".carousel_option" + String(num_of_option)).click(function() {
         if (!$(this).hasClass("active")) {
             if (num_of_option == 1) {
-                removeClass([".option2", ".option3"])
-                showAndHideRest(".popular")
-                $("#options").val("1")
+                removeClass([".carousel_option2", ".carousel_option3"])
+                showAndHideRestCarousel(".popular")
+                $("#carousel_options").val("1")
                 refreshSelect()
             }
             else if (num_of_option == 2) {
-                removeClass([".option1", ".option3"])
-                showAndHideRest(".recent")
-                $("#options").val("2")
+                removeClass([".carousel_option1", ".carousel_option3"])
+                showAndHideRestCarousel(".recent")
+                $("#carousel_options").val("2")
                 refreshSelect()
             }
             else {
-                removeClass([".option1", ".option2"])
-                showAndHideRest(".least_popular")
-                $("#options").val("3")
+                removeClass([".carousel_option1", ".carousel_option2"])
+                showAndHideRestCarousel(".least_popular")
+                $("#carousel_options").val("3")
                 refreshSelect()
             }
             $(this).addClass("active")
@@ -85,21 +88,21 @@ function carouselOptionsBehaviour(num_of_option) {
         }
     });
 
-    $("#options").change(function() {
+    $("#carousel_options").change(function() {
         if ($(this).val() == 1) {
-            removeClass([".option2", ".option3"])
-            showAndHideRest(".popular")
-            $(".option1").addClass("active")
+            removeClass([".carousel_option2", ".carousel_option3"])
+            showAndHideRestCarousel(".popular")
+            $(".carousel_option1").addClass("active")
         }
         else if ($(this).val() == 2) {
-            removeClass([".option1", ".option3"])
-            showAndHideRest(".recent")
-            $(".option2").addClass("active")
+            removeClass([".carousel_option1", ".carousel_option3"])
+            showAndHideRestCarousel(".recent")
+            $(".carousel_option2").addClass("active")
         }
         else if ($(this).val() == 3) {
-            removeClass([".option1", ".option2"])
-            showAndHideRest(".least_popular")
-            $(".option3").addClass("active")
+            removeClass([".carousel_option1", ".carousel_option2"])
+            showAndHideRestCarousel(".least_popular")
+            $(".carousel_option3").addClass("active")
         }
         refreshSlide()
     })
@@ -155,6 +158,48 @@ function collapsibleLists(selectors) {
             }
         })
     }
+}
+
+
+function showAndHideRestProfile(show_option) {
+    var options_to_hide = [".my_recipes", ".favourites"]
+    for (var i = 0; i < options_to_hide.length; i++) {
+        $(options_to_hide[i]).hide()
+    }
+    $(show_option).show()
+}
+
+function profileOptionsBehaviour(num_of_option) {
+    $(".profile_option" + String(num_of_option)).click(function() {
+        if (!$(this).hasClass("active")) {
+            if (num_of_option == 1) {
+                $(".profile_option2").removeClass("active")
+                showAndHideRestProfile(".my_recipes")
+                $("#profile_options").val("1")
+                refreshSelect()
+            }
+            else if (num_of_option == 2) {
+                $(".profile_option1").removeClass("active")
+                showAndHideRestProfile(".favourites")
+                $("#profile_options").val("2")
+                refreshSelect()
+            }
+            $(this).addClass("active")
+        }
+    });
+
+    $("#profile_options").change(function() {
+        if ($(this).val() == 1) {
+            $(".profile_option2").removeClass("active")
+            showAndHideRestProfile(".my_recipes")
+            $(".profile_option1").addClass("active")
+        }
+        else if ($(this).val() == 2) {
+            $(".profile_option1").removeClass("active")
+            showAndHideRestProfile(".favourites")
+            $(".profile_option2").addClass("active")
+        }
+    })
 }
 
 
