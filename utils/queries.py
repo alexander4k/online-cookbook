@@ -73,6 +73,15 @@ def insert_recipe(title,
             }
         }
     app_setup.mongo.db.recipes.insert_one(recipe)
+    
+def insert_user(username, password):
+    user = {
+        "username": username,
+        "password": password,
+        "my_recipes": [],
+        "favorite_recipes": []
+    }
+    app_setup.mongo.db.users.insert_one(user)
 
 def find_unique_items_in_list(list_of_items):
     list_lowercase = misc.convert_items_in_list_to_lower(list_of_items)
@@ -97,3 +106,5 @@ def list_values(record):
         
     return(list_of_values)
     
+    
+
