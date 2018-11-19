@@ -1,4 +1,28 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+
+{% block account %} 
+{% if username %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li> 
+<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li> 
+{% else %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
+<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li> 
+{% endif %}
+{% endblock %}
+
+{% block mobile_account %}
+{% if username %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
+<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+{% else %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
+<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li> 
+{% endif %}
+{% endblock %}
+
+{% block content %}
 <div class="container add_recipe">
     <form action="{{ url_for('insert_recipe') }}" method="POST">
         <div class="row">
@@ -9,23 +33,21 @@
                         <h2>General Information</h2>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="title" name="title" type="text" class="validate" placeholder="Title" required maxlength="50">
+                        <input id="title" name="title" type="text" class="validate" placeholder="Gingerbread people" required maxlength="50">
                         <label for="title">Add title <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
 
-                        <textarea id="description" name="description" class="materialize-textarea" placeholder="Description" required></textarea>
+                        <textarea id="description" name="description" class="materialize-textarea" placeholder="Adorable gingerbread people easier with tubes of shop-bought icing and sweets." required></textarea>
                         <label for="description">Fill in description <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
                         <input id="image" name="image" type="text" class="validate" placeholder="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=350" required>
-                        <label for="image">Upload image url <span>(required)</span></label>
+                        <label for="image">Add image url <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <p class="range-field">
-                            <label for="servings" id="range_label">Specify number of servings</label>
-                            <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
-                        </p>
+                        <input id="category" name="category" type="text" class="validate"  placeholder="Baking" maxlength="50">
+                        <label for="category">Add category</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="cuisine" name="cuisine">
@@ -38,18 +60,6 @@
                                 {% endfor %}
                             </select>
                         <label for="cuisine">Select cuisine</label>
-                    </div>
-                    <div class="input-field col s12 m11">
-                        <select id="category" name="category">
-                                {% for category in categories %}
-                                    {% if loop.index == 1 %}
-                                    <option value="{{ category }} selected">{{ category }}</option>
-                                    {% else %}
-                                    <option value="{{ category }}">{{ category }}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        <label for="category">Select category</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="difficulty" name="difficulty">
@@ -66,6 +76,12 @@
                     <div class="input-field col s12 m11">
                         <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="1 hour">
                         <label for="cook_time">Add cooking time</label>
+                    </div>
+                    <div class="input-field col s12 m11">
+                        <p class="range-field">
+                            <label for="servings" id="range_label">Specify number of servings</label>
+                            <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
+                        </p>
                     </div>
                 </div>
                 <div class="section nutrition">
@@ -212,11 +228,11 @@
                 </div>
             </div>
         </div>
-            <div class="col s12 submit_recipe">
-                <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create recipe
-                    <i class="material-icons right">send</i>
-                </button>
-            </div>
+        <div class="col s12 submit_recipe">
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create recipe
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
     </form>
 </div>
 {% endblock %}

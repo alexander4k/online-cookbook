@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block account %}
+{% if username %}
+<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li>
+<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li>
+{% else %}
+<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li>
+{% endif %}
+{% endblock %}
+
+{% block mobile_account %}
+{% if username %}
+<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
+<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+{% else %}
+<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="background">
+    <div class="overlay"></div>
+</div>
+
+<div class="row banner">
+    {% if username %}
+    <div class="col s12 m6 offset-m3 welcome">
+        <h5>Welcome to the Online <span>Cookbook</span> {{ username }}</h5>
+    </div>
+    {% else %}
+    <div class="col s12 m6 offset-m3 l4 offset-l4 login">
+        <form action="{{ url_for('index') }}" method="POST">
+            <div>
+                <h5>Login to start sharing recipes</h5>
+                <p>Don't have an account yet? <a href="{{ url_for('register_user') }}" class="hvr-forward">register now!</a></p>
+                {% if login_error == True %}
+                <p class="error">username or password incorrect</p>
+                {% endif %}
+                <input placeholder="Username" id="username" name="username" type="text" class="validate" required>
+                <input placeholder="Password" id="password" name="password" type="password" class="validate" required>
+            </div>
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+<div class="container main_content">
+    <div class="row small_screen_hide">
+        <div class="col s4 option">
+            <h3 class="carousel_option1 active">Most Popular</h3>
+        </div>
+        <div class="col s4 option">
+            <h3 class="carousel_option2">Recent</h3>
+        </div>
+        <div class="col s4 option">
+            <h3 class="carousel_option3">Least Popular</h3>
+        </div>
+    </div>
+    <div class="row small_screen_show">
+        <div class="input-field col s12">
+            <select id="carousel_options">
+                <option value="1">Popular</option>
+                <option value="2">Recent</option>
+                <option value="3">Least Popular</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="carousel carousel-slider center popular">
+            <div class="left">
+                <a href="prev" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="next" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
+            {% for recipe in most_popular %}
+            <div class="carousel-item">
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                    <p>{{ recipe.title }}</p>
+                                </a>
+                                {% if username %}
+                                {% if recipe.title in user_favourites %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                {% endif %}
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
+                                {% endif %}
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="carousel carousel-slider recent">
+            <div class="left">
+                <a href="prev" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="next" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
+            {% for recipe in recent %}
+            <div class="carousel-item" href="#one!">
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                    <p>{{ recipe.title }}</p>
+                                </a>
+                                {% if username %}
+                                {% if recipe.title in user_favourites %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                {% endif %}
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
+                                {% endif %}
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="carousel carousel-slider least_popular">
+            <div class="left">
+                <a href="prev" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
+            </div>
+            <div class="right">
+                <a href="next" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
+            </div>
+            {% for recipe in least_popular %}
+            <div class="carousel-item" href="#one!">
+                <div class="item_container">
+                    <div class="item">
+                        <div class="recipe_card">
+                            <img src="{{ recipe.image }}">
+                            <div class="card_info">
+                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                    <p>{{ recipe.title }}</p>
+                                </a>
+                                {% if username %}
+                                {% if recipe.title in user_favourites %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                {% endif %}
+                                {% else %}
+                                <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
+                                {% endif %}
+                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

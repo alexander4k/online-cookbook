@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block account %} 
+{% if username %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+{% else %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+{% endif %}
+{% endblock %}
+
+{% block mobile_account %}
+{% if username %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+{% else %}
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row register_box">
+        <form action="{{ url_for('insert_user') }}" method="POST">
+            <div class="input-field col s12 m11">
+                <input id="username" name="username" type="text" class="validate" required maxlength="50">
+                <label for="username">Type in your new username</label>
+            </div>
+            <div class="input-field col s12 m11">
+                <input id="password" name="password" class="validate" type="password" required minlength="8">
+                <label for="password">Choose your password</label>
+            </div>
+            <div class="input-field col s12 m11">
+                <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+{% endblock %}
