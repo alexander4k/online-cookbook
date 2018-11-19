@@ -34,15 +34,20 @@ def index():
         user_favourites = user["favourite_recipes"]
         
     most_popular = queries.get_top_ten_descending("favourited")
-    least_popular = queries.get_top_ten_ascending("favourited")
-    formatted_dates = queries.format_dates(queries.get_top_ten_descending("creation_date"))
     recent = queries.get_top_ten_descending("creation_date")
+    oldest = queries.get_top_ten_ascending("creation_date")
+    
+    popular_dates = queries.format_dates(queries.get_top_ten_descending("favourited"))
+    recent_dates = queries.format_dates(queries.get_top_ten_descending("creation_date"))
+    oldest_dates = queries.format_dates(queries.get_top_ten_ascending("creation_date"))
     
     return render_template("index.html",
                             recent=recent,
                             most_popular=most_popular,
-                            least_popular=least_popular,
-                            formatted_dates=formatted_dates,
+                            oldest=oldest,
+                            popular_dates=popular_dates,
+                            recent_dates=recent_dates,
+                            oldest_dates=oldest_dates,
                             username=username,
                             user_favourites=user_favourites,
                             login_error=login_error)
@@ -190,8 +195,12 @@ def recipe_details(recipe_title):
     recipe = app_setup.mongo.db.recipes.find_one({"title": recipe_title})
     converted_creation_date = queries.format_date(recipe["creation_date"])
     time = recipe["time"]
-    nutrition_values = queries.list_values(recipe["nutritional"])
-    nutrition_names = sorted(misc.convert_items_in_list_to_capitalized(recipe["nutritional"]))
+    nutritional = recipe["nutritional"]
+    nutrition_names = []
+    nutrition_values = []
+    for name, value in nutritional.items():
+        nutrition_names.append(name)
+        nutrition_values.append(value)
     
     if "user" in session:
         username = sessions.check_if_user_in_session()
@@ -202,8 +211,8 @@ def recipe_details(recipe_title):
                             recipe=recipe,
                             creation_date=converted_creation_date,
                             time=time,
-                            nutrition_values=nutrition_values,
                             nutrition_names=nutrition_names,
+                            nutrition_values=nutrition_values,
                             username=username,
                             user_favourites=user_favourites)
                             

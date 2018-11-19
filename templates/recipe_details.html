@@ -120,16 +120,16 @@
                     <div class="col s12">
                         <h2 id="nutrition_expand">Nutrition<i class="fas fa-chevron-down"></i></h2>
                         <div class="col s12 nutrition_list">
-                            {% for nutrition in recipe.nutritional %}
+                            {% for name in nutrition_names %}
                             <div class="col s6 m4 xl3">
                                 <div class="nutrition_name">
-                                    <p>{{ nutrition_names[loop.index0] }}</p>
+                                    <p>{{ name }}</p>
                                 </div>
                                 <div class="nutrition_value">
-                                    {% if nutrition_values[loop.index0] == "" %}
+                                    {% if nutrition_values[loop.index0 ] == "" %}
                                     <p>N/A</p>
                                     {% else %}
-                                    <p>{{ nutrition_values[loop.index0] }}</p>
+                                    <p>{{ nutrition_values[loop.index0 ] }}</p>
                                     {% endif %}
                                 </div>
                             </div>

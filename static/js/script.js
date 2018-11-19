@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(".recent").hide()
-    $(".least_popular").hide()
+    $(".oldest").hide()
     $(".favourites").hide()
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
@@ -79,7 +79,7 @@ function carouselOptionsBehaviour(num_of_option) {
             }
             else {
                 removeClass([".carousel_option1", ".carousel_option2"])
-                showAndHideRestCarousel(".least_popular")
+                showAndHideRestCarousel(".oldest")
                 $("#carousel_options").val("3")
                 refreshSelect()
             }
@@ -101,7 +101,7 @@ function carouselOptionsBehaviour(num_of_option) {
         }
         else if ($(this).val() == 3) {
             removeClass([".carousel_option1", ".carousel_option2"])
-            showAndHideRestCarousel(".least_popular")
+            showAndHideRestCarousel(".oldest")
             $(".carousel_option3").addClass("active")
         }
         refreshSlide()

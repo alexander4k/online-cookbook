@@ -57,7 +57,7 @@
             <h3 class="carousel_option2">Recent</h3>
         </div>
         <div class="col s4 option">
-            <h3 class="carousel_option3">Least Popular</h3>
+            <h3 class="carousel_option3">Oldest</h3>
         </div>
     </div>
     <div class="row small_screen_show">
@@ -65,7 +65,7 @@
             <select id="carousel_options">
                 <option value="1">Popular</option>
                 <option value="2">Recent</option>
-                <option value="3">Least Popular</option>
+                <option value="3">Oldest</option>
             </select>
         </div>
     </div>
@@ -96,7 +96,7 @@
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
                                 {% endif %}
-                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                                <p class="date">{{ popular_dates[loop.index0] }}</p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
                                 {% endif %}
-                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                                <p class="date">{{ recent_dates[loop.index0] }}</p>
                             </div>
                         </div>
                     </div>
@@ -138,14 +138,14 @@
             </div>
             {% endfor %}
         </div>
-        <div class="carousel carousel-slider least_popular">
+        <div class="carousel carousel-slider oldest">
             <div class="left">
                 <a href="prev" class="movePrevCarousel middle-indicator-text content-indicator"><i class="material-icons left  middle-indicator-text">chevron_left</i></a>
             </div>
             <div class="right">
                 <a href="next" class=" moveNextCarousel middle-indicator-text content-indicator"><i class="material-icons right middle-indicator-text">chevron_right</i></a>
             </div>
-            {% for recipe in least_popular %}
+            {% for recipe in oldest %}
             <div class="carousel-item" href="#one!">
                 <div class="item_container">
                     <div class="item">
@@ -164,7 +164,7 @@
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
                                 {% endif %}
-                                <p class="date">{{ formatted_dates[loop.index0] }}</p>
+                                <p class="date">{{ oldest_dates[loop.index0] }}</p>
                             </div>
                         </div>
                     </div>
