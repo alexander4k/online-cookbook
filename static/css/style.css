@@ -503,6 +503,8 @@ nav {
     display: none; } }
 .account .small_screen_show .dropdown-trigger {
   max-width: initial; }
+.account .favourites {
+  margin-top: 66px; }
 .account .new_recipe {
   width: 100%;
   background-color: #AF9AF4;
@@ -697,6 +699,18 @@ nav {
       .add_recipe .submit_recipe button {
         width: initial;
         margin-top: 70px; } }
+
+/* 
+=== RECIPE DETAILS PAGE ===
+*/
+.edit_recipe img {
+  width: 100%; }
+.edit_recipe .img {
+  padding: 0; }
+  .edit_recipe .img:last-of-type {
+    margin-top: 40px; }
+  .edit_recipe .img label {
+    left: 0; }
 
 /* 
 === RECIPE DETAILS PAGE ===

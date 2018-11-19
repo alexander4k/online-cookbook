@@ -101,29 +101,81 @@ def insert_recipe():
     app_setup.mongo.db.users.update_one({"username": username}, {"$addToSet": {"my_recipes": request.form.get("title")}})
     
     if request.method == "POST":
-        queries.insert_recipe(request.form.get("title"),
-                           request.form.get("description"),
-                           request.form.get("image"),
-                           username,
-                           request.form.get("servings"),
-                           request.form.get("cuisine"),
-                           request.form.get("category"),
-                           request.form.get("difficulty"),
-                           request.form.get("prep_time"),
-                           request.form.get("cook_time"),
-                           request.form.get("calories"),
-                           request.form.get("fat"),
-                           request.form.get("saturates"),
-                           request.form.get("carbs"),
-                           request.form.get("sugars"),
-                           request.form.get("salt"),
-                           request.form.get("fibre"),
-                           request.form.get("protein"),
-                           request.form.getlist("allergen"),
-                           filter(None, request.form.getlist("ingredient")),
-                           filter(None, request.form.getlist("instruction")))
+        new_recipe = queries.create_recipe(request.form.get("title"),
+                                           request.form.get("description"),
+                                           request.form.get("image"),
+                                           username,
+                                           request.form.get("servings"),
+                                           0,
+                                           request.form.get("cuisine"),
+                                           request.form.get("category"),
+                                           request.form.get("difficulty"),
+                                           request.form.get("prep_time"),
+                                           request.form.get("cook_time"),
+                                           request.form.get("calories"),
+                                           request.form.get("fat"),
+                                           request.form.get("saturates"),
+                                           request.form.get("carbs"),
+                                           request.form.get("sugars"),
+                                           request.form.get("salt"),
+                                           request.form.get("fibre"),
+                                           request.form.get("protein"),
+                                           request.form.getlist("allergen"),
+                                           filter(None, request.form.getlist("ingredient")),
+                                           filter(None, request.form.getlist("instruction")))
+        app_setup.mongo.db.recipes.insert_one(new_recipe)
                            
     return redirect(url_for("account")) 
+    
+@app.route("/edit_recipe/<recipe_title>")
+def edit_recipe(recipe_title):
+    username = sessions.check_if_user_in_session()
+    recipe = app_setup.mongo.db.recipes.find_one({"title": recipe_title})
+    recipe = app_setup.mongo.db.recipes.find_one({"title": recipe_title})
+    cuisines = app_setup.mongo.db.recipes.distinct("cuisine")
+    categories = app_setup.mongo.db.recipes.distinct("category")
+    cuisines_capitalized = queries.return_capitalized_unique_items_in_list(cuisines)
+    categories_capitalized = queries.return_capitalized_unique_items_in_list(categories)
+    
+    return render_template("edit_recipe.html",
+                            recipe=recipe,
+                            categories=categories_capitalized,
+                            cuisines=cuisines_capitalized,
+                            username=username)
+                            
+@app.route("/update_recipe/<recipe_title>", methods=["POST"])
+def update_recipe(recipe_title):
+    username = sessions.check_if_user_in_session()
+    current_recipe = app_setup.mongo.db.recipes.find_one({"title": recipe_title})
+    current_favourited_score = current_recipe["favourited"]
+    
+    new_recipe = queries.create_recipe(request.form.get("title"),
+                                    request.form.get("description"),
+                                    request.form.get("image"),
+                                    username,
+                                    request.form.get("servings"),
+                                    current_favourited_score,
+                                    request.form.get("cuisine"),
+                                    request.form.get("category"),
+                                    request.form.get("difficulty"),
+                                    request.form.get("prep_time"),
+                                    request.form.get("cook_time"),
+                                    request.form.get("calories"),
+                                    request.form.get("fat"),
+                                    request.form.get("saturates"),
+                                    request.form.get("carbs"),
+                                    request.form.get("sugars"),
+                                    request.form.get("salt"),
+                                    request.form.get("fibre"),
+                                    request.form.get("protein"),
+                                    request.form.getlist("allergen"),
+                                    filter(None, request.form.getlist("ingredient")),
+                                    filter(None, request.form.getlist("instruction")))
+                                    
+    app_setup.mongo.db.recipes.replace_one({"title": recipe_title}, new_recipe)
+    app_setup.mongo.db.users.update_one({"username": username, "my_recipes": recipe_title}, {"$set": {"my_recipes.$": request.form.get("title")}})
+    
+    return redirect(url_for("recipe_details", recipe_title=request.form.get("title")))
     
 @app.route("/delete_recipe/<recipe_title>")
 def delete_recipe(recipe_title):

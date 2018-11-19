@@ -23,63 +23,69 @@
 {% endblock %}
 
 {% block content %}
-<div class="container add_recipe">
-    <form action="{{ url_for('insert_recipe') }}" method="POST">
+<div class="container add_recipe edit_recipe">
+    <form action="{{ url_for('update_recipe', recipe_title=recipe.title) }}" method="POST">
         <div class="row">
-            <h1>New Recipe</h1>
+            <h1>Edit Recipe</h1>
             <div class="col s12 m6 left">
                 <div class="section general">
                     <div class="input-field col s12 m11">
                         <h2>General Information</h2>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="title" name="title" type="text" class="validate" placeholder="Gingerbread people" required maxlength="50">
-                        <label for="title">Add title <span>(required)</span></label>
+                        <input id="title" name="title" type="text" class="validate" placeholder="{{ recipe.title }}" value="{{ recipe.title }}" required maxlength="50">
+                        <label for="title">Edit title <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
 
-                        <textarea id="description" name="description" class="materialize-textarea" placeholder="Adorable gingerbread people easier with tubes of shop-bought icing and sweets." required></textarea>
-                        <label for="description">Fill in description <span>(required)</span></label>
+                        <textarea id="description" name="description" class="materialize-textarea" placeholder="{{ recipe.description }}" required>{{ recipe.description }}</textarea>
+                        <label for="description">Edit description <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="image" name="image" type="text" class="validate" placeholder="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=350" required>
-                        <label for="image">Add image url <span>(required)</span></label>
+                        <div class="col s12 img">
+                            <img src="{{ recipe.image }}">
+                        </div>
+                        <div class="input-field col s12 img">
+                            <input id="image" name="image" type="text" class="validate" placeholder="{{ recipe.image }}" value="{{ recipe.image }}" required>
+                            <label for="image">Edit image url <span>(required)</span></label>
+                        </div>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="category" name="category" type="text" class="validate"  placeholder="Baking" maxlength="50">
-                        <label for="category">Add category</label>
+                        <input id="category" name="category" type="text" class="validate"  placeholder="{{ recipe.category }}" value="{{ recipe.category }}" maxlength="50">
+                        <label for="category">Edit category</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="cuisine" name="cuisine">
                                 {% for cuisine in cuisines %}
                                     {% if loop.index == 1 %}
-                                    <option value="{{ cuisine }} selected">{{ cuisine }}</option>
+                                    <option value="{{ cuisine }}">{{ recipe.cuisine }}</option>
                                     {% else %}
                                     <option value="{{ cuisine }}">{{ cuisine }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                        <label for="cuisine">Select cuisine</label>
+                        <label for="cuisine">Edit cuisine</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="difficulty" name="difficulty">
-                                <option clas="selected" value="Easy">Easy</option>
+                                <option value="{{ recipe.difficulty }}">{{ recipe.difficulty }}</option>
+                                <option value="Easy">Easy</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Hard">Hard</option>
                             </select>
-                        <label for="difficulty">Select difficulty</label>
+                        <label for="difficulty">Edit difficulty</label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="prep_time" name="cook_time" type="text" class="validate" placeholder="20 minutes" required>
-                        <label for="prep_time">Add preparation time <span>(required)</span></label>
+                        <input id="prep_time" name="cook_time" type="text" class="validate" placeholder="{{ recipe.time.prep }}" value="{{ recipe.time.prep }}" required>
+                        <label for="prep_time">Edit preparation time <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="1 hour">
-                        <label for="cook_time">Add cooking time</label>
+                        <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="{{ recipe.time.cook }}" value="{{ recipe.time.cook }}">
+                        <label for="cook_time">Edit cooking time</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <p class="range-field">
-                            <label for="servings" id="range_label">Specify number of servings</label>
+                            <label for="servings" id="range_label">Edit number of servings <span>(current - {{ recipe.servings }})</span></label>
                             <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
                         </p>
                     </div>
@@ -89,35 +95,35 @@
                         <h2>Nutritional Information</h2>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="calories" name="calories" type="text" class="validate" placeholder="10kcal">
+                        <input id="calories" name="calories" type="text" class="validate" placeholder="{{ recipe.nutritional.calories }}" value="{{ recipe.nutritional.calories }}">
                         <label>Calories</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="fat" name="fat" type="text" class="validate" placeholder="Fat">
+                        <input id="fat" name="fat" type="text" class="validate" placeholder="{{ recipe.nutritional.fat }}" value="{{ recipe.nutritional.fat }}">
                         <label>Fat</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="saturates" name="saturates" type="text" class="validate" placeholder="10g">
+                        <input id="saturates" name="saturates" type="text" class="validate" placeholder="{{ recipe.nutritional.saturates }}" value="{{ recipe.nutritional.saturates }}">
                         <label>Saturates</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="carbs" name="carbs" type="text" class="validate" placeholder="10g">
+                        <input id="carbs" name="carbs" type="text" class="validate" placeholder="{{ recipe.nutritional.carbs }}" value="{{ recipe.nutritional.carbs }}">
                         <label>Carbs</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="sugars" name="sugars" type="text" class="validate" placeholder="10g">
+                        <input id="sugars" name="sugars" type="text" class="validate" placeholder="{{ recipe.nutritional.sugars }}" value="{{ recipe.nutritional.sugars }}">
                         <label>Sugars</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="salt" name="salt" type="text" class="validate" placeholder="10g">
+                        <input id="salt" name="salt" type="text" class="validate" placeholder="{{ recipe.nutritional.salt }}" value="{{ recipe.nutritional.salt }}">
                         <label>Salt</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="fibre" name="fibre" type="text" class="validate" placeholder="10g">
+                        <input id="fibre" name="fibre" type="text" class="validate" placeholder="{{ recipe.nutritional.fibre }}" value="{{ recipe.nutritional.fibre }}">
                         <label>Fibre</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="protein" name="protein" type="text" class="validate" placeholder="10g">
+                        <input id="protein" name="protein" type="text" class="validate" placeholder="{{ recipe.nutritional.protein }}" value="{{ recipe.nutritional.protein }}">
                         <label>Protein</label>
                     </div>
                 </div>
@@ -128,7 +134,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "dairy" in recipe.allergens %}
+                                <input name="allergen" value="dairy" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="dairy" type="checkbox" />
+                                {% endif %}
                                 <span>Dairy</span>
                             </label>
                         </p>
@@ -136,7 +146,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "eggs" in recipe.allergens %}
+                                <input name="allergen" value="eggs" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="eggs" type="checkbox" />
+                                {% endif %}
                                 <span>Eggs</span>
                             </label>
                         </p>
@@ -144,7 +158,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "peanuts" in recipe.allergens %}
+                                <input name="allergen" value="peanuts" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="peanuts" type="checkbox" />
+                                {% endif %}
                                 <span>Peanuts</span>
                             </label>
                         </p>
@@ -152,7 +170,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "fish" in recipe.allergens %}
+                                <input name="allergen" value="fish" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="fish" type="checkbox" />
+                                {% endif %}
                                 <span>Fish</span>
                             </label>
                         </p>
@@ -160,7 +182,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "shellfish" in recipe.allergens %}
+                                <input name="allergen" value="shellfish" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="shellfish" type="checkbox" />
+                                {% endif %}
                                 <span>Shellfish</span>
                             </label>
                         </p>
@@ -168,7 +194,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "soy" in recipe.allergens %}
+                                <input name="allergen" value="soy" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="soy" type="checkbox" />
+                                {% endif %}
                                 <span>Soy</span>
                             </label>
                         </p>
@@ -176,7 +206,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "wheat" in recipe.allergens %}
+                                <input name="allergen" value="wheat" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="wheat" type="checkbox" />
+                                {% endif %}
                                 <span>Wheat</span>
                             </label>
                         </p>
@@ -184,7 +218,11 @@
                     <div class="input-field col s6">
                         <p>
                             <label>
+                                {% if "tree nuts" in recipe.allergens %}
+                                <input name="allergen" value="tree nuts" type="checkbox" checked/>
+                                {% else %}
                                 <input name="allergen" value="tree nuts" type="checkbox" />
+                                {% endif %}
                                 <span>Tree nuts</span>
                             </label>
                         </p>
@@ -194,14 +232,19 @@
             <div class="col s12 m6 right">
                 <div class="section ingredients">
                     <div class="input-field col s12 m11 offset-m1">
-                        <h2>Add ingredients</h2>
+                        <h2>Edit Ingredients</h2>
                     </div>
+                    {% for ingredient in recipe.ingredients %}
+                    {% if loop.index == 1 or loop.index == 2 %}
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="200grams carrots" required></textarea>
+                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="{{ ingredient }}" required>{{ ingredient }}</textarea>
                     </div>
+                    {% else %}
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_2" name="ingredient" class="materialize-textarea" placeholder="1 pepper" required></textarea>
+                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="{{ ingredient }}">{{ ingredient }}</textarea>
                     </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="section ingredients_controls">
                     <div class="col s12 m11 offset-m1">
@@ -211,14 +254,19 @@
                 </div>
                 <div class="section instructions">
                     <div class="input-field col s12 m11 offset-m1">
-                        <h2>Add instructions</h2>
+                        <h2>Edit instructions</h2>
                     </div>
+                    {% for instruction in recipe.instructions %}
+                    {% if loop.index == 1 or loop.index == 2 %}
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="Cut the carrots into disks about .5cm thin and the pepper into 2cm cubes" required></textarea>
+                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="{{ instruction }}" required>{{ instruction }}</textarea>
                     </div>
+                    {% else %}
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_2" name="instruction" class="materialize-textarea" placeholder="Boil a pot of water, put a teaspoon of salt in and toss the vegetables in" required></textarea>
+                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="{{ instruction }}" >{{ instruction }}</textarea>
                     </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
                 <div class="section instructions_controls">
                     <div class="col s12 m11 offset-m1">
@@ -229,7 +277,7 @@
             </div>
         </div>
         <div class="col s12 submit_recipe">
-            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create recipe
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Edit recipe
                 <i class="material-icons right">send</i>
             </button>
         </div>

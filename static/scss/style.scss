@@ -485,6 +485,10 @@ nav {
             max-width: initial;
         }
     }
+    
+    .favourites {
+        margin-top: 66px;
+    }
 
     .new_recipe {
         width: 100%;
@@ -812,6 +816,26 @@ nav {
     }
 }
 
+/* 
+=== RECIPE DETAILS PAGE ===
+*/
+.edit_recipe {
+    img {
+        width: 100%;
+    }
+    
+    .img {
+        padding: 0;
+        
+        &:last-of-type {
+            margin-top: 40px;
+        }
+        
+        label {
+            left: 0;
+        }
+    }
+}
 /* 
 === RECIPE DETAILS PAGE ===
 */

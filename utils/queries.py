@@ -22,11 +22,12 @@ def format_date(data):
         
     return formatted_date
     
-def insert_recipe(title,
+def create_recipe(title,
                 description,
                 image,
                 author,
                 servings,
+                favourited,
                 cuisine,
                 category,
                 difficulty,
@@ -52,7 +53,7 @@ def insert_recipe(title,
             "category": category,
             "cuisine": cuisine,
             "servings": servings,
-            "votes": 0,
+            "favourited": favourited,
             "difficulty": difficulty,
             "time": {
                 "cook": cook_time,
@@ -72,7 +73,10 @@ def insert_recipe(title,
                 "salt": salt
             }
         }
-    app_setup.mongo.db.recipes.insert_one(recipe)
+    
+    
+    
+    return(recipe)
     
 def insert_user(username, password):
     user = {
