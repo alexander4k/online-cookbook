@@ -18,14 +18,14 @@
             <a href="{{ url_for('index') }}" class="brand-logo hvr-underline-from-center"><span>Online</span><span> Cookbook</span></a>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="{{ url_for('add_recipe') }}" class="hvr-sweep-to-top">All recipes</a></li>
+                <li><a href="" class="hvr-sweep-to-top">All recipes</a></li>
                 {% block account %} {% endblock %}
             </ul>
         </div>
     </nav>
     <ul class="sidenav" id="nav-mobile">
         <li>
-            <a href="{{ url_for('add_recipe') }}" class="hvr-sweep-to-right">All recipes</a></li>
+            <a href="" class="hvr-sweep-to-right">All recipes</a></li>
         {% block mobile_account %}{% endblock %}
     </ul>
     <main>
