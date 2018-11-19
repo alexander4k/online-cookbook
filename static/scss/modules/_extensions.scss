@@ -15,7 +15,6 @@
 %modify_dropdown_span {
     .dropdown-content li>span {
         color: $teritiary_orange;
-        font-weight: 500;
         @media (min-width: 600px) {}
     }
 }
@@ -23,5 +22,55 @@
 %modify_dropdown_focus {
     input.select-dropdown:focus {
         border-color: $primary_orange;
+    }
+}
+
+%recipe_card {
+    @extend %flex_column;
+    align-items: center;
+    text-align: center;
+
+    @media (min-width: 600px) {
+        width: 300px;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .card_info {
+        @extend %flex_column;
+        align-items: center;
+        width: 100%;
+        color: white;
+        font-weight: 500;
+        margin-top: 5px;
+        background-color: $primary_purple;
+
+        span {
+            display: flex;
+            align-items: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        p {
+            margin: 10px;
+        }
+
+        i {
+            font-size: 20px;
+            color: $primary_orange;
+        }
+
+        .highlight:hover {
+            color: $secondary_orange;
+        }
     }
 }

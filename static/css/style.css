@@ -1,19 +1,49 @@
-.row.login_box .col p, .container.main_content .carousel .item_container .item .recipe_card, .container.main_content .carousel .item_container .item .recipe_card .card_info, .page-footer .footer-copyright, .add_recipe #cook_time, .add_recipe#prep_time {
+.container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card, .container.main_content .carousel .item_container .item .recipe_card .card_info, .account .recipe_card .card_info, .row.banner .col p, .page-footer .footer-copyright, .add_recipe #cook_time, .add_recipe#prep_time {
   display: flex;
   flex-direction: column; }
 
-.container.main_content .row.small_screen_show .dropdown-trigger, .add_recipe .select-wrapper .dropdown-trigger {
+.container.main_content .row.small_screen_show .dropdown-trigger, .account .small_screen_show .dropdown-trigger, .add_recipe .select-wrapper .dropdown-trigger {
   color: #141414; }
   @media (min-width: 600px) {
-    .container.main_content .row.small_screen_show .dropdown-trigger, .add_recipe .select-wrapper .dropdown-trigger {
+    .container.main_content .row.small_screen_show .dropdown-trigger, .account .small_screen_show .dropdown-trigger, .add_recipe .select-wrapper .dropdown-trigger {
       max-width: 200px; } }
 
-.container.main_content .row.small_screen_show .dropdown-content li > span, .add_recipe .select-wrapper .dropdown-content li > span {
-  color: #f6b26b;
-  font-weight: 500; }
+.container.main_content .row.small_screen_show .dropdown-content li > span, .account .small_screen_show .dropdown-content li > span, .add_recipe .select-wrapper .dropdown-content li > span {
+  color: #f6b26b; }
 
-.container.main_content .row.small_screen_show input.select-dropdown:focus, .add_recipe .select-wrapper input.select-dropdown:focus {
+.container.main_content .row.small_screen_show input.select-dropdown:focus, .account .small_screen_show input.select-dropdown:focus, .add_recipe .select-wrapper input.select-dropdown:focus {
   border-color: #F4BD81; }
+
+.container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card {
+  align-items: center;
+  text-align: center; }
+  @media (min-width: 600px) {
+    .container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card {
+      width: 300px; } }
+  .container.main_content .carousel .item_container .item .recipe_card img, .account .recipe_card img {
+    max-width: 100%; }
+  .container.main_content .carousel .item_container .item .recipe_card .card_info, .account .recipe_card .card_info {
+    align-items: center;
+    width: 100%;
+    color: white;
+    font-weight: 500;
+    margin-top: 5px;
+    background-color: #AF9AF4; }
+    .container.main_content .carousel .item_container .item .recipe_card .card_info span, .account .recipe_card .card_info span {
+      display: flex;
+      align-items: center; }
+    .container.main_content .carousel .item_container .item .recipe_card .card_info a, .account .recipe_card .card_info a {
+      text-decoration: none;
+      color: white; }
+      .container.main_content .carousel .item_container .item .recipe_card .card_info a:hover, .account .recipe_card .card_info a:hover {
+        text-decoration: underline; }
+    .container.main_content .carousel .item_container .item .recipe_card .card_info p, .account .recipe_card .card_info p {
+      margin: 10px; }
+    .container.main_content .carousel .item_container .item .recipe_card .card_info i, .account .recipe_card .card_info i {
+      font-size: 20px;
+      color: #F4BD81; }
+    .container.main_content .carousel .item_container .item .recipe_card .card_info .highlight:hover, .account .recipe_card .card_info .highlight:hover {
+      color: #F4C99A; }
 
 .hvr-grow {
   display: inline-block;
@@ -152,7 +182,13 @@
 
 body {
   font-size: 16px;
-  color: #141414; }
+  color: #141414;
+  min-height: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+  body main {
+    flex: 1 0 auto; }
   body h1 {
     font-size: 1.3em;
     font-weight: 500;
@@ -164,19 +200,18 @@ body {
       body h1 {
         font-size: 1.8em; } }
   body h2 {
-    font-size: 1em;
-    font-weight: 500;
+    font-size: 1.2em;
     border-bottom: 3px dashed #F4BD81;
     padding-bottom: 10px;
     margin: 0 0 20px 0;
     text-align: center; }
     @media (min-width: 600px) {
       body h2 {
-        font-size: 1.2em;
-        font-weight: normal; } }
-    @media (min-width: 700px) {
-      body h2 {
-        font-size: 1.3em; } }
+        font-size: 1.5em; } }
+  body .fa-user {
+    font-size: 12px;
+    padding-right: 5px;
+    color: #f6b26b; }
 
 /* 
 === BACKGROUND ===
@@ -192,6 +227,12 @@ body {
     .background {
       height: 450px; } }
 
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5; }
+
 /* 
 === NAVIGATION ===
 */
@@ -206,6 +247,9 @@ nav {
         font-size: 1.5em; } }
     @media (min-width: 600px) {
       nav .brand-logo {
+        font-size: 1.8em; } }
+    @media (min-width: 1000px) {
+      nav .brand-logo {
         font-size: 2em;
         padding-left: 20px; } }
     nav .brand-logo span:last-child {
@@ -213,17 +257,30 @@ nav {
   nav a.sidenav-trigger {
     color: #F4BD81; }
   nav .nav-wrapper > ul a {
+    display: flex;
     color: #141414;
     font-weight: 500;
     background-color: white;
     position: relative;
-    z-index: 2;
-    top: -3px; }
+    z-index: 2; }
     nav .nav-wrapper > ul a:hover {
-      background-color: transparent; }
+      background-color: transparent;
+      color: white; }
+      nav .nav-wrapper > ul a:hover i {
+        color: white; }
 
 .sidenav {
   width: 200px; }
+  .sidenav .fa-user {
+    padding-left: 5px;
+    float: none;
+    color: #f6b26b; }
+  .sidenav a:hover {
+    color: white; }
+    .sidenav a:hover:hover .fa-user {
+      color: white; }
+  .sidenav .hvr-sweep-to-right:before {
+    background-color: #F4C99A; }
 
 /* 
 === HOME PAGE ===
@@ -231,55 +288,83 @@ nav {
 /* 
 === Login Form ===
 */
-.row.login_box {
+.row.banner {
   position: absolute;
   top: 100px;
   left: 5%;
   right: 5%;
   z-index: 2; }
   @media (min-width: 600px) {
-    .row.login_box {
+    .row.banner {
       top: 150px;
       left: 0;
       right: 0; } }
-  .row.login_box .col {
-    padding: 0;
+  .row.banner .login {
     background-color: white; }
-    .row.login_box .col h5 {
-      margin-top: 0; }
-    .row.login_box .col form {
-      padding: 20px; }
-    .row.login_box .col p {
-      font-size: 13px;
-      margin: 0; }
-      @media (min-width: 600px) {
-        .row.login_box .col p {
-          flex-direction: row; } }
-      .row.login_box .col p a {
-        color: #F4BD81; }
-        @media (min-width: 600px) {
-          .row.login_box .col p a {
-            padding-left: 7px; } }
-        .row.login_box .col p a:hover {
-          color: #f6b26b; }
-    .row.login_box .col input:focus {
+    .row.banner .login input[type=text].validate.valid,
+    .row.banner .login input[type=text].validate.invalid,
+    .row.banner .login input[type=password].validate.valid,
+    .row.banner .login input[type=password].validate.invalid {
+      border-bottom: 1px solid #9e9e9e;
+      box-shadow: none; }
+    .row.banner .login .input-field input[type=text]:focus,
+    .row.banner .login .input-field input[type=password]:focus {
       border-bottom: 1px solid #F4BD81;
       -webkit-box-shadow: 0 1px 0 0 #F4BD81;
       box-shadow: 0 1px 0 0 #F4BD81; }
-    .row.login_box .col input:last-of-type {
+  .row.banner .welcome {
+    text-align: center;
+    color: white;
+    margin-top: 90px; }
+    .row.banner .welcome h5:first-child {
+      font-size: 1.5em;
+      font-weight: 500; }
+      @media (min-width: 600px) {
+        .row.banner .welcome h5:first-child {
+          font-size: 2em; } }
+    .row.banner .welcome span {
+      color: #F4BD81; }
+  .row.banner .error {
+    padding: 10px 0 0 0;
+    color: #F47769;
+    font-size: 13px; }
+  .row.banner .col {
+    padding: 0; }
+    .row.banner .col h5 {
+      margin-top: 0; }
+    .row.banner .col form {
+      padding: 20px; }
+    .row.banner .col p {
+      font-size: 13px;
+      margin: 0; }
+      @media (min-width: 600px) {
+        .row.banner .col p {
+          flex-direction: row; } }
+      .row.banner .col p a {
+        color: #F4BD81; }
+        @media (min-width: 600px) {
+          .row.banner .col p a {
+            padding-left: 7px; } }
+        .row.banner .col p a:hover {
+          color: #f6b26b; }
+    .row.banner .col input:focus {
+      border-bottom: 1px solid #F4BD81;
+      -webkit-box-shadow: 0 1px 0 0 #F4BD81;
+      box-shadow: 0 1px 0 0 #F4BD81; }
+    .row.banner .col input:last-of-type {
       margin-bottom: 20px; }
-  .row.login_box button {
+  .row.banner button {
     width: 100%;
     background-color: #AF9AF4;
     border-radius: 0;
     -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
     box-shadow: 3px 3px 0px 0px #C2B2F4; }
-    .row.login_box button:hover {
+    .row.banner button:hover {
       background-color: #C2B2F4;
       -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
       box-shadow: 3px 3px 0px 0px #C2B2F4; }
     @media (min-width: 600px) {
-      .row.login_box button {
+      .row.banner button {
         width: initial; } }
 
 /* 
@@ -338,44 +423,140 @@ nav {
       .container.main_content .carousel .item_container .item {
         display: flex;
         justify-content: center; }
-        .container.main_content .carousel .item_container .item i {
-          font-size: 70px;
-          color: #F4BD81; }
         .container.main_content .carousel .item_container .item .recipe_card {
-          align-items: center;
-          width: 250px;
-          text-align: center; }
-          @media (min-width: 600px) {
-            .container.main_content .carousel .item_container .item .recipe_card {
-              width: 300px; } }
-          .container.main_content .carousel .item_container .item .recipe_card img {
-            max-width: 100%; }
-          .container.main_content .carousel .item_container .item .recipe_card .card_info {
-            align-items: center;
-            width: 100%;
-            color: white;
-            font-weight: 500;
-            margin-top: 5px;
-            background-color: #C2B2F4; }
-            .container.main_content .carousel .item_container .item .recipe_card .card_info span {
-              display: flex;
-              align-items: center; }
-            .container.main_content .carousel .item_container .item .recipe_card .card_info a {
-              text-decoration: none;
-              color: white; }
-              .container.main_content .carousel .item_container .item .recipe_card .card_info a:hover {
-                text-decoration: underline; }
-            .container.main_content .carousel .item_container .item .recipe_card .card_info p {
-              margin: 10px; }
-            .container.main_content .carousel .item_container .item .recipe_card .card_info i {
-              font-size: 20px;
-              color: #F4C99A; }
+          width: 250px; }
     .container.main_content .carousel ul {
       padding-top: 20px; }
     .container.main_content .carousel .indicators .indicator-item {
       background-color: #F4C99A; }
       .container.main_content .carousel .indicators .indicator-item.active {
         background-color: #F4BD81; }
+
+/* 
+=== REGISTER PAGE ===
+*/
+.register_box {
+  max-width: 400px;
+  margin-top: 50px; }
+  .register_box input[type=text].validate.valid,
+  .register_box input[type=text].validate.invalid,
+  .register_box input[type=password].validate.valid,
+  .register_box input[type=password].validate.invalid {
+    border-bottom: 1px solid #9e9e9e;
+    box-shadow: none; }
+  .register_box .input-field input[type=text]:focus + label,
+  .register_box .input-field input[type=password]:focus + label {
+    color: #F4BD81; }
+  .register_box .input-field input[type=text]:focus,
+  .register_box .input-field input[type=password]:focus {
+    border-bottom: 1px solid #F4BD81;
+    -webkit-box-shadow: 0 1px 0 0 #F4BD81;
+    box-shadow: 0 1px 0 0 #F4BD81; }
+  .register_box .col:last-of-type {
+    display: flex;
+    justify-content: flex-end; }
+    .register_box .col:last-of-type button {
+      width: 100%;
+      background-color: #AF9AF4;
+      border-radius: 0;
+      -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
+      box-shadow: 3px 3px 0px 0px #C2B2F4; }
+      .register_box .col:last-of-type button:hover {
+        background-color: #AF9AF4;
+        -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
+        box-shadow: 3px 3px 0px 0px #C2B2F4; }
+      @media (min-width: 600px) {
+        .register_box .col:last-of-type button {
+          width: initial;
+          margin-top: 20px; } }
+
+/* 
+=== ACCOUNT PAGE ===
+*/
+.account .col {
+  padding: 0; }
+.account .small_screen_hide {
+  display: none; }
+  @media (min-width: 1000px) {
+    .account .small_screen_hide {
+      display: initial; } }
+.account h1 {
+  margin-bottom: 0;
+  width: 100%;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  transition: background-color .3s, border-bottom .3s, color .3s, font-weight .3s; }
+  .account h1:hover {
+    cursor: pointer;
+    color: #333333;
+    font-weight: 500; }
+  .account h1.active {
+    color: white;
+    background-color: #F4BD81;
+    font-weight: normal; }
+    .account h1.active:hover {
+      background-color: #F4C99A; }
+@media (min-width: 1000px) {
+  .account .small_screen_show {
+    display: none; } }
+.account .small_screen_show .dropdown-trigger {
+  max-width: initial; }
+.account .new_recipe {
+  width: 100%;
+  background-color: #AF9AF4;
+  border-radius: 0;
+  margin-top: 30px;
+  -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
+  box-shadow: 3px 3px 0px 0px #C2B2F4; }
+  .account .new_recipe:hover {
+    background-color: #AF9AF4;
+    -webkit-box-shadow: 3px 4px 0px 0px #C2B2F4;
+    box-shadow: 3px 3px 0px 0px #C2B2F4; }
+  @media (min-width: 600px) {
+    .account .new_recipe {
+      width: initial; } }
+.account .recipe_card {
+  margin: 80px 10px 0 10px; }
+  @media (min-width: 600px) {
+    .account .recipe_card {
+      width: initial; } }
+  .account .recipe_card .card_info {
+    height: 200px;
+    display: flex;
+    justify-content: center; }
+    .account .recipe_card .card_info div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; }
+.account .buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 30px 10px 0 10px; }
+  .account .buttons .edit_recipe {
+    background-color: #F4BD81;
+    border-radius: 0;
+    -webkit-box-shadow: 3px 4px 0px 0px #F4C99A;
+    box-shadow: 3px 3px 0px 0px #F4C99A; }
+    .account .buttons .edit_recipe:hover {
+      background-color: #F4BD81;
+      -webkit-box-shadow: 3px 4px 0px 0px #F4C99A;
+      box-shadow: 3px 3px 0px 0px #F4C99A; }
+    .account .buttons .edit_recipe.hvr-sweep-to-right:before {
+      background-color: #f6b26b; }
+  .account .buttons .delete_recipe {
+    background-color: #F48B7F;
+    border-radius: 0;
+    -webkit-box-shadow: 3px 4px 0px 0px #F4A39A;
+    box-shadow: 3px 3px 0px 0px #F4A39A; }
+    .account .buttons .delete_recipe:hover {
+      background-color: #F48B7F;
+      -webkit-box-shadow: 3px 4px 0px 0px #F4A39A;
+      box-shadow: 3px 3px 0px 0px #F4A39A; }
+    .account .buttons .delete_recipe.hvr-sweep-to-right:before {
+      background-color: #F47769; }
 
 /* 
 === FOOTER ===
@@ -414,20 +595,18 @@ nav {
     border-right: 1px solid #9e9e9e; } }
 .add_recipe .section.nutrition #fibre,
 .add_recipe .section.nutrition #protein {
-  margin-bottom: 50px; }
+  margin-bottom: 20px; }
 .add_recipe .section.allergens .col:last-child {
-  margin-bottom: 50px; }
+  margin-bottom: 15px; }
 .add_recipe p {
   margin: 0;
-  margin-bottom: 20px; }
+  margin-bottom: 15px; }
   @media (min-width: 600px) {
     .add_recipe p {
       max-width: 200px; } }
-.add_recipe #cook_time {
-  margin-bottom: 50px; }
-  @media (min-width: 600px) {
-    .add_recipe #cook_time {
-      max-width: 150px; } }
+@media (min-width: 600px) {
+  .add_recipe #cook_time {
+    max-width: 150px; } }
 @media (min-width: 600px) {
   .add_recipe#prep_time {
     max-width: 150px; } }
@@ -459,9 +638,9 @@ nav {
   box-shadow: 0 1px 0 0 #F4BD81; }
 .add_recipe textarea {
   height: 60px;
-  margin-bottom: 20px; }
+  margin-bottom: 15px; }
 .add_recipe p.range-field {
-  margin-bottom: 20px; }
+  margin-bottom: 15px; }
 .add_recipe input[type=range] + .thumb {
   background-color: #F4BD81; }
 .add_recipe input[type=range]::-webkit-slider-thumb {
@@ -471,7 +650,7 @@ nav {
 .add_recipe input[type=range]::-ms-thumb {
   background-color: #F4BD81; }
 .add_recipe .select-wrapper {
-  margin-bottom: 20px; }
+  margin-bottom: 15px; }
   @media (min-width: 600px) {
     .add_recipe .select-wrapper {
       max-width: 200px; } }
@@ -525,6 +704,24 @@ nav {
 @media (max-width: 1000px) {
   .recipe_details .col {
     padding: 0; } }
+.recipe_details .favourited_detail {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  @media (min-width: 600px) {
+    .recipe_details .favourited_detail {
+      justify-content: flex-start; } }
+  .recipe_details .favourited_detail i {
+    padding-right: 5px; }
+.recipe_details .author {
+  margin-top: 30px; }
+  @media (min-width: 1000px) {
+    .recipe_details .author {
+      margin-top: 0; } }
+.recipe_details .time .prep {
+  margin: 10px 0 20px 0; }
+.recipe_details .time .cook {
+  margin: 0 0 10px 0; }
 .recipe_details .top {
   padding-bottom: 30px;
   margin-bottom: 50px;
@@ -544,7 +741,7 @@ nav {
     .recipe_details .bottom .right {
       border-left: 1px solid #DBDBDB;
       position: relative;
-      right: 1px; } }
+      right: 0.5px; } }
 .recipe_details h1 {
   text-align: center; }
   @media (min-width: 1000px) {
@@ -566,7 +763,7 @@ nav {
   .recipe_details i.fa-print {
     color: #292929; }
 .recipe_details ul {
-  padding: 0px 20px;
+  padding: 0px 0px 0px 20px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out; }
@@ -578,8 +775,8 @@ nav {
     .recipe_details ul li span {
       color: #141414; }
 .recipe_details ol {
-  padding: 0px 15px;
-  max-height: 0;
+  padding: 0px 0px 0px 25px;
+  max-height: 0px;
   overflow: hidden;
   transition: max-height 0.2s ease-out; }
   .recipe_details ol li {

@@ -6,6 +6,14 @@
 body {
     font-size: 16px;
     color: $primary_font;
+    min-height: 100%;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
+    main {
+        flex: 1 0 auto;
+    }
 
     h1 {
         font-size: 1.3em;
@@ -21,21 +29,21 @@ body {
     }
 
     h2 {
-        font-size: 1em;
-        font-weight: 500;
+        font-size: 1.2em;
         border-bottom: 3px dashed $primary_orange;
         padding-bottom: 10px;
         margin: 0 0 20px 0;
         text-align: center;
 
         @media (min-width: 600px) {
-            font-size: 1.2em;
-            font-weight: normal;
+            font-size: 1.5em;
         }
+    }
 
-        @media (min-width: 700px) {
-            font-size: 1.3em;
-        }
+    .fa-user {
+        font-size: 12px;
+        padding-right: 5px;
+        color: $teritiary_orange;
     }
 }
 
@@ -51,11 +59,18 @@ body {
         attachment: fixed;
     }
     height: 370px;
+    position: relative;
 
     @media (min-width: 600px) {
         height: 450px;
     }
-    position: relative;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
 }
 
 /* 
@@ -64,6 +79,7 @@ body {
 
 nav {
     background-color: white;
+
     .brand-logo {
         font-size: .9em;
         font-weight: 500;
@@ -73,6 +89,9 @@ nav {
             font-size: 1.5em;
         }
         @media (min-width: 600px) {
+            font-size: 1.8em;
+        }
+        @media (min-width: 1000px) {
             font-size: 2em;
             padding-left: 20px;
         }
@@ -87,21 +106,44 @@ nav {
     }
 
     .nav-wrapper>ul a {
+        display: flex;
         color: $primary_font;
         font-weight: 500;
         background-color: white;
         position: relative;
         z-index: 2;
-        top: -3px;
 
         &:hover {
             background-color: transparent;
+            color: white;
+
+            i {
+                color: white;
+            }
         }
     }
 }
 
 .sidenav {
     width: 200px;
+
+    .fa-user {
+        padding-left: 5px;
+        float: none;
+        color: $teritiary_orange;
+    }
+
+    a:hover {
+        color: white;
+
+        &:hover .fa-user {
+            color: white;
+        }
+    }
+
+    .hvr-sweep-to-right:before {
+        background-color: $secondary_orange;
+    }
 }
 
 /* 
@@ -112,7 +154,7 @@ nav {
 === Login Form ===
 */
 
-.row.login_box {
+.row.banner {
     position: absolute;
     top: 100px;
     left: 5%;
@@ -125,9 +167,50 @@ nav {
         right: 0;
     }
 
+    .login {
+        background-color: white;
+
+        input[type=text].validate.valid,
+        input[type=text].validate.invalid,
+        input[type=password].validate.valid,
+        input[type=password].validate.invalid {
+            border-bottom: 1px solid #9e9e9e;
+            box-shadow: none;
+        }
+
+        .input-field input[type=text]:focus,
+        .input-field input[type=password]:focus {
+            @include border_and_shadow($primary_orange);
+        }
+    }
+
+    .welcome {
+        text-align: center;
+        color: white;
+        margin-top: 90px;
+
+        h5:first-child {
+            font-size: 1.5em;
+            font-weight: 500;
+
+            @media (min-width: 600px) {
+                font-size: 2em;
+            }
+        }
+
+        span {
+            color: $primary_orange;
+        }
+    }
+
+    .error {
+        padding: 10px 0 0 0;
+        color: $teritiary_red;
+        font-size: 13px;
+    }
+
     .col {
         padding: 0;
-        background-color: white;
 
         h5 {
             margin-top: 0;
@@ -147,10 +230,11 @@ nav {
             }
 
             a {
+                color: $primary_orange;
+
                 @media (min-width: 600px) {
                     padding-left: 7px;
                 }
-                color: $primary_orange;
 
                 &:hover {
                     color: $teritiary_orange;
@@ -159,6 +243,7 @@ nav {
         }
 
         input {
+
             &:focus {
                 @include border_and_shadow($primary_orange);
             }
@@ -272,61 +357,13 @@ nav {
         .item_container {
             height: 100%;
 
-
             .item {
                 display: flex;
                 justify-content: center;
 
-                i {
-                    font-size: 70px;
-                    color: $primary_orange;
-                }
-
                 .recipe_card {
-                    @extend %flex_column;
-                    align-items: center;
                     width: 250px;
-                    text-align: center;
-
-                    @media (min-width: 600px) {
-                        width: 300px;
-                    }
-
-                    img {
-                        max-width: 100%;
-                    }
-
-                    .card_info {
-                        @extend %flex_column;
-                        align-items: center;
-                        width: 100%;
-                        color: white;
-                        font-weight: 500;
-                        margin-top: 5px;
-                        background-color: $secondary_purple;
-
-                        span {
-                            display: flex;
-                            align-items: center;
-                        }
-                        
-                        a {
-                            text-decoration: none;
-                            color: white;
-                            &:hover {
-                                text-decoration: underline;
-                            }
-                        }
-
-                        p {
-                            margin: 10px;
-                        }
-
-                        i {
-                            font-size: 20px;
-                            color: $secondary_orange;
-                        }
-                    }
+                    @extend %recipe_card;
                 }
             }
         }
@@ -344,6 +381,190 @@ nav {
         }
     }
 }
+
+/* 
+=== REGISTER PAGE ===
+*/
+
+.register_box {
+    max-width: 400px;
+    margin-top: 50px;
+
+    input[type=text].validate.valid,
+    input[type=text].validate.invalid,
+    input[type=password].validate.valid,
+    input[type=password].validate.invalid {
+        border-bottom: 1px solid #9e9e9e;
+        box-shadow: none;
+    }
+
+    .input-field input[type=text]:focus+label,
+    .input-field input[type=password]:focus+label {
+        color: $primary_orange;
+    }
+
+    .input-field input[type=text]:focus,
+    .input-field input[type=password]:focus {
+        @include border_and_shadow($primary_orange);
+    }
+    .col:last-of-type {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            width: 100%;
+            background-color: $primary_purple;
+            border-radius: 0;
+            @include button_shadow($secondary_purple);
+
+            &:hover {
+                background-color: $primary_purple;
+                @include button_shadow($secondary_purple);
+            }
+
+            @media (min-width: 600px) {
+                width: initial;
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+/* 
+=== ACCOUNT PAGE ===
+*/
+
+.account {
+
+    .col {
+        padding: 0;
+    }
+    .small_screen_hide {
+        display: none;
+        @media (min-width: 1000px) {
+            display: initial;
+        }
+    }
+
+    h1 {
+        margin-bottom: 0;
+        width: 100%;
+        font-size: 20px;
+        text-align: center;
+        padding: 10px;
+        background-color: white;
+        transition: background-color .3s, border-bottom .3s, color .3s, font-weight .3s;
+
+        &:hover {
+            cursor: pointer;
+            color: #333333;
+            font-weight: 500;
+        }
+
+        &.active {
+            color: white;
+            background-color: $primary_orange;
+            font-weight: normal;
+
+            &:hover {
+                background-color: $secondary_orange;
+            }
+        }
+    }
+
+    .small_screen_show {
+        @media (min-width: 1000px) {
+            display: none;
+        }
+
+        @extend %modify_dropdown_trigger;
+        @extend %modify_dropdown_span;
+        @extend %modify_dropdown_focus;
+
+        .dropdown-trigger {
+            max-width: initial;
+        }
+    }
+
+    .new_recipe {
+        width: 100%;
+        background-color: $primary_purple;
+        border-radius: 0;
+        margin: {
+            top: 30px;
+        }
+        @include button_shadow($secondary_purple);
+
+        &:hover {
+            background-color: $primary_purple;
+            @include button_shadow($secondary_purple);
+        }
+
+        @media (min-width: 600px) {
+            width: initial;
+        }
+    }
+
+    .recipe_card {
+        margin: 80px 10px 0 10px;
+        @extend %recipe_card;
+
+        @media (min-width: 600px) {
+            width: initial;
+        }
+
+        .card_info {
+            height: 200px;
+            display: flex;
+            justify-content: center;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: space-between;
+        margin: 30px 10px 0 10px;
+
+        .edit_recipe {
+            background-color: $primary_orange;
+            border-radius: 0;
+            @include button_shadow($secondary_orange);
+
+            &:hover {
+                background-color: $primary_orange;
+                @include button_shadow($secondary_orange);
+            }
+
+            &.hvr-sweep-to-right:before {
+                background-color: $teritiary_orange;
+            }
+        }
+
+        .delete_recipe {
+            background-color: $primary_red;
+            border-radius: 0;
+            @include button_shadow($secondary_red);
+
+            &:hover {
+                background-color: $primary_red;
+                @include button_shadow($secondary_red);
+            }
+
+            &.hvr-sweep-to-right:before {
+                background-color: $teritiary_red;
+
+            }
+        }
+    }
+}
+
 
 /* 
 === FOOTER ===
@@ -410,20 +631,20 @@ nav {
 
             #fibre,
             #protein {
-                margin-bottom: 50px;
+                margin-bottom: 20px;
             }
         }
         &.allergens {
 
             .col:last-child {
-                margin-bottom: 50px;
+                margin-bottom: 15px;
             }
         }
     }
 
     p {
         margin: 0;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
 
         @media (min-width: 600px) {
             max-width: 200px;
@@ -431,7 +652,6 @@ nav {
     }
 
     #cook_time {
-        margin-bottom: 50px;
         @extend %flex_column;
 
         @media (min-width: 600px) {
@@ -452,6 +672,7 @@ nav {
     }
 
     .general {
+
         span {
             font-size: 11px;
             font-weight: 700;
@@ -467,16 +688,16 @@ nav {
     textarea.materialize-textarea:required:valid {
         border-bottom: 1px solid #9e9e9e;
         box-shadow: none;
-
     }
+
     textarea.materialize-textarea:required:valid+label,
     input[type=text].validate.valid+label {
         color: $secondary_font;
     }
+
     textarea.materialize-textarea:required:invalid+label,
     input[type=text].validate.invalid+label {
         color: $secondary_font;
-
     }
 
     .input-field input[type=text]:focus+label,
@@ -491,11 +712,11 @@ nav {
 
     textarea {
         height: 60px;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     p.range-field {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 
     input[type=range]+.thumb {
@@ -515,10 +736,11 @@ nav {
     }
 
     .select-wrapper {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
         @extend %modify_dropdown_trigger;
         @extend %modify_dropdown_span;
         @extend %modify_dropdown_focus;
+
         @media (min-width: 600px) {
             max-width: 200px;
         }
@@ -595,46 +817,84 @@ nav {
 */
 
 .recipe_details {
-    
+
     .col {
         @media (max-width: 1000px) {
             padding: 0;
         }
     }
+
+    .favourited_detail {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        @media (min-width: 600px) {
+            justify-content: flex-start;
+        }
+
+        i {
+            padding-right: 5px;
+        }
+    }
+
+    .author {
+        margin-top: 30px;
+
+        @media (min-width: 1000px) {
+            margin-top: 0;
+        }
+    }
+
+    .time {
+
+        .prep {
+            margin: 10px 0 20px 0;
+        }
+
+        .cook {
+            margin: 0 0 10px 0;
+        }
+    }
+
     .top {
         padding-bottom: 30px;
         margin-bottom: 50px;
         border-bottom: 1px solid $primary_border;
         text-align: center;
+
         @media (min-width: 1000px) {
             text-align: left;
         }
-        
+
         p#author {
             margin-top: 0;
         }
-        
+
     }
+
     .bottom {
-        
+
         @media (min-width: 1000px) {
             position: relative;
+
             .left {
                 border-right: 1px solid $primary_border;
                 position: relative;
             }
-            
+
             .right {
                 border-left: 1px solid $primary_border;
                 position: relative;
-                right: 1px;
+                right: 0.5px;
             }
         }
-        
+
     }
-    
+
     h1 {
         text-align: center;
+
         @media (min-width: 1000px) {
             text-align: left;
         }
@@ -643,17 +903,17 @@ nav {
     h2 {
         position: relative;
         cursor: pointer;
-        
+
         i {
             position: absolute;
             right: 0;
         }
-        
     }
 
     p {
         margin: 10px 0;
     }
+
     img {
         width: 100%;
     }
@@ -668,10 +928,11 @@ nav {
     }
 
     ul {
-        padding: 0px 20px;
+        padding: 0px 0px 0px 20px;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
+
         li {
             list-style-type: square;
             color: $secondary_font;
@@ -685,42 +946,45 @@ nav {
     }
 
     ol {
-        padding: 0px 15px;
-        max-height: 0;
+        padding: 0px 0px 0px 25px;
+        max-height: 0px;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
+
         li {
             color: $secondary_font;
             font-weight: 600;
             margin-bottom: 15px;
+
             span {
                 color: $primary_font;
                 font-weight: normal;
             }
         }
     }
-    
+
     .nutrition_list {
         padding-top: 1px;
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.2s ease-out;
         margin-bottom: 20px;
-        
+
         .col {
             padding: .75rem;
+
             p {
                 margin: 0;
                 text-align: center;
-                
+
             }
-            
+
             .nutrition_name {
                 padding: 5px;
                 background-color: $primary_orange;
                 color: white;
             }
-            
+
             .nutrition_value {
                 padding: 5px;
                 border: {
@@ -731,10 +995,10 @@ nav {
             }
         }
     }
-    
-    #instructions_expand, 
-    #ingredients_expand, 
-    #allergens_expand, 
+
+    #instructions_expand,
+    #ingredients_expand,
+    #allergens_expand,
     #nutrition_expand {
         margin-top: 25px;
     }
