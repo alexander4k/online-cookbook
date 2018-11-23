@@ -2,31 +2,31 @@
 
 {% block account %} 
 {% if username %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li> 
-<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li> 
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li> 
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li> 
 {% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
-<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li> 
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li> 
 {% endif %}
 {% endblock %}
 
 {% block mobile_account %}
 {% if username %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
-<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
 {% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
-<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li> 
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li> 
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="container add_recipe edit_recipe">
-    <form action="{{ url_for('update_recipe', recipe_title=recipe.title) }}" method="POST">
+    <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
         <div class="row">
-            <h1>Edit Recipe</h1>
+            <h1>Edit Recipe {{ recipe._id }}</h1>
             <div class="col s12 m6 left">
                 <div class="section general">
                     <div class="input-field col s12 m11">
@@ -51,16 +51,24 @@
                         </div>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="category" name="category" type="text" class="validate"  placeholder="{{ recipe.category }}" value="{{ recipe.category }}" maxlength="50">
+                        <select id="category" name="category">
+                                {% for category in categories %}
+                                    {% if category.name == current_category.name %}
+                                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
                         <label for="category">Edit category</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="cuisine" name="cuisine">
                                 {% for cuisine in cuisines %}
-                                    {% if loop.index == 1 %}
-                                    <option value="{{ cuisine }}">{{ recipe.cuisine }}</option>
+                                    {% if cuisine.name == current_cuisine.name %}
+                                    <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
                                     {% else %}
-                                    <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -68,10 +76,13 @@
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="difficulty" name="difficulty">
-                                <option value="{{ recipe.difficulty }}">{{ recipe.difficulty }}</option>
-                                <option value="Easy">Easy</option>
-                                <option value="Medium">Medium</option>
-                                <option value="Hard">Hard</option>
+                            {% for difficulty in difficulties %}
+                                {% if difficulty == recipe.difficulty %}
+                                <option value="{{ difficulty }}" selected>{{ difficulty }}</option>
+                                {% else %}
+                                <option value="{{ difficulty }}">{{ difficulty }}</option>
+                                {% endif %}
+                            {% endfor %}
                             </select>
                         <label for="difficulty">Edit difficulty</label>
                     </div>

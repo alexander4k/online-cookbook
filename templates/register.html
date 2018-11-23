@@ -20,6 +20,11 @@
 <div class="container">
     <div class="row register_box">
         <form action="{{ url_for('insert_user') }}" method="POST">
+            <div class="col s12 m11">
+                {% if registration_error == "True" %}
+                <p class="error">This username is already taken</p>
+                {% endif %}
+            </div>
             <div class="input-field col s12 m11">
                 <input id="username" name="username" type="text" class="validate" required maxlength="50">
                 <label for="username">Type in your new username</label>

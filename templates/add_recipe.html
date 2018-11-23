@@ -46,16 +46,24 @@
                         <label for="image">Add image url <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="category" name="category" type="text" class="validate"  placeholder="Baking" maxlength="50">
-                        <label for="category">Add category</label>
+                        <select id="category" name="category">
+                                {% for category in categories %}
+                                    {% if loop.index == 1 %}
+                                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                                    {% else %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        <label for="category">Select category</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="cuisine" name="cuisine">
                                 {% for cuisine in cuisines %}
                                     {% if loop.index == 1 %}
-                                    <option value="{{ cuisine }} selected">{{ cuisine }}</option>
+                                    <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
                                     {% else %}
-                                    <option value="{{ cuisine }}">{{ cuisine }}</option>
+                                    <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -63,7 +71,7 @@
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="difficulty" name="difficulty">
-                                <option clas="selected" value="Easy">Easy</option>
+                                <option value="Easy" selected>Easy</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Hard">Hard</option>
                             </select>

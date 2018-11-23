@@ -2,25 +2,25 @@
 
 {% block account %} 
 {% if username %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li>
-<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li>
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li>
 {% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li>
-<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li>
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li>
 {% endif %} 
 {% endblock %} 
 
 {% block mobile_account %} 
 {% if username %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
-<li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
 {% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li>
-<li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li>
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li>
 {% endif %} 
 {% endblock %} 
 
@@ -37,7 +37,7 @@
                 </div>
                 <div class="col s12 l6 right">
                     <div class="col s12 author">
-                        <p id="author"><strong>Author:</strong> {{ recipe.author }}</p>
+                        <p id="author"><strong>Author:</strong> {{ author.username }}</p>
                     </div>
                     <div class="col s12">
                         <p><strong>Date of creation:</strong> {{ creation_date }}</p>
@@ -48,6 +48,9 @@
                         {% else %}
                         <p>{{ recipe.description }}</p>
                         {% endif %}
+                    </div>
+                    <div class="col s12">
+                        <p><strong>Cuisine:</strong> {{ cuisine.name }}</p>
                     </div>
                     <div class="col s12 time">
                         <div class="prep">
@@ -69,15 +72,17 @@
                         <p><i class="fas fa-utensils"></i><strong>Serves:</strong> {{ recipe.servings }}</p>
                     </div>
                     <div class="col s12 favourited_detail">
-                        {% if username %} {% if recipe.title in user_favourites %}
-                        <i class="fas  fa-star"></i>
-                        <p>Favourited {{ recipe.favourited }} times</p>
+                        {% if username %} 
+                            {% if recipe._id in user.favourite_recipes %}
+                                <i class="fas  fa-star"></i>
+                                <p>Favourited {{ recipe.favourited }} times</p>
+                            {% else %}
+                                <a href="{{ url_for('favourite', recipe_id=recipe._id, page='recipe_details') }}"><i class="far fa-star not_favourited"></i></a>
+                                <p>Favourited {{ recipe.favourited }} times</p>
+                            {% endif %} 
                         {% else %}
-                        <a href="{{ url_for('favourite', recipe_title=recipe.title, page='recipe_details') }}"><i class="far fa-star not_favourited"></i></a>
-                        <p>Favourited {{ recipe.favourited }} times</p>
-                        {% endif %} {% else %}
-                        <i class="far fa-star"></i>
-                        <p>Favourited {{ recipe.favourited }} times</p>
+                            <i class="far fa-star"></i>
+                            <p>Favourited {{ recipe.favourited }} times</p>
                         {% endif %}
                     </div>
                     <div class="col s12">

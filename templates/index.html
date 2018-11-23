@@ -30,12 +30,15 @@
     </div>
     {% else %}
     <div class="col s12 m6 offset-m3 l4 offset-l4 login">
-        <form action="{{ url_for('index') }}" method="POST">
+        <form action="{{ url_for('login') }}" method="POST">
             <div>
                 <h5>Login to start sharing recipes</h5>
                 <p>Don't have an account yet? <a href="{{ url_for('register_user') }}" class="hvr-forward">register now!</a></p>
-                {% if login_error == True %}
-                <p class="error">username or password incorrect</p>
+                {{ username_error }}
+                {% if username_error == "True" %}
+                <p class="error">username does not exist</p>
+                {% elif password_error == "True" %}
+                <p class="error">incorrect password, try again</p>
                 {% endif %}
                 <input placeholder="Username" id="username" name="username" type="text" class="validate" required>
                 <input placeholder="Password" id="password" name="password" type="password" class="validate" required>
@@ -84,14 +87,14 @@
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                     <p>{{ recipe.title }}</p>
                                 </a>
                                 {% if username %}
-                                {% if recipe.title in user_favourites %}
+                                {% if recipe._id in user.favourite_recipes %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
                                 {% else %}
-                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_id=recipe._id, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
                                 {% endif %}
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
@@ -118,14 +121,14 @@
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                     <p>{{ recipe.title }}</p>
                                 </a>
                                 {% if username %}
-                                {% if recipe.title in user_favourites %}
+                                {% if recipe._id in user.favourite_recipes %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
                                 {% else %}
-                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_id=recipe._id, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
                                 {% endif %}
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
@@ -152,14 +155,14 @@
                         <div class="recipe_card">
                             <img src="{{ recipe.image }}">
                             <div class="card_info">
-                                <a href="{{ url_for('recipe_details', recipe_title=recipe.title) }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                     <p>{{ recipe.title }}</p>
                                 </a>
                                 {% if username %}
-                                {% if recipe.title in user_favourites %}
+                                {% if recipe._id in user.favourite_recipes %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
                                 {% else %}
-                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_title=recipe.title, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_id=recipe._id, page='index') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
                                 {% endif %}
                                 {% else %}
                                 <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>

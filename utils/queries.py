@@ -76,13 +76,12 @@ def create_recipe(title,
     
     
     
-    return(recipe)
+    return recipe
     
 def insert_user(username, password):
     user = {
         "username": username,
         "password": password,
-        "my_recipes": [],
         "favourite_recipes": []
     }
     app_setup.mongo.db.users.insert_one(user)
@@ -91,24 +90,24 @@ def find_unique_items_in_list(list_of_items):
     list_lowercase = misc.convert_items_in_list_to_lower(list_of_items)
     list_set = set(list_lowercase)
     unique_items = list(list_set)
-    return (unique_items)
+    return unique_items
     
 def sort_list(list_to_sort):
     sorted_list = sorted(list_to_sort)
-    return(sorted_list)
+    return sorted_list
     
 def return_capitalized_unique_items_in_list(list_to_search):
     unique_items = find_unique_items_in_list(list_to_search)
     sorted_list = sort_list(unique_items)
     capitalized = misc.convert_items_in_list_to_capitalized(sorted_list)
-    return(capitalized)
+    return capitalized
     
 def list_values(record):
     list_of_values = []
     for key, value in record.items():
         list_of_values.append(value)
         
-    return(list_of_values)
+    return list_of_values
     
     
 
