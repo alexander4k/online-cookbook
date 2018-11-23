@@ -55,7 +55,7 @@ function removeClass(options_list) {
 }
 
 function showAndHideRestCarousel(show_option) {
-    var options_to_hide = [".popular", ".recent", ".least_popular"]
+    var options_to_hide = [".popular", ".recent", ".oldest"]
     for (var i = 0; i < options_to_hide.length; i++) {
         $(options_to_hide[i]).hide()
     }
