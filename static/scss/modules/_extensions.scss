@@ -35,7 +35,11 @@
     }
 
     img {
-        max-width: 100%;
+        max: {
+            width: 100%;
+            height: 100%;
+        }
+        
     }
 
     .card_info {
@@ -45,7 +49,7 @@
         color: white;
         font-weight: 500;
         margin-top: 5px;
-        background-color: $primary_purple;
+        background-color: $secondary_purple;
 
         span {
             display: flex;

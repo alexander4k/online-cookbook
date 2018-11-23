@@ -1,4 +1,4 @@
-.container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card, .container.main_content .carousel .item_container .item .recipe_card .card_info, .account .recipe_card .card_info, .row.banner .col p, .page-footer .footer-copyright, .add_recipe #cook_time, .add_recipe#prep_time {
+.container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card, .container.main_content .carousel .item_container .item .recipe_card .card_info, .account .recipe_card .card_info, .row.banner .col p, .page-footer .footer-copyright, .add_recipe #cook_time, .add_recipe #prep_time {
   display: flex;
   flex-direction: column; }
 
@@ -21,14 +21,15 @@
     .container.main_content .carousel .item_container .item .recipe_card, .account .recipe_card {
       width: 300px; } }
   .container.main_content .carousel .item_container .item .recipe_card img, .account .recipe_card img {
-    max-width: 100%; }
+    max-width: 100%;
+    max-height: 100%; }
   .container.main_content .carousel .item_container .item .recipe_card .card_info, .account .recipe_card .card_info {
     align-items: center;
     width: 100%;
     color: white;
     font-weight: 500;
     margin-top: 5px;
-    background-color: #AF9AF4; }
+    background-color: #C2B2F4; }
     .container.main_content .carousel .item_container .item .recipe_card .card_info span, .account .recipe_card .card_info span {
       display: flex;
       align-items: center; }
@@ -212,6 +213,10 @@ body {
     font-size: 12px;
     padding-right: 5px;
     color: #f6b26b; }
+  body .error {
+    padding: 10px 0 0 0;
+    color: #F47769;
+    font-size: 13px; }
 
 /* 
 === BACKGROUND ===
@@ -327,10 +332,6 @@ nav {
           font-size: 2em; } }
     .row.banner .welcome span {
       color: #F4BD81; }
-  .row.banner .error {
-    padding: 10px 0 0 0;
-    color: #F47769;
-    font-size: 13px; }
   .row.banner .col {
     padding: 0; }
     .row.banner .col h5 {
@@ -527,6 +528,45 @@ nav {
   @media (min-width: 600px) {
     .account .recipe_card {
       width: initial; } }
+  .account .recipe_card .image {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+    background-color: #ffffff; }
+    @media (min-width: 400px) {
+      .account .recipe_card .image {
+        height: 400px; } }
+    @media (min-width: 500px) {
+      .account .recipe_card .image {
+        height: 450px; } }
+    @media (min-width: 600px) {
+      .account .recipe_card .image {
+        height: 250px; } }
+    @media (min-width: 700px) {
+      .account .recipe_card .image {
+        height: 300px; } }
+    @media (min-width: 800px) {
+      .account .recipe_card .image {
+        height: 350px; } }
+    @media (min-width: 1000px) {
+      .account .recipe_card .image {
+        height: 200px; } }
+    @media (min-width: 1100px) {
+      .account .recipe_card .image {
+        height: 250px; } }
+    @media (min-width: 1300px) {
+      .account .recipe_card .image {
+        height: 300px; } }
+    @media (min-width: 1600px) {
+      .account .recipe_card .image {
+        height: 350px; } }
+    @media (min-width: 1800px) {
+      .account .recipe_card .image {
+        height: 400px; } }
   .account .recipe_card .card_info {
     height: 200px;
     display: flex;
@@ -540,6 +580,19 @@ nav {
   display: flex;
   justify-content: space-between;
   margin: 30px 10px 0 10px; }
+  .account .buttons.centered {
+    justify-content: center; }
+    .account .buttons.centered .remove_recipe {
+      background-color: #F48B7F;
+      border-radius: 0;
+      -webkit-box-shadow: 3px 4px 0px 0px #F4A39A;
+      box-shadow: 3px 3px 0px 0px #F4A39A; }
+      .account .buttons.centered .remove_recipe:hover {
+        background-color: #F48B7F;
+        -webkit-box-shadow: 3px 4px 0px 0px #F4A39A;
+        box-shadow: 3px 3px 0px 0px #F4A39A; }
+      .account .buttons.centered .remove_recipe.hvr-sweep-to-right:before {
+        background-color: #F47769; }
   .account .buttons .edit_recipe {
     background-color: #F4BD81;
     border-radius: 0;
@@ -613,7 +666,7 @@ nav {
   .add_recipe #cook_time {
     max-width: 150px; } }
 @media (min-width: 600px) {
-  .add_recipe#prep_time {
+  .add_recipe #prep_time {
     max-width: 150px; } }
 .add_recipe label {
   color: #292929; }
