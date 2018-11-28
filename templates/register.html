@@ -1,19 +1,13 @@
 {% extends "base.html" %}
 
-{% block account %} 
-{% if username %}
+{% block big_screen %} 
 <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-{% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-{% endif %}
+<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a></li>
 {% endblock %}
 
-{% block mobile_account %}
-{% if username %}
+{% block small_screen %}
 <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-{% else %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-{% endif %}
+<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a></li>
 {% endblock %}
 
 {% block content %}

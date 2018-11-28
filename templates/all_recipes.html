@@ -1,0 +1,142 @@
+{% extends "base.html" %} 
+
+{% block big_screen %} 
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
+{% if username %}
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li>
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li>
+{% else %}
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li>
+{% endif %} {% endblock %} 
+
+{% block small_screen %} 
+<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
+{% if username %}
+    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
+    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+{% else %}
+    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
+    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li>
+{% endif %} 
+{% endblock %} 
+
+{% block content %}
+<div class="container all_recipes">
+        <div class="row">
+            <h1>Recipes</h1>
+            <div class="col s12 top">
+                <div class="section filters">
+                    <form action="{{ url_for('filter_recipes') }}" method="GET">
+                        <div class="input-field col s12 m6 l4 title">
+                            <input id="title" name="title" type="text" class="validate">
+                            <label for="title">Search by title</label>
+                        </div>
+                        <div class="input-field col s12 m6 l4 ingredient">
+                            <input id="ingredient" name="ingredient" type="text" class="validate">
+                            <label for="ingredient">Search by ingredient</label>
+                        </div>
+                        <div class="input-field col s12 m6 l4 category">
+                            <select id="category" name="category">
+                                <option selected disabled>Category</option>
+                                {% for category in categories %}
+                                <option value="{{ category.name }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-field col s12 m6 l4 cuisine">
+                            <select id="cuisine" name="cuisine">
+                                <option selected disabled>Cuisine</option>
+                                {% for cuisine in cuisines %}
+                                <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="input-field col s12 m6 l4 allergen">
+                            <select id="allergen" name="allergen">
+                                <option selected disabled>Allergen</option>
+                                {% for allergen in allergens %}
+                                <option value="{{ allergen }}">{{ allergen }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col s12 filter">
+                            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Filter
+                            <i class="material-icons">filter_list</i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="input-field col s12 search_and_count">
+                        <p>Search: <span>{{ title }} {{ category_name }} {{ cuisine_name }} {{ ingredient }} {{ allergen_name }}</span></p>
+                        <p>Results: <span>{{ recipes_count }} out of {{ all_recipes_count }}</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 bottom">
+                <div class="col s12 sort">
+                    <form action="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id) }}" method="POST">
+                        <div class="input-field col s12 m6 l4">
+                            <select id="sort" name="sort" onchange="this.form.submit()">
+                                <option selected disabled>Sort by</option>
+                                <option value="newest">Newest</option>
+                                <option value="oldest">Oldest</option>
+                                <option value="most_popular">Most popular</option>
+                                <option value="least_popular">Least popular</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                {% for recipe in recipes%}
+                    <div class="col s12 m6 l4 recipe">
+                        <div class="recipe_card">
+                            <div class="image">
+                                <img src="{{ recipe.image }}">
+                            </div>
+                            <div class="card_info">
+                                <div>
+                                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                        <p>{{ recipe.title }}</p>
+                                    </a>
+                                    {% if username %}
+                                        {% if recipe._id in user.favourite_recipes %}
+                                            <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span>
+                                        {% else %}
+                                            <span><p>Favourited {{ recipe.favourited }} times</p><a href="{{ url_for('favourite', recipe_id=recipe._id, page='all_recipes') }}"><i class="far fa-star not_favourited highlight"></i></a></span>
+                                        {% endif %}
+                                    {% else %}
+                                        <span><p>Favourited {{ recipe.favourited }} times</p><i class="far fa-star"></i></span>
+                                    {% endif %}
+                                    <p class="date">{{ recipes_dates[loop.index0] }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    <div class="col s12">
+        <ul class="pagination small">
+            <li class="disabled arrow"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=prev_page) }}"><i class="material-icons">chevron_left</i></a></li>
+            {% for i in range(1, number_of_pagination_links + 1) %}
+                {% if i == page_number %}
+                    <li class="active num"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=i) }}">{{ i }}</a></li>
+                {% elif i > page_number - 2  and i < page_number + 2 %}
+                <li class="waves-effect num"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=i) }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li class="waves-effect arrow"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=next_page) }}"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+        <ul class="pagination big">
+            <li class="disabled arrow"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=prev_page) }}"><i class="material-icons">chevron_left</i></a></li>
+            {% for i in range(1, number_of_pagination_links + 1) %}
+                {% if i == page_number %}
+                    <li class="active num"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=i) }}">{{ i }}</a></li>
+                {% elif i > page_number - 5  and i < page_number + 5 %}
+                <li class="waves-effect num"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=i) }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            <li class="waves-effect arrow"><a href="{{ url_for('all_recipes', title_input=title, ingredient_input=ingredient, allergen_input=allergen, category_input=category_id, cuisine_input=cuisine_id, sort=sort, page_number=next_page) }}"><i class="material-icons">chevron_right</i></a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
