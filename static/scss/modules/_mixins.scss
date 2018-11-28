@@ -8,3 +8,89 @@
     -webkit-box-shadow: 3px 4px 0px 0px $color;
     box-shadow: 3px 3px 0px 0px $color;
 }
+@mixin button_style($width, $margin_top, $background_color, $shadow_color) {
+    button {
+        width: $width;
+        background-color: $background_color;
+        border-radius: 0;
+        @include button_shadow($shadow_color);
+
+        &:hover {
+            background-color: $background_color;
+            @include button_shadow($shadow_color);
+        }
+
+        @media (min-width: 600px) {
+            width: initial;
+            margin-top: $margin_top;
+        }
+    }
+}
+
+@mixin image_media_queries() {
+    @media (min-width: 350px) {
+        height: 280px;
+    }
+
+    @media (min-width: 400px) {
+        height: 300px;
+    }
+
+    @media (min-width: 430px) {
+        height: 350px;
+    }
+
+    @media (min-width: 500px) {
+        height: 400px;
+    }
+
+    @media (min-width: 550px) {
+        height: 450px;
+    }
+
+    @media (min-width: 600px) {
+        height: 220px;
+    }
+
+    @media (min-width: 650px) {
+        height: 250px;
+    }
+
+    @media (min-width: 750px) {
+        height: 300px;
+    }
+
+    @media (min-width: 850px) {
+        height: 320px;
+    }
+    @media (min-width: 900px) {
+        height: 350px;
+    }
+
+    @media (min-width: 1000px) {
+        height: 200px;
+    }
+
+    @media (min-width: 1100px) {
+        height: 220px;
+    }
+    @media (min-width: 1200px) {
+        height: 250px;
+    }
+
+    @media (min-width: 1300px) {
+        height: 280px;
+    }
+
+    @media (min-width: 1400px) {
+        height: 300px;
+    }
+
+    @media (min-width: 1600px) {
+        height: 350px;
+    }
+
+    @media (min-width: 1800px) {
+        height: 400px;
+    }
+}
