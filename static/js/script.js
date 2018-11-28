@@ -15,10 +15,12 @@ $(document).ready(function() {
     profileOptionsBehaviour(1)
     profileOptionsBehaviour(2)
     collapsibleLists(["#ingredients_expand",
-                      "#instructions_expand",
-                      "#allergens_expand",
-                      "#nutrition_expand"])
-    
+        "#instructions_expand",
+        "#allergens_expand",
+        "#nutrition_expand"
+    ])
+    disableAndEnablePaginationArrows(".big")
+    disableAndEnablePaginationArrows(".small")
 });
 
 function changeFavouriteIconAndCursor() {
@@ -144,9 +146,10 @@ function collapsibleLists(selectors) {
     list_of_selectors = selectors
     for (var i = 0; i < list_of_selectors.length; i++) {
         $(list_of_selectors[i]).click(function() {
-            if($("#" + this.id + " i").hasClass("fa-chevron-down")){
+            if ($("#" + this.id + " i").hasClass("fa-chevron-down")) {
                 $("#" + this.id + " i").removeClass("fa-chevron-down").addClass("fa-chevron-up")
-            } else if($("#" + this.id + " i").hasClass("fa-chevron-up")) {
+            }
+            else if ($("#" + this.id + " i").hasClass("fa-chevron-up")) {
                 $("#" + this.id + " i").removeClass("fa-chevron-up").addClass("fa-chevron-down")
             }
             var list = this.nextElementSibling;
@@ -202,6 +205,28 @@ function profileOptionsBehaviour(num_of_option) {
     })
 }
 
-
-
-
+function disableAndEnablePaginationArrows(pagination_class){
+    if ($(pagination_class + " .num").first().hasClass("active")) {
+        $(pagination_class + " .arrow").first().css('pointer-events', 'none')
+        if (!$(pagination_class + " .arrow").first().hasClass("disabled")) {
+            $(pagination_class + " .arrow").first().addClass("disabled")
+        }
+    } else {
+        $(pagination_class + " .arrow").first().css('pointer-events', 'auto')
+        if ($(pagination_class + " .arrow").first().hasClass("disabled")) {
+            $(pagination_class + " .arrow").first().removeClass("disabled")
+        }
+    }
+    
+    if ($(pagination_class + " .num").last().hasClass("active")) {
+        $(pagination_class + " .arrow").last().css('pointer-events', 'none')
+        if (!$(pagination_class + " .arrow").last().hasClass("disabled")) {
+            $(pagination_class + " .arrow").last().addClass("disabled")
+        }
+    } else {
+        $(pagination_class + " .arrow").last().css('pointer-events', 'auto')
+        if ($(pagination_class + " .arrow").last().hasClass("disabled")) {
+            $(pagination_class + " .arrow").last().removeClass("disabled")
+        }
+    }
+}
