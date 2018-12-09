@@ -246,106 +246,108 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="col s12">
-                <!-- Pagination -->
-                <ul class="pagination small">
-                    <!-- For small/below 450px in width devices only -->
-                    <li class="disabled arrow">
-                        <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                            selected_cuisine=cuisine._id,
-                                                            selected_allergen=allergen,
-                                                            sort=sort,
-                                                            page_number=prev_page) }}">
-                            <i class="material-icons">chevron_left</i>
-                        </a>
-                    </li>
-                    {% for i in range(1, number_of_links + 1) %}
-                        <!-- 
-                        Show only a number of links in the range of 1 to the total number of links.
-                        Add 1 in case the total number of links is equal to 0
-                        For links that aren't of the current page number, show only 1 on each side so as not
-                        to exceed the width of the screen on small devices with the number of links and to keep it
-                        visually tidy.
-                        -->
-                        {% if i == page_number %}
-                            <li class="active num">
-                                <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                                    selected_cuisine=cuisine._id,
-                                                                    selected_allergen=allergen,
-                                                                    sort=sort,
-                                                                    page_number=i) }}">{{ i }}
-                                </a>
-                            </li>
-                        {% elif i > page_number - 2  and i < page_number + 2 %}
-                            <li class="waves-effect num">
-                                <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                                    selected_cuisine=cuisine._id,
-                                                                    selected_allergen=allergen,
-                                                                    sort=sort,
-                                                                    page_number=i) }}">{{ i }}
-                                </a>
-                            </li>
-                        {% endif %}
+            {% if number_of_links > 0 %}
+                <div class="col s12">
+                    <!-- Pagination -->
+                    <ul class="pagination small">
+                        <!-- For small/below 450px in width devices only -->
+                        <li class="disabled arrow">
+                            <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                selected_cuisine=cuisine._id,
+                                                                selected_allergen=allergen,
+                                                                sort=sort,
+                                                                page_number=prev_page) }}">
+                                <i class="material-icons">chevron_left</i>
+                            </a>
+                        </li>
+                        {% for i in range(1, number_of_links + 1) %}
+                            <!-- 
+                            Show only a number of links in the range of 1 to the total number of links.
+                            Add 1 in case the total number of links is equal to 0
+                            For links that aren't of the current page number, show only 1 on each side so as not
+                            to exceed the width of the screen on small devices with the number of links and to keep it
+                            visually tidy.
+                            -->
+                            {% if i == page_number %}
+                                <li class="active num">
+                                    <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                        selected_cuisine=cuisine._id,
+                                                                        selected_allergen=allergen,
+                                                                        sort=sort,
+                                                                        page_number=i) }}">{{ i }}
+                                    </a>
+                                </li>
+                            {% elif i > page_number - 2  and i < page_number + 2 %}
+                                <li class="waves-effect num">
+                                    <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                        selected_cuisine=cuisine._id,
+                                                                        selected_allergen=allergen,
+                                                                        sort=sort,
+                                                                        page_number=i) }}">{{ i }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <!-- -->
+                        {% endfor %}
+                        <li class="waves-effect arrow">
+                            <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                selected_cuisine=cuisine._id,
+                                                                selected_allergen=allergen,
+                                                                sort=sort,
+                                                                page_number=next_page) }}">
+                                <i class="material-icons">chevron_right</i>
+                            </a>
+                        </li>
                         <!-- -->
-                    {% endfor %}
-                    <li class="waves-effect arrow">
-                        <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                            selected_cuisine=cuisine._id,
-                                                            selected_allergen=allergen,
-                                                            sort=sort,
-                                                            page_number=next_page) }}">
-                            <i class="material-icons">chevron_right</i>
-                        </a>
-                    </li>
-                    <!-- -->
-                </ul>
-                <ul class="pagination big">
-                    <!-- For larger devices/larger than 450px in width -->
-                    <li class="disabled arrow">
-                        <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                            selected_cuisine=cuisine._id,
-                                                            selected_allergen=allergen,
-                                                            sort=sort,
-                                                            page_number=prev_page) }}">
-                            <i class="material-icons">chevron_left</i>
-                        </a>
-                    </li>
-                    {% for i in range(1, number_of_links + 1) %}
-                        <!-- Show 4 links on each side of the current page one -->
-                        {% if i == page_number %}
-                            <li class="active num">
-                                <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                                    selected_cuisine=cuisine._id,
-                                                                    selected_allergen=allergen,
-                                                                    sort=sort,
-                                                                    page_number=i) }}">{{ i }}
-                                </a>
-                            </li>
-                        {% elif i > page_number - 5  and i < page_number + 5 %}
-                            <li class="waves-effect num">
-                                <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                                    selected_cuisine=cuisine._id,
-                                                                    selected_allergen=allergen,
-                                                                    sort=sort,
-                                                                    page_number=i) }}">{{ i }}
-                                </a>
-                            </li>
-                        {% endif %}
+                    </ul>
+                    <ul class="pagination big">
+                        <!-- For larger devices/larger than 450px in width -->
+                        <li class="disabled arrow">
+                            <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                selected_cuisine=cuisine._id,
+                                                                selected_allergen=allergen,
+                                                                sort=sort,
+                                                                page_number=prev_page) }}">
+                                <i class="material-icons">chevron_left</i>
+                            </a>
+                        </li>
+                        {% for i in range(1, number_of_links + 1) %}
+                            <!-- Show 4 links on each side of the current page one -->
+                            {% if i == page_number %}
+                                <li class="active num">
+                                    <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                        selected_cuisine=cuisine._id,
+                                                                        selected_allergen=allergen,
+                                                                        sort=sort,
+                                                                        page_number=i) }}">{{ i }}
+                                    </a>
+                                </li>
+                            {% elif i > page_number - 5  and i < page_number + 5 %}
+                                <li class="waves-effect num">
+                                    <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                        selected_cuisine=cuisine._id,
+                                                                        selected_allergen=allergen,
+                                                                        sort=sort,
+                                                                        page_number=i) }}">{{ i }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <!-- -->
+                        {% endfor %}
+                        <li class="waves-effect arrow">
+                            <a href="{{ url_for('summary_display', selected_category=category._id,
+                                                                selected_cuisine=cuisine._id,
+                                                                selected_allergen=allergen, 
+                                                                sort=sort,
+                                                                page_number=next_page) }}">
+                                <i class="material-icons">chevron_right</i>
+                            </a>
+                        </li>
                         <!-- -->
-                    {% endfor %}
-                    <li class="waves-effect arrow">
-                        <a href="{{ url_for('summary_display', selected_category=category._id,
-                                                            selected_cuisine=cuisine._id,
-                                                            selected_allergen=allergen, 
-                                                            sort=sort,
-                                                            page_number=next_page) }}">
-                            <i class="material-icons">chevron_right</i>
-                        </a>
-                    </li>
+                    </ul>
                     <!-- -->
-                </ul>
-                <!-- -->
-            </div>
+                </div>
+            {% endif %}
         </div>
     </div>
     <!-- -->
