@@ -204,23 +204,30 @@
                                 <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                     <p>{{ recipe.title }}</p>
                                 </a>
-                                {% if recipe._id in user.favourite_recipes %}
+                                {% if username %}
                                     <!-- 
-                                    Favourite button, if recipe not
+                                    Favourite button. Disabled for non-logged in users, if recipe not
                                     favourited yet, its clickable otherwise if its already favourited the 
                                     link is disabled and the start icon turns solid
                                     -->
-                                    <span>
-                                        <p>Favourited {{ recipe.favourited }} times</p>
-                                        <i class="fas fa-star"></i>
-                                    </span> 
+                                    {% if recipe._id in user.favourite_recipes %}
+                                        <span>
+                                            <p>Favourited {{ recipe.favourited }} times</p>
+                                            <i class="fas fa-star"></i>
+                                        </span>
+                                    {% else %}
+                                        <span>
+                                            <p>Favourited {{ recipe.favourited }} times</p>
+                                            <a href="{{ url_for('favourite', recipe_id=recipe._id, page='index') }}">
+                                                <i class="far fa-star not_favourited highlight"></i>
+                                            </a>
+                                        </span>
+                                    {% endif %}
                                 {% else %}
                                     <span>
                                         <p>Favourited {{ recipe.favourited }} times</p>
-                                        <a href="{{ url_for('favourite', recipe_id=recipe._id, page='account') }}">
-                                            <i class="far fa-star not_favourited highlight"></i>
-                                        </a>
-                                    </span> 
+                                        <i class="far fa-star"></i>
+                                    </span>
                                     <!-- -->
                                 {% endif %}
                                 <p class="date">{{ recipes_dates[loop.index0] }}</p>
