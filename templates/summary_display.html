@@ -29,6 +29,12 @@
 {% block big_screen %}
 <!-- Navigation links for a screen larger than 992px in width. -->
 <li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
+</li>
+<li>
     <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
         href="#!" 
         data-target="categories">Categories
@@ -49,9 +55,7 @@
         <i class="material-icons right">arrow_drop_down</i>
     </a>
 </li>
-<li>
-    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
-</li>
+
 {% if username %}
     <!-- Links to display if user in session/logged in or if not -->
     <li>
@@ -64,6 +68,9 @@
         <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
     </li>
 {% else %}
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
+    </li>
     <li>
         <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
     </li>
@@ -139,6 +146,9 @@
         <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
     </li>
 {% else %}
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
+    </li>
     <li>
         <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
     </li>
