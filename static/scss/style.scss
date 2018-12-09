@@ -870,9 +870,11 @@ nav {
             justify-content: center;
         }
 
-        p {
+        a {
+            text-decoration: none;
             padding: 20px;
             margin: 0;
+            color: white;
 
             &:first-child {
                 @media (min-width: 600px) {
