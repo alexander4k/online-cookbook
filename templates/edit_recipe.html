@@ -1,54 +1,182 @@
 {% extends 'base.html' %}
 
+{% block dropdown_content %}
+<!-- Content(links) of the summary dropdown menus -->
+<ul id="categories" class="dropdown-content">
+    {% for category in categories_two %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="cuisines" class="dropdown-content">
+    {% for cuisine in cuisines_two %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="allergens" class="dropdown-content">
+    {% for allergen in allergens %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<!-- -->
+{% endblock %}
+
 {% block big_screen %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a></li>
-{% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li> 
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li> 
-{% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li> 
-{% endif %}
+<!-- Navigation links for a screen larger than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="categories">Categories
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="cuisines">Cuisines
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="allergens">Allergens
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
+        <i class="fas fa-user"></i>
+        <span>{{ username }}</span>
+    </a>
+</li> 
+<li>
+    <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+</li> 
+<!-- -->
 {% endblock %}
 
 {% block small_screen %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a></li>
-{% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
-{% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li> 
-{% endif %}
+<!-- Navigation links for screens smaller than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a>
+</li>
+<div class="mobile_summary">
+    <div class="mobile_group one">
+        <li class="mobile_group_heading one hvr-sweep-to-right">
+            <a>
+                <span>Categories</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group one hidden">
+            {% for category in categories_three %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group two">
+        <li class="mobile_group_heading two hvr-sweep-to-right">
+            <a>
+                <span>Cuisines</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group two hidden">
+            {% for cuisine in cuisines_three %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group three">
+        <li class="mobile_group_heading three hvr-sweep-to-right">
+            <a>
+                <span>Allergens</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group three hidden">
+            {% for allergen in allergens %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<li>
+    <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
+        <span>{{ username }}</span>
+        <i class="fas fa-user"></i>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
+</li>
+<!-- -->
 {% endblock %}
 
 {% block content %}
 <div class="container add_recipe edit_recipe">
+    <!-- Main content -->
     <form action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" method="POST">
         <div class="row">
-            <h1>Edit Recipe {{ recipe._id }}</h1>
+            <h1>Edit Recipe</h1>
             <div class="col s12 m6 left">
                 <div class="section general">
+                    <!-- General recipe information -->
                     <div class="input-field col s12 m11">
                         <h2>General Information</h2>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="title" name="title" type="text" class="validate" placeholder="{{ recipe.title }}" value="{{ recipe.title }}" required maxlength="50">
+                        <input id="title" 
+                            name="title" 
+                            type="text" 
+                            class="validate"
+                            placeholder="{{ recipe.title }}" 
+                            value="{{ recipe.title }}" 
+                            required maxlength="50">
                         <label for="title">Edit title <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
 
-                        <textarea id="description" name="description" class="materialize-textarea" placeholder="{{ recipe.description }}" required>{{ recipe.description }}</textarea>
+                        <textarea id="description" 
+                                name="description" 
+                                class="materialize-textarea" 
+                                placeholder="{{ recipe.description }}" 
+                                required>{{ recipe.description }}</textarea>
                         <label for="description">Edit description <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
                         <div class="col s12 img">
-                            <img src="{{ recipe.image }}">
+                            <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
                         </div>
                         <div class="input-field col s12 img">
-                            <input id="image" name="image" type="text" class="validate" placeholder="{{ recipe.image }}" value="{{ recipe.image }}" required>
+                            <input id="image" 
+                                name="image" 
+                                type="text" 
+                                class="validate" 
+                                placeholder="{{ recipe.image }}" 
+                                value="{{ recipe.image }}" 
+                                required>
                             <label for="image">Edit image url <span>(required)</span></label>
                         </div>
                     </div>
@@ -56,9 +184,9 @@
                         <select id="category" name="category">
                                 {% for category in categories %}
                                     {% if category.name == current_category.name %}
-                                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                                        <option value="{{ category.name }}" selected>{{ category.name }}</option>
                                     {% else %}
-                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                        <option value="{{ category.name }}">{{ category.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -68,9 +196,9 @@
                         <select id="cuisine" name="cuisine">
                                 {% for cuisine in cuisines %}
                                     {% if cuisine.name == current_cuisine.name %}
-                                    <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
+                                        <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
                                     {% else %}
-                                    <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
+                                        <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -80,67 +208,121 @@
                         <select id="difficulty" name="difficulty">
                             {% for difficulty in difficulties %}
                                 {% if difficulty == recipe.difficulty %}
-                                <option value="{{ difficulty }}" selected>{{ difficulty }}</option>
+                                    <option value="{{ difficulty }}" selected>{{ difficulty }}</option>
                                 {% else %}
-                                <option value="{{ difficulty }}">{{ difficulty }}</option>
+                                    <option value="{{ difficulty }}">{{ difficulty }}</option>
                                 {% endif %}
                             {% endfor %}
                             </select>
                         <label for="difficulty">Edit difficulty</label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="prep_time" name="cook_time" type="text" class="validate" placeholder="{{ recipe.time.prep }}" value="{{ recipe.time.prep }}" required>
+                        <input id="prep_time" 
+                            name="cook_time" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.time.prep }}" 
+                            value="{{ recipe.time.prep }}" 
+                            required>
                         <label for="prep_time">Edit preparation time <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="{{ recipe.time.cook }}" value="{{ recipe.time.cook }}">
+                        <input id="cook_time" 
+                            name="prep_time" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.time.cook }}"
+                            value="{{ recipe.time.cook }}">
                         <label for="cook_time">Edit cooking time</label>
                     </div>
                     <div class="input-field col s12 m11">
                         <p class="range-field">
-                            <label for="servings" id="range_label">Edit number of servings <span>(current - {{ recipe.servings }})</span></label>
+                            <label for="servings" id="range_label">Edit number of servings 
+                                <span>(current - {{ recipe.servings }})</span>
+                            </label>
                             <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
                         </p>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section nutrition">
+                    <!-- Nutritional information -->
                     <div class="input-field col s12 m11">
                         <h2>Nutritional Information</h2>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="calories" name="calories" type="text" class="validate" placeholder="{{ recipe.nutritional.calories }}" value="{{ recipe.nutritional.calories }}">
+                        <input id="calories" 
+                            name="calories" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.calories }}" 
+                            value="{{ recipe.nutritional.calories }}">
                         <label>Calories</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="fat" name="fat" type="text" class="validate" placeholder="{{ recipe.nutritional.fat }}" value="{{ recipe.nutritional.fat }}">
+                        <input id="fat" 
+                            name="fat" type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.fat }}" 
+                            value="{{ recipe.nutritional.fat }}">
                         <label>Fat</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="saturates" name="saturates" type="text" class="validate" placeholder="{{ recipe.nutritional.saturates }}" value="{{ recipe.nutritional.saturates }}">
+                        <input id="saturates" 
+                            name="saturates" type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.saturates }}"
+                            value="{{ recipe.nutritional.saturates }}">
                         <label>Saturates</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="carbs" name="carbs" type="text" class="validate" placeholder="{{ recipe.nutritional.carbs }}" value="{{ recipe.nutritional.carbs }}">
+                        <input id="carbs"
+                            name="carbs" type="text" 
+                            class="validate"
+                            placeholder="{{ recipe.nutritional.carbs }}"
+                            value="{{ recipe.nutritional.carbs }}">
                         <label>Carbs</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="sugars" name="sugars" type="text" class="validate" placeholder="{{ recipe.nutritional.sugars }}" value="{{ recipe.nutritional.sugars }}">
+                        <input id="sugars"
+                            name="sugars"
+                            type="text" 
+                            class="validate"
+                            placeholder="{{ recipe.nutritional.sugars }}"
+                            value="{{ recipe.nutritional.sugars }}">
                         <label>Sugars</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="salt" name="salt" type="text" class="validate" placeholder="{{ recipe.nutritional.salt }}" value="{{ recipe.nutritional.salt }}">
+                        <input id="salt" 
+                            name="salt" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.salt }}" 
+                            value="{{ recipe.nutritional.salt }}">
                         <label>Salt</label>
                     </div>
                     <div class="input-field col s6 m4">
-                        <input id="fibre" name="fibre" type="text" class="validate" placeholder="{{ recipe.nutritional.fibre }}" value="{{ recipe.nutritional.fibre }}">
+                        <input id="fibre"
+                            name="fibre" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.fibre }}"
+                            value="{{ recipe.nutritional.fibre }}">
                         <label>Fibre</label>
                     </div>
                     <div class="input-field col s6 m4 offset-m3">
-                        <input id="protein" name="protein" type="text" class="validate" placeholder="{{ recipe.nutritional.protein }}" value="{{ recipe.nutritional.protein }}">
+                        <input id="protein" 
+                            name="protein" 
+                            type="text" 
+                            class="validate" 
+                            placeholder="{{ recipe.nutritional.protein }}" 
+                            value="{{ recipe.nutritional.protein }}">
                         <label>Protein</label>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section allergens">
+                    <!-- Allergen information -->
                     <div class="input-field col s12 m11">
                         <h2>Allergen Information</h2>
                     </div>
@@ -148,9 +330,9 @@
                         <p>
                             <label>
                                 {% if "dairy" in recipe.allergens %}
-                                <input name="allergen" value="dairy" type="checkbox" checked/>
+                                    <input name="allergen" value="dairy" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="dairy" type="checkbox" />
+                                    <input name="allergen" value="dairy" type="checkbox" />
                                 {% endif %}
                                 <span>Dairy</span>
                             </label>
@@ -160,9 +342,9 @@
                         <p>
                             <label>
                                 {% if "eggs" in recipe.allergens %}
-                                <input name="allergen" value="eggs" type="checkbox" checked/>
+                                    <input name="allergen" value="eggs" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="eggs" type="checkbox" />
+                                    <input name="allergen" value="eggs" type="checkbox" />
                                 {% endif %}
                                 <span>Eggs</span>
                             </label>
@@ -172,9 +354,9 @@
                         <p>
                             <label>
                                 {% if "peanuts" in recipe.allergens %}
-                                <input name="allergen" value="peanuts" type="checkbox" checked/>
+                                    <input name="allergen" value="peanuts" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="peanuts" type="checkbox" />
+                                    <input name="allergen" value="peanuts" type="checkbox" />
                                 {% endif %}
                                 <span>Peanuts</span>
                             </label>
@@ -184,9 +366,9 @@
                         <p>
                             <label>
                                 {% if "fish" in recipe.allergens %}
-                                <input name="allergen" value="fish" type="checkbox" checked/>
+                                    <input name="allergen" value="fish" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="fish" type="checkbox" />
+                                    <input name="allergen" value="fish" type="checkbox" />
                                 {% endif %}
                                 <span>Fish</span>
                             </label>
@@ -196,9 +378,9 @@
                         <p>
                             <label>
                                 {% if "shellfish" in recipe.allergens %}
-                                <input name="allergen" value="shellfish" type="checkbox" checked/>
+                                    <input name="allergen" value="shellfish" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="shellfish" type="checkbox" />
+                                    <input name="allergen" value="shellfish" type="checkbox" />
                                 {% endif %}
                                 <span>Shellfish</span>
                             </label>
@@ -208,9 +390,9 @@
                         <p>
                             <label>
                                 {% if "soy" in recipe.allergens %}
-                                <input name="allergen" value="soy" type="checkbox" checked/>
+                                    <input name="allergen" value="soy" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="soy" type="checkbox" />
+                                    <input name="allergen" value="soy" type="checkbox" />
                                 {% endif %}
                                 <span>Soy</span>
                             </label>
@@ -220,9 +402,9 @@
                         <p>
                             <label>
                                 {% if "wheat" in recipe.allergens %}
-                                <input name="allergen" value="wheat" type="checkbox" checked/>
+                                    <input name="allergen" value="wheat" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="wheat" type="checkbox" />
+                                    <input name="allergen" value="wheat" type="checkbox" />
                                 {% endif %}
                                 <span>Wheat</span>
                             </label>
@@ -232,67 +414,116 @@
                         <p>
                             <label>
                                 {% if "tree nuts" in recipe.allergens %}
-                                <input name="allergen" value="tree nuts" type="checkbox" checked/>
+                                    <input name="allergen" value="tree nuts" type="checkbox" checked/>
                                 {% else %}
-                                <input name="allergen" value="tree nuts" type="checkbox" />
+                                    <input name="allergen" value="tree nuts" type="checkbox" />
                                 {% endif %}
                                 <span>Tree nuts</span>
                             </label>
                         </p>
                     </div>
+                    <!-- -->
                 </div>
+                <!-- -->
             </div>
             <div class="col s12 m6 right">
+                <!-- Includes ingredients and instructions information-->
                 <div class="section ingredients">
+                    <!-- Ingredient information -->
                     <div class="input-field col s12 m11 offset-m1">
                         <h2>Edit Ingredients</h2>
                     </div>
                     {% for ingredient in recipe.ingredients %}
-                    {% if loop.index == 1 or loop.index == 2 %}
-                    <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="{{ ingredient }}" required>{{ ingredient }}</textarea>
-                    </div>
-                    {% else %}
-                    <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="{{ ingredient }}">{{ ingredient }}</textarea>
-                    </div>
-                    {% endif %}
+                        <!-- Set the first 2 ingredients as required -->
+                        {% if loop.index == 1 or loop.index == 2 %}
+                            <div class="input-field col s12 m11 offset-m1">
+                                <textarea id="ingredient_1" 
+                                        name="ingredient" 
+                                        class="materialize-textarea"
+                                        placeholder="{{ ingredient }}"
+                                        required>{{ ingredient }}</textarea>
+                            </div>
+                        {% else %}
+                            <div class="input-field col s12 m11 offset-m1 another">
+                                <textarea id="ingredient_1"
+                                        name="ingredient" 
+                                        class="materialize-textarea" 
+                                        placeholder="{{ ingredient }}">{{ ingredient }}</textarea>
+                            </div>
+                        {% endif %}
+                        <!-- -->
                     {% endfor %}
+                    <!-- -->
                 </div>
                 <div class="section ingredients_controls">
+                    <!-- Buttons for adding more ingredient textarea elements and removing the last one -->
                     <div class="col s12 m11 offset-m1">
-                        <a class="btn-floating btn-small waves-effect waves-light add_ingredient tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
-                        <a class="btn-floating btn-small waves-effect waves-light remove_ingredient tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light add_ingredient tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Add another">
+                            <i class="material-icons add">add</i>
+                        </a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_ingredient tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Remove last">
+                            <i class="material-icons remove">remove</i>
+                        </a>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section instructions">
+                    <!-- Instructions information-->
                     <div class="input-field col s12 m11 offset-m1">
                         <h2>Edit instructions</h2>
                     </div>
                     {% for instruction in recipe.instructions %}
-                    {% if loop.index == 1 or loop.index == 2 %}
-                    <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="{{ instruction }}" required>{{ instruction }}</textarea>
-                    </div>
-                    {% else %}
-                    <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="{{ instruction }}" >{{ instruction }}</textarea>
-                    </div>
-                    {% endif %}
+                        <!-- Set the first 2 instructions as required -->
+                        {% if loop.index == 1 or loop.index == 2 %}
+                            <div class="input-field col s12 m11 offset-m1">
+                                <textarea id="instruction_1" 
+                                        name="instruction" 
+                                        class="materialize-textarea" 
+                                        placeholder="{{ instruction }}" 
+                                        required>{{ instruction }}</textarea>
+                            </div>
+                        {% else %}
+                            <div class="input-field col s12 m11 offset-m1 another">
+                                <textarea id="instruction_1" 
+                                        name="instruction" 
+                                        class="materialize-textarea" 
+                                        placeholder="{{ instruction }}" >{{ instruction }}</textarea>
+                            </div>
+                        {% endif %}
+                        <!-- -->
                     {% endfor %}
+                    <!-- -->
                 </div>
                 <div class="section instructions_controls">
+                    <!-- Buttons for adding more instruction textarea elements or removing the last one -->
                     <div class="col s12 m11 offset-m1">
-                        <a class="btn-floating btn-small waves-effect waves-light add_instruction tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
-                        <a class="btn-floating btn-small waves-effect waves-light remove_instruction tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light add_instruction tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Add another">
+                            <i class="material-icons add">add</i>
+                        </a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_instruction tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Remove last">
+                            <i class="material-icons remove">remove</i>
+                        </a>
                     </div>
+                    <!-- -->
                 </div>
             </div>
         </div>
         <div class="col s12 submit_recipe">
-            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Edit recipe
+            <!-- Button to submit the form -->
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" 
+                    type="submit" 
+                    name="action">Edit recipe
                 <i class="material-icons right">send</i>
             </button>
+            <!-- -->
         </div>
     </form>
 </div>

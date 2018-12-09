@@ -13,27 +13,38 @@
 </head>
 
 <body>
+    <!-- Dropdown content for summary dropdowns goes here -->
+    {% block dropdown_content %}{% endblock %}
+    <!-- -->
     <nav>
+        <!-- Navigation -->
         <div class="nav-wrapper">
             <a href="{{ url_for('index') }}" class="brand-logo hvr-underline-from-center"><span>Online</span><span> Cookbook</span></a>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
+                <!-- Navigation links for a screen larger than 992px in width -->
                 {% block big_screen %} {% endblock %}
+                <!-- -->
             </ul>
         </div>
     </nav>
     <ul class="sidenav" id="nav-mobile">
-        <li>
+        <!-- Navigation links for a screen smaller than 992px in width -->
         {% block small_screen %}{% endblock %}
+        <!-- -->
     </ul>
     <main>
+        <!-- Main content goes here -->
         {% block content %} {% endblock %}
+        <!-- -->
     </main>
     <footer class="page-footer">
+        <!-- Footer -->
         <div class="footer-copyright">
             <p>© 2018 Copyright</p>
             <p>Terms & Conditions</p>
         </div>
+        <!-- -->
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

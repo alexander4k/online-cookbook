@@ -1,59 +1,181 @@
 {% extends 'base.html' %}
 
+{% block dropdown_content %}
+<!-- Content(links) of the summary drop down menus -->
+<ul id="categories" class="dropdown-content">
+    {% for category in categories_two %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="cuisines" class="dropdown-content">
+    {% for cuisine in cuisines_two %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="allergens" class="dropdown-content">
+    {% for allergen in allergens %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<!-- -->
+{% endblock %}
+
 {% block big_screen %} 
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a></li>
-{% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li> 
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li> 
-{% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li> 
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li> 
-{% endif %}
+<!-- Navigation links for a screen larger than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="categories">Categories
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="cuisines">Cuisines
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="allergens">Allergens
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
+        <i class="fas fa-user"></i>
+        <span>{{ username }}</span>
+    </a>
+</li> 
+<li>
+    <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+</li> 
+<!-- -->
 {% endblock %}
 
 {% block small_screen %}
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a></li>
-{% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
-{% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li> 
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li> 
-{% endif %}
+<!-- Navigation links for screens smaller than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a>
+</li>
+<div class="mobile_summary">
+    <div class="mobile_group one">
+        <li class="mobile_group_heading one hvr-sweep-to-right">
+            <a>
+                <span>Categories</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group one hidden">
+            {% for category in categories_three %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group two">
+        <li class="mobile_group_heading two hvr-sweep-to-right">
+            <a>
+                <span>Cuisines</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group two hidden">
+            {% for cuisine in cuisines_three %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group three">
+        <li class="mobile_group_heading three hvr-sweep-to-right">
+            <a>
+                <span>Allergens</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group three hidden">
+            {% for allergen in allergens %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+<li>
+    <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
+        <span>{{ username }}</span>
+        <i class="fas fa-user"></i>
+    </a>
+</li>
+<li>
+    <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
+</li>
+<!-- -->
 {% endblock %}
 
 {% block content %}
 <div class="container add_recipe">
+    <!-- Main content -->
     <form action="{{ url_for('insert_recipe') }}" method="POST">
         <div class="row">
             <h1>New Recipe</h1>
             <div class="col s12 m6 left">
                 <div class="section general">
+                    <!-- General recipe information -->
                     <div class="input-field col s12 m11">
                         <h2>General Information</h2>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="title" name="title" type="text" class="validate" placeholder="Gingerbread people" required maxlength="50">
+                        <input id="title" name="title" type="text" class="validate" 
+                                placeholder="Gingerbread people" required maxlength="50">
                         <label for="title">Add title <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
 
-                        <textarea id="description" name="description" class="materialize-textarea" placeholder="Adorable gingerbread people easier with tubes of shop-bought icing and sweets." required></textarea>
+                        <textarea id="description" 
+                                name="description" 
+                                class="materialize-textarea" 
+                                placeholder="Adorable gingerbread people easier with tubes of shop-bought icing and sweets." 
+                                required></textarea>
                         <label for="description">Fill in description <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="image" name="image" type="text" class="validate" placeholder="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=350" required>
+                        <input id="image" 
+                                name="image" 
+                                type="text" 
+                                class="validate" 
+                                placeholder="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&h=350" 
+                                required>
                         <label for="image">Add image url <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
                         <select id="category" name="category">
                                 {% for category in categories %}
                                     {% if loop.index == 1 %}
-                                    <option value="{{ category.name }}" selected>{{ category.name }}</option>
+                                        <option value="{{ category.name }}" selected>{{ category.name }}</option>
                                     {% else %}
-                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                        <option value="{{ category.name }}">{{ category.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -63,9 +185,9 @@
                         <select id="cuisine" name="cuisine">
                                 {% for cuisine in cuisines %}
                                     {% if loop.index == 1 %}
-                                    <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
+                                        <option value="{{ cuisine.name }}" selected>{{ cuisine.name }}</option>
                                     {% else %}
-                                    <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
+                                        <option value="{{ cuisine.name }}">{{ cuisine.name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
@@ -80,11 +202,11 @@
                         <label for="difficulty">Select difficulty</label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="prep_time" name="cook_time" type="text" class="validate" placeholder="20 minutes" required>
+                        <input id="prep_time" name="prep_time" type="text" class="validate" placeholder="20 minutes" required>
                         <label for="prep_time">Add preparation time <span>(required)</span></label>
                     </div>
                     <div class="input-field col s12 m11">
-                        <input id="cook_time" name="prep_time" type="text" class="validate" placeholder="1 hour">
+                        <input id="cook_time" name="cook_time" type="text" class="validate" placeholder="1 hour">
                         <label for="cook_time">Add cooking time</label>
                     </div>
                     <div class="input-field col s12 m11">
@@ -93,8 +215,10 @@
                             <input class="lol" type="range" id="servings" name="servings" min="0" max="20"/>
                         </p>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section nutrition">
+                     <!-- Nutritional information -->
                     <div class="input-field col s12 m11">
                         <h2>Nutritional Information</h2>
                     </div>
@@ -130,8 +254,10 @@
                         <input id="protein" name="protein" type="text" class="validate" placeholder="10g">
                         <label>Protein</label>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section allergens">
+                    <!-- Allergen information -->
                     <div class="input-field col s12 m11">
                         <h2>Allergen Information</h2>
                     </div>
@@ -199,50 +325,98 @@
                             </label>
                         </p>
                     </div>
+                    <!-- -->
                 </div>
+               <!-- -->
             </div>
             <div class="col s12 m6 right">
+                <!-- Includes ingredients and instructions information-->
                 <div class="section ingredients">
+                    <!-- Ingredient information -->
                     <div class="input-field col s12 m11 offset-m1">
                         <h2>Add ingredients</h2>
                     </div>
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_1" name="ingredient" class="materialize-textarea" placeholder="200grams carrots" required></textarea>
+                        <textarea id="ingredient_1" 
+                                name="ingredient" 
+                                class="materialize-textarea" 
+                                placeholder="200grams carrots" 
+                                required></textarea>
                     </div>
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="ingredient_2" name="ingredient" class="materialize-textarea" placeholder="1 pepper" required></textarea>
+                        <textarea id="ingredient_2" 
+                                name="ingredient" 
+                                class="materialize-textarea" 
+                                placeholder="1 pepper" 
+                                required></textarea>
                     </div>
+                     <!-- -->
                 </div>
                 <div class="section ingredients_controls">
+                    <!-- Buttons for adding more ingredient textarea elements and removing the last one -->
                     <div class="col s12 m11 offset-m1">
-                        <a class="btn-floating btn-small waves-effect waves-light add_ingredient tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
-                        <a class="btn-floating btn-small waves-effect waves-light remove_ingredient tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light add_ingredient tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Add another">
+                            <i class="material-icons add">add</i>
+                        </a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_ingredient tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Remove last">
+                            <i class="material-icons remove">remove</i>
+                        </a>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section instructions">
+                    <!-- Instructions information-->
                     <div class="input-field col s12 m11 offset-m1">
                         <h2>Add instructions</h2>
                     </div>
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_1" name="instruction" class="materialize-textarea" placeholder="Cut the carrots into disks about .5cm thin and the pepper into 2cm cubes" required></textarea>
+                        <textarea id="instruction_1" 
+                                name="instruction" 
+                                class="materialize-textarea" 
+                                placeholder="Cut the carrots into disks about .5cm thin and the pepper into 2cm cubes" 
+                                required></textarea>
                     </div>
                     <div class="input-field col s12 m11 offset-m1">
-                        <textarea id="instruction_2" name="instruction" class="materialize-textarea" placeholder="Boil a pot of water, put a teaspoon of salt in and toss the vegetables in" required></textarea>
+                        <textarea id="instruction_2" 
+                                name="instruction"
+                                class="materialize-textarea" 
+                                placeholder="Boil a pot of water, put a teaspoon of salt in and toss the vegetables in" 
+                                required></textarea>
                     </div>
+                    <!-- -->
                 </div>
                 <div class="section instructions_controls">
+                    <!-- Buttons for adding more instruction textarea elements or removing the last one -->
                     <div class="col s12 m11 offset-m1">
-                        <a class="btn-floating btn-small waves-effect waves-light add_instruction tooltipped" data-position="bottom" data-tooltip="Add another"><i class="material-icons add">add</i></a>
-                        <a class="btn-floating btn-small waves-effect waves-light remove_instruction tooltipped" data-position="bottom" data-tooltip="Remove last"><i class="material-icons remove">remove</i></a>
+                        <a class="btn-floating btn-small waves-effect waves-light add_instruction tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Add another">
+                            <i class="material-icons add">add</i>
+                        </a>
+                        <a class="btn-floating btn-small waves-effect waves-light remove_instruction tooltipped" 
+                            data-position="bottom" 
+                            data-tooltip="Remove last">
+                            <i class="material-icons remove">remove</i>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col s12 submit_recipe">
-            <button class="btn waves-effect waves-light hvr-sweep-to-right" type="submit" name="action">Create recipe
+            <!-- Button to submit the form -->
+            <button class="btn waves-effect waves-light hvr-sweep-to-right" 
+                    type="submit" 
+                    name="action">Create recipe
                 <i class="material-icons right">send</i>
             </button>
+            <!-- -->
         </div>
     </form>
+    <!-- -->
 </div>
+
 {% endblock %}

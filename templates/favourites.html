@@ -129,44 +129,35 @@
         <div class="col s12 small_screen_hide">
             <!-- small_screen hide hide on screens smaller than 600px in width -->
             <div class="col s6">
-                <h1 class="profile_option1 active">My recipes</h1>
+                <a href="{{ url_for('account') }}">
+                    <h1 class="profile_option1">My recipes</h1>
+                </a>
             </div>
             <div class="col s6">
                 <a href="{{ url_for('favourite_recipes') }}">
-                    <h1 class="profile_option2">Favourites</h1>
+                    <h1 class="profile_option2 active">Favourites</h1>
                 </a> 
             </div>
             <!-- -->
         </div>
         <div class="col s12 small_screen_show">
             <!-- display on screens larger than 600px in width -->
-            <form name="options" action="{{ url_for('account') }}" method="POST">
+            <form name="options" action="{{ url_for('favourite_recipes') }}" method="POST">
                 <div class="input-field col s12">
                     <select name="options" id="profile_options" onchange="this.form.submit()">
                         <option value="1">My recipes</option>
-                        <option value="2">Favourites</option>
+                        <option value="2" selected>Favourites</option>
                     </select>
                 </div>
             </form>
             <!-- -->
         </div>
-        <div class="col s12 my_recipes">
-            <div class="col s12">
-                <!-- Button to add a new recipe -->
-                <a href="{{ url_for('add_recipe') }}">
-                    <button class="btn waves-effect waves-light hvr-sweep-to-right new_recipe" 
-                            type="submit" 
-                            name="new">Add new recipe
-                        <i class="material-icons right">add</i>
-                    </button>
-                </a>
-                <!-- -->
-            </div>
-            <div class="col s12 sort">
+        <div class="col s12">
+            <div class="col s12 sort favourites">
                 <!-- Select for sorting displayed recipes and displays count of the recipes -->
-                <form action="{{ url_for('account') }}" method="POST">
+                <form name="sort" action="{{ url_for('favourite_recipes') }}" method="POST">
                     <div class="input-field col s12 m6 l4">
-                        <select id="sort" name="sort" onchange="this.form.submit()">
+                        <select name="sort" id="sort" name="sort" onchange="this.form.submit()">
                             <option selected disabled>Sort by</option>
                             <option value="newest">Newest</option>
                             <option value="oldest">Oldest</option>
@@ -176,56 +167,36 @@
                     </div>
                 </form>
                 <div class="col s12 count">
-                    <p><strong>Own recipes - {{ recipes_count }}</strong></p>
+                    <p><strong>Favourite recipes - {{ favourite_recipes_count }}</strong></p>
                 </div>
                 <!-- -->
             </div>
             {% for recipe in recipes %} 
             <!-- Recipes display -->
                 <div class="col s12 m6 l4 recipe">
-                    <div class="recipe_card">
-                        <div class="image">
-                            <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
-                        </div>
-                        <div class="card_info">
-                            <div>
-                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
-                                    <p>{{ recipe.title }}</p>
-                                </a>
-                                {% if recipe._id in user.favourite_recipes %}
-                                    <!-- 
-                                    Favourite button, if recipe not favourited yet, its clickable otherwise
-                                    if its already favourited the link is disabled and the start icon turns solid
-                                    -->
-                                    <span><p>Favourited {{ recipe.favourited }} times</p><i class="fas fa-star"></i></span> 
-                                {% else %}
-                                    <span>
-                                        <p>Favourited {{ recipe.favourited }} times</p>
-                                        <a href="{{ url_for('favourite', recipe_id=recipe._id, page='account') }}">
-                                            <i class="far fa-star not_favourited highlight"></i>
-                                        </a>
-                                    </span> 
-                                    <!-- -->
-                                {% endif %}
-                                
-                                <p class="date">{{ recipes_dates[loop.index0] }}</p>
+                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                        <div class="recipe_card">
+                            <div class="image">
+                                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                            </div>
+                            <div class="card_info">
+                                <div>
+                                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                        <p>{{ recipe.title }}</p>
+                                    </a>
+                                    <span><p>Favourited {{ recipe.favourited }} times</p></span>
+                                    <p class="date">{{ recipes_dates[loop.index0] }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="buttons">
-                        <!-- Buttons for editing and deleting recipes from a user's own recipes list-->
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
-                            <button class="btn waves-effect waves-light hvr-sweep-to-right edit_recipe" 
+                    </a>
+                    <div class="buttons centered">
+                        <!-- Buttons for deleting recipes from a user's favourite recipes list-->
+                        <a href="{{ url_for('remove_recipe_favourite', recipe_id=recipe._id) }}">
+                            <button class="btn waves-effect waves-light hvr-sweep-to-right remove_recipe" 
                                     type="submit" 
-                                    name="edit">Edit
-                                <i class="material-icons right">edit</i>
-                            </button>
-                        </a>
-                        <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}">
-                            <button class="btn waves-effect waves-light hvr-sweep-to-right delete_recipe" 
-                                    type="submit" 
-                                    name="delete">Delete
-                                <i class="material-icons right">delete</i>
+                                    name="remove">Remove
+                                <i class="material-icons right">remove</i>
                             </button>
                         </a>
                         <!-- -->
@@ -238,7 +209,7 @@
                 <ul class="pagination small">
                     <!-- For small/below 450px in width devices only -->
                     <li class="disabled arrow">
-                        <a href="{{ url_for('account', sort=sort, page_number=prev_page) }}">
+                        <a href="{{ url_for('favourite_recipes', sort=sort, page_number=prev_page) }}">
                             <i class="material-icons">chevron_left</i>
                         </a>
                     </li>
@@ -252,54 +223,52 @@
                         -->
                         {% if i == page_number %}
                             <li class="active num">
-                                <a href="{{ url_for('account', sort=sort, page_number=i) }}">{{ i }}</a>
+                                <a href="{{ url_for('favourite_recipes', sort=sort, page_number=i) }}">{{ i }}</a>
                             </li>
                         {% elif i > page_number - 2  and i < page_number + 2 %}
-                        <li class="waves-effect num">
-                            <a href="{{ url_for('account', sort=sort, page_number=i) }}">{{ i }}</a>
-                        </li>
-                        {% endif %}
-                        <!-- -->
-                    {% endfor %}
-                    <li class="waves-effect arrow">
-                        <a href="{{ url_for('account', sort=sort, page_number=next_page) }}">
-                            <i class="material-icons">chevron_right</i>
-                        </a>
-                    </li>
-                     <!-- -->
-                </ul>
-                <ul class="pagination big">
-                    <!-- For larger devices/larger than 450px in width -->
-                    <li class="disabled arrow">
-                        <a href="{{ url_for('account', sort=sort, page_number=prev_page) }}">
-                            <i class="material-icons">chevron_left</i>
-                        </a>
-                    </li>
-                    {% for i in range(1, number_of_links + 1) %}
-                        {% if i == page_number %}
-                        <!-- Show 4 links on each side of the current page one -->
-                            <li class="active num">
-                                <a href="{{ url_for('account', sort=sort, page_number=i) }}">{{ i }}</a>
+                            <li class="waves-effect num">
+                                <a href="{{ url_for('favourite_recipes', sort=sort, page_number=i) }}">{{ i }}</a>
                             </li>
-                        {% elif i > page_number - 5  and i < page_number + 5 %}
-                        <li class="waves-effect num">
-                            <a href="{{ url_for('account', sort=sort, page_number=i) }}">{{ i }}</a>
-                        </li>
-                        <!-- -->
                         {% endif %}
+                        <!-- -->
                     {% endfor %}
                     <li class="waves-effect arrow">
-                        <a href="{{ url_for('account', sort=sort, page_number=next_page) }}">
+                        <a href="{{ url_for('favourite_recipes', sort=sort, page_number=next_page) }}">
                             <i class="material-icons">chevron_right</i>
                         </a>
                     </li>
                     <!-- -->
                 </ul>
-                <!-- -->
+                <ul class="pagination big">
+                    <!-- For larger devices/larger than 450px in width -->
+                    <li class="disabled arrow">
+                        <a href="{{ url_for('favourite_recipes', sort=sort, page_number=prev_page) }}">
+                            <i class="material-icons">chevron_left</i>
+                        </a>
+                    </li>
+                    {% for i in range(1, number_of_links + 1) %}
+                        <!-- Show 4 links on each side of the current page one -->
+                        {% if i == page_number %}
+                            <li class="active num">
+                                <a href="{{ url_for('favourite_recipes', sort=sort, page_number=i) }}">{{ i }}</a>
+                            </li>
+                        {% elif i > page_number - 5  and i < page_number + 5 %}
+                            <li class="waves-effect num">
+                                <a href="{{ url_for('favourite_recipes', sort=sort, page_number=i) }}">{{ i }}</a>
+                            </li>
+                        {% endif %}
+                        <!-- -->
+                    {% endfor %}
+                    <li class="waves-effect arrow">
+                        <a href="{{ url_for('favourite_recipes', sort=sort, page_number=next_page) }}">
+                            <i class="material-icons">chevron_right</i>
+                        </a>
+                    </li>
+                    <!-- -->
+                </ul>
             </div>
         </div>
     </div>
     <!-- -->
 </div>
-
 {% endblock %}

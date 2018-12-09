@@ -1,41 +1,178 @@
 {% extends "base.html" %} 
 
+{% block dropdown_content %}
+<!-- Content(links) of the summary dropdown menus -->
+<ul id="categories" class="dropdown-content">
+    {% for category in categories %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="cuisines" class="dropdown-content">
+    {% for cuisine in cuisines %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<ul id="allergens" class="dropdown-content">
+    {% for allergen in allergens %}
+        <li>
+            <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+        </li>
+    {% endfor %}
+</ul>
+<!-- -->
+{% endblock %}
+
 {% block big_screen %} 
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a></li>
+<!-- Navigation links for a screen larger than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="categories">Categories
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="cuisines">Cuisines
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
+<li>
+    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+        href="#!" 
+        data-target="allergens">Allergens
+        <i class="material-icons right">arrow_drop_down</i>
+    </a>
+</li>
 {% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-top"><i class="fas fa-user"></i><span>{{ username }}</span></a></li>
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a></li>
+    <!-- Links to display if user in session/logged in or if not -->
+    <li>
+        <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
+            <i class="fas fa-user"></i>
+            <span>{{ username }}</span>
+        </a>
+    </li>
+    <li>
+        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+    </li>
 {% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a></li>
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register an account</a></li>
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
+    </li>
+    <li>
+        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
+    </li>
+    <!-- -->
 {% endif %} 
+<!-- -->
 {% endblock %} 
 
 {% block small_screen %} 
-<li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a></li>
-<li><a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a></li>
+<!-- Navigation links for screens smaller than 992px in width. -->
+<li>
+    <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
+</li>
+<li>
+    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a>
+</li>
+<div class="mobile_summary">
+    <div class="mobile_group one">
+        <li class="mobile_group_heading one hvr-sweep-to-right">
+            <a>
+                <span>Categories</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group one hidden">
+            {% for category in categories_two %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group two">
+        <li class="mobile_group_heading two hvr-sweep-to-right">
+            <a>
+                <span>Cuisines</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group two hidden">
+            {% for cuisine in cuisines_two %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="mobile_group three">
+        <li class="mobile_group_heading three hvr-sweep-to-right">
+            <a>
+                <span>Allergens</span>
+                <i class="material-icons">arrow_drop_down</i>
+            </a>
+        </li>
+        <ul class="mobile_sub_group three hidden">
+            {% for allergen in allergens %}
+                <li class="mobile_sub_group_heading">
+                    <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% if username %}
-    <li><a href="{{ url_for('account') }}" class="hvr-sweep-to-right"><span>{{ username }}</span><i class="fas fa-user"></i></a></li>
-    <li><a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a></li>
+    <!-- Links to display if user in session/logged in or if not -->
+    <li>
+        <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
+            <span>{{ username }}</span>
+            <i class="fas fa-user"></i>
+        </a>
+    </li>
+    <li>
+        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
+    </li>
 {% else %}
-    <li><a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a></li>
-    <li><a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register an account</a></li>
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
+    </li>
+    <li>
+        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
+    </li>
+    <!-- -->
 {% endif %} 
+<!-- -->
 {% endblock %} 
 
 {% block content %}
 <div class="container recipe_details">
+    <!-- Main content -->
     <form action="{{ url_for('insert_recipe') }}" method="POST">
-        <div class="section general_details">
+        <div class="section details">
             <div class="row top">
+                <!-- General recipe information -->
                 <div class="col s12">
                     <h1>{{ recipe.title }}</h1>
                 </div>
                 <div class="col s12 l6 left">
-                    <img src="{{ recipe.image }}">
+                    <!-- Takes up the left half of the screen on screens larger than 992px in width -->
+                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                    <!-- -->
                 </div>
                 <div class="col s12 l6 right">
+                    <!-- Takes up the right half of the screen on screens larger than 992px in width -->
                     <div class="col s12 author">
                         <p id="author"><strong>Author:</strong> {{ author.username }}</p>
                     </div>
@@ -44,9 +181,9 @@
                     </div>
                     <div class="col s12">
                         {% if recipe.description == "" %}
-                        <p><em>no description</em></p>
+                            <p><em>no description</em></p>
                         {% else %}
-                        <p>{{ recipe.description }}</p>
+                            <p>{{ recipe.description }}</p>
                         {% endif %}
                     </div>
                     <div class="col s12">
@@ -55,16 +192,16 @@
                     <div class="col s12 time">
                         <div class="prep">
                             {% if recipe.time.prep == "" %}
-                            <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> none</p>
+                                <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> none</p>
                             {% else %}
-                            <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> {{ recipe.time.prep }}</p>
+                                <p><i class="fas fa-clock"></i><strong>Preparation time:</strong> {{ recipe.time.prep }}</p>
                             {% endif %}
                         </div>
                         <div class="cook">
                             {% if recipe.time.cook == "" %}
-                            <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> none</p>
+                                <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> none</p>
                             {% else %}
-                            <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> {{ recipe.time.cook }}</p>
+                                <p><i class="fas fa-clock"></i><strong>Cooking time:</strong> {{ recipe.time.cook }}</p>
                             {% endif %}
                         </div>
                     </div>
@@ -73,77 +210,100 @@
                     </div>
                     <div class="col s12 favourited_detail">
                         {% if username %} 
+                            <!-- 
+                            Favourite button. Disabled for non-logged in users, if recipe not
+                            favourited yet, its clickable otherwise if its already favourited the 
+                            link is disabled and the start icon turns solid
+                            -->
                             {% if recipe._id in user.favourite_recipes %}
                                 <i class="fas  fa-star"></i>
                                 <p>Favourited {{ recipe.favourited }} times</p>
                             {% else %}
-                                <a href="{{ url_for('favourite', recipe_id=recipe._id, page='recipe_details') }}"><i class="far fa-star not_favourited"></i></a>
+                                <a href="{{ url_for('favourite', recipe_id=recipe._id, page='recipe_details') }}">
+                                    <i class="far fa-star not_favourited"></i>
+                                </a>
                                 <p>Favourited {{ recipe.favourited }} times</p>
                             {% endif %} 
                         {% else %}
                             <i class="far fa-star"></i>
                             <p>Favourited {{ recipe.favourited }} times</p>
+                            <!---->
                         {% endif %}
                     </div>
-                    <div class="col s12">
+                    <div class="col s12  print">
                         <p><i class="fas fa-print"></i>Print this recipe</p>
                     </div>
+                    <!-- -->
                 </div>
+                <!-- -->
             </div>
             <div class="row bottom">
+                <!-- Includes ingredients, instructions, allergens and nutritional information -->
                 <div class="col s12 l6 left border_left">
+                    <!-- Takes up the left half of the screen on screens larger than 992px in width -->
                     <div class="col s12">
-                        <h2 id="ingredients_expand">Ingredients<i class="fas fa-chevron-down"></i></h2>
+                        <!-- Ingredients information -->
+                        <h2 id="ingredients_expand">Ingredients<i class="fas fa-caret-down"></i></h2>
                         <ul class="browser-default ingredients_list">
                             {% for ingredient in recipe.ingredients %}
-                            <li><span>{{ ingredient }}</span></li>
+                                <li><span>{{ ingredient }}</span></li>
                             {% endfor %}
                         </ul>
+                        <!-- -->
                     </div>
                     <div class="col s12">
-                        <h2 id="instructions_expand">Instructions<i class="fas fa-chevron-down"></i></h2>
+                        <!-- Instructions information -->
+                        <h2 id="instructions_expand">Instructions<i class="fas fa-caret-down"></i></h2>
                         <ol class="instructions_list">
                             {% for instruction in recipe.instructions %}
-                            <li><span>{{ instruction }}</span></li>
+                                <li><span>{{ instruction }}</span></li>
                             {% endfor %}
                         </ol>
+                        <!-- -->
                     </div>
+                    <!-- -->
                 </div>
                 <div class="col s12 l6 right border_right">
+                    <!-- Takes up the right half of the screen on screens larger than 992px in width -->
                     <div class="col s12">
-                        <h2 id="allergens_expand">Allergnens<i class="fas fa-chevron-down"></i></h2>
-                        <ul class="browser-default ingredients_list">
+                        <!-- Allergens information -->
+                        <h2 id="allergens_expand">Allergnens<i class="fas fa-caret-down"></i></h2>
+                        <ul class="browser-default allergens_list">
                             {% if recipe.allergens|length == 0 %}
-                            <span><em>No allergens</em></span> 
+                                <span><em>No allergens</em></span> 
                             {% else %} 
-                            {% for allergen in recipe.allergens %}
-                            <li><span>{{ allergen }}</span></li>
-                            {% endfor %}
+                                {% for allergen in recipe.allergens %}
+                                    <li><span>{{ allergen }}</span></li>
+                                {% endfor %}
                             {% endif %}
                         </ul>
+                        <!-- -->
                     </div>
                     <div class="col s12">
-                        <h2 id="nutrition_expand">Nutrition<i class="fas fa-chevron-down"></i></h2>
+                        <!-- Nutritional information -->
+                        <h2 id="nutrition_expand">Nutrition<i class="fas fa-caret-down"></i></h2>
                         <div class="col s12 nutrition_list">
                             {% for name in nutrition_names %}
-                            <div class="col s6 m4 xl3">
-                                <div class="nutrition_name">
-                                    <p>{{ name }}</p>
+                                <div class="col s6 m4 xl3">
+                                    <div class="nutrition_name">
+                                        <p>{{ name }}</p>
+                                    </div>
+                                    <div class="nutrition_value">
+                                        {% if nutrition_values[loop.index0 ] == "" %}
+                                            <p>N/A</p>
+                                        {% else %}
+                                            <p>{{ nutrition_values[loop.index0 ] }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
-                                <div class="nutrition_value">
-                                    {% if nutrition_values[loop.index0 ] == "" %}
-                                    <p>N/A</p>
-                                    {% else %}
-                                    <p>{{ nutrition_values[loop.index0 ] }}</p>
-                                    {% endif %}
-                                </div>
-                            </div>
                             {% endfor %}
                         </div>
+                        <!-- -->
                     </div>
                 </div>
             </div>
         </div>
     </form>
+    <!-- -->
 </div>
 {% endblock %}
