@@ -651,14 +651,14 @@ def all_recipes():
     if request.args.get("page_number") != None:
         page_number = queries.assign_value(1, int(request.args.get("page_number")))
     
-    to_skip = misc.set_number_to_skip(3, page_number)    
+    to_skip = misc.set_number_to_skip(9, page_number)    
     
     recipes_dates = queries.format_dates(
-        queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, to_skip, 3, sort)[0])
-    recipes = queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, to_skip, 3, sort)[0]
-    recipes_count = queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, 0, 3, sort)[1]
+        queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, to_skip, 9, sort)[0])
+    recipes = queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, to_skip, 9, sort)[0]
+    recipes_count = queries.filtered_recipes(category_id, cuisine_id, ingredient, allergen, title, 0, 9, sort)[1]
     
-    number_of_pagination_links = misc.calculate_number_of_pagination_links(3, recipes_count)
+    number_of_pagination_links = misc.calculate_number_of_pagination_links(9, recipes_count)
     prev_page = misc.set_prev_and_next_page_number(page_number, number_of_pagination_links)[0]
     next_page = misc.set_prev_and_next_page_number(page_number, number_of_pagination_links)[1]
     
