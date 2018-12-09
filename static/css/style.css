@@ -336,7 +336,8 @@ body {
     color: white; }
   .mobile_summary .mobile_group_heading a {
     display: flex;
-    justify-content: space-between; }
+    justify-content: space-between;
+    width: 100%; }
   .mobile_summary .mobile_group_heading > a > i.material-icons {
     margin: 0; }
 .mobile_summary .mobile_sub_group {
@@ -346,9 +347,11 @@ body {
   overflow-y: scroll; }
   .mobile_summary .mobile_sub_group.one {
     overflow-y: hidden; }
-.mobile_summary .mobile_sub_group_heading a:hover {
-  color: #292929;
-  font-weight: 700; }
+.mobile_summary .mobile_sub_group_heading {
+  width: 100%; }
+  .mobile_summary .mobile_sub_group_heading a:hover {
+    color: white;
+    font-weight: 700; }
 
 /* 
 === SUMMARY DISPLAY===

@@ -142,6 +142,7 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        
 
         &:hover {
             >a>i.material-icons {
@@ -152,6 +153,7 @@ body {
         a {
             display: flex;
             justify-content: space-between;
+            width: 100%;
         }
 
         &>a>i.material-icons {
@@ -173,8 +175,9 @@ body {
     }
 
     .mobile_sub_group_heading {
+        width: 100%;
         a:hover {
-            color: $primary_font;
+            color: white;
             font-weight: 700;
         }
     }
