@@ -244,6 +244,12 @@ def insert_user():
                             
 @app.route("/account", methods=["GET", "POST"])
 def account():
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     user = app_setup.mongo.db.users.find_one({"username": username})
     sort = "newest"
@@ -313,6 +319,12 @@ def account():
                             
 @app.route("/favourite_recipes", methods=["GET", "POST"])
 def favourite_recipes():
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     user = app_setup.mongo.db.users.find_one({"username": username})
     
@@ -393,6 +405,12 @@ def favourite_recipes():
     
 @app.route("/add_recipe")
 def add_recipe():
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     cuisines = app_setup.mongo.db.cuisines.find()
     categories = app_setup.mongo.db.categories.find()
@@ -418,6 +436,12 @@ def add_recipe():
                             
 @app.route("/insert_recipe", methods=["POST"])
 def insert_recipe():
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     user = app_setup.mongo.db.users.find_one({"username": username})
     
@@ -472,6 +496,12 @@ def insert_recipe():
     
 @app.route("/edit_recipe/<recipe_id>")
 def edit_recipe(recipe_id):
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     recipe = app_setup.mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     cuisines = app_setup.mongo.db.cuisines.find()
@@ -505,6 +535,12 @@ def edit_recipe(recipe_id):
                             
 @app.route("/update_recipe/<recipe_id>", methods=["POST"])
 def update_recipe(recipe_id):
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     """
     Update a given recipe document in the database with new data
     """
@@ -551,6 +587,12 @@ def update_recipe(recipe_id):
 @app.route("/delete_recipe/<recipe_id>")
 def delete_recipe(recipe_id):
     """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
+    """
     Delete a matching recipe document from the database and that documents id
     from all the user documents favourite_recipes field so as to avoid referencing
     documents which no longer exist in the database
@@ -563,6 +605,12 @@ def delete_recipe(recipe_id):
     
 @app.route("/remove_recipe_favourite/<recipe_id>")
 def remove_recipe_favourite(recipe_id):
+    """
+    In case a user isn't logged in bring them back to the homepage
+    """
+    if "user" not in session:
+        return redirect(url_for("index"))
+        
     username = sessions.check_if_user_in_session()
     """
     Remove a given recipe id just from the user's favourite_recipes field and decrement
