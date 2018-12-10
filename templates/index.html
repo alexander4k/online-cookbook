@@ -243,7 +243,9 @@
                     <div class="item_container">
                         <div class="item">
                             <div class="recipe_card">
-                                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
+                                </a>
                                 <div class="card_info">
                                     <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                         <p>{{ recipe.title }}</p>
@@ -304,7 +306,9 @@
                     <div class="item_container">
                         <div class="item">
                             <div class="recipe_card">
-                                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
+                                </a>
                                 <div class="card_info">
                                     <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                         <p>{{ recipe.title }}</p>
@@ -366,7 +370,9 @@
                     <div class="item_container">
                         <div class="item">
                             <div class="recipe_card">
-                                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                                <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
+                                </a>
                                 <div class="card_info">
                                     <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                         <p>{{ recipe.title }}</p>

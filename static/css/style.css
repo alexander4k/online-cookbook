@@ -688,7 +688,9 @@ nav {
     .container.main_content .carousel ul {
       padding-top: 20px; }
     .container.main_content .carousel .indicators .indicator-item {
-      background-color: #F4C99A; }
+      border: 2px solid #f6b26b;
+      width: 10px;
+      height: 10px; }
       .container.main_content .carousel .indicators .indicator-item.active {
         background-color: #f6b26b; }
 

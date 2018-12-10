@@ -619,7 +619,9 @@ nav {
         }
 
         .indicators .indicator-item {
-            background-color: $secondary_orange;
+            border: 2px solid $teritiary_orange;
+            width: 10px;
+            height: 10px;
 
             &.active {
                 background-color: $teritiary_orange;
