@@ -441,6 +441,7 @@ def insert_recipe():
     as the user documents id for reference, and the same for cuisine and category fields.
     Set the number of times the recipe has been favourited as 0.
     If a user submits the form containing blank ingredient or instruction fields, filter them out.
+    Covert the resulting filter object back to a list.
     """
     new_recipe = queries.create_recipe(request.form.get("title"),
                                     request.form.get("description"),
