@@ -181,9 +181,7 @@
                             </div>
                             <div class="card_info">
                                 <div>
-                                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
-                                        <p>{{ recipe.title }}</p>
-                                    </a>
+                                    <p>{{ recipe.title }}</p>
                                     <span><p>Favourited {{ recipe.favourited }} times</p></span>
                                     <p class="date">{{ recipes_dates[loop.index0] }}</p>
                                 </div>
