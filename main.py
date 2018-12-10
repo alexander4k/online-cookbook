@@ -448,7 +448,7 @@ def insert_recipe():
                                     user["_id"],
                                     request.form.get("servings"),
                                     0,
-                                    cuisine["_id"],
+                                    ObjectId(cuisine["_id"]),
                                     category["_id"],
                                     request.form.get("difficulty"),
                                     request.form.get("prep_time"),
@@ -462,9 +462,9 @@ def insert_recipe():
                                     request.form.get("fibre"),
                                     request.form.get("protein"),
                                     request.form.getlist("allergen"),
-                                    filter(None, request.form.getlist("ingredient")),
-                                    filter(None, request.form.getlist("instruction")))
-                                        
+                                    list(filter(None, request.form.getlist("ingredient"))),
+                                    list(filter(None, request.form.getlist("instruction"))))
+
     app_setup.mongo.db.recipes.insert_one(new_recipe)
                            
     return redirect(url_for("account")) 
@@ -539,8 +539,8 @@ def update_recipe(recipe_id):
                                         request.form.get("fibre"),
                                         request.form.get("protein"),
                                         request.form.getlist("allergen"),
-                                        filter(None, request.form.getlist("ingredient")),
-                                        filter(None, request.form.getlist("instruction")))
+                                        list(filter(None, request.form.getlist("ingredient"))),
+                                        list(filter(None, request.form.getlist("instruction"))))
                                         
         app_setup.mongo.db.recipes.replace_one({"_id": ObjectId(recipe_id)}, new_recipe)
     
