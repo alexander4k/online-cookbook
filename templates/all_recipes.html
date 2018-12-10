@@ -2,161 +2,167 @@
 
 {% block dropdown_content %}
 <!-- Content(links) of the summary dropdown menus -->
-<ul id="categories" class="dropdown-content">
-    {% for category in categories_two %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
-<ul id="cuisines" class="dropdown-content">
-    {% for cuisine in cuisines_two %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
-<ul id="allergens" class="dropdown-content">
-    {% for allergen in allergens_two %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
-        </li>
-    {% endfor %}
-</ul>
+<section>
+    <ul id="categories" class="dropdown-content">
+        {% for category in categories_two %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul id="cuisines" class="dropdown-content">
+        {% for cuisine in cuisines_two %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul id="allergens" class="dropdown-content">
+        {% for allergen in allergens_two %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
 <!-- -->
 {% endblock %}
 
 {% block big_screen %} 
 <!-- Navigation links for a screen larger than 992px in width. -->
-<li>
-    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="categories">Categories
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="cuisines">Cuisines
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="allergens">Allergens
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-{% if username %}
-    <!-- Links to display if user in session/logged in or if not -->
+<section>
     <li>
-        <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
-            <i class="fas fa-user"></i>
-            <span>{{ username }}</span>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+    </li>
+    <li>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="categories">Categories
+            <i class="material-icons right">arrow_drop_down</i>
         </a>
     </li>
     <li>
-        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="cuisines">Cuisines
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
     </li>
-{% else %}
     <li>
-        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
-    </li> 
-    <li>
-        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="allergens">Allergens
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
     </li>
-    <!-- -->
-{% endif %} 
+    {% if username %}
+        <!-- Links to display if user in session/logged in or if not -->
+        <li>
+            <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
+                <i class="fas fa-user"></i>
+                <span>{{ username }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
+        </li> 
+        <li>
+            <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
+        </li>
+        <!-- -->
+    {% endif %} 
+</section>
 <!-- -->
 {% endblock %} 
 
 {% block small_screen %} 
 <!-- Navigation links for screens smaller than 992px in width. -->
-<li>
-    <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
-</li>
-<div class="mobile_summary">
-    <div class="mobile_group one">
-        <li class="mobile_group_heading one hvr-sweep-to-right">
-            <a>
-                <span>Categories</span>
-                <i class="material-icons">arrow_drop_down</i>
+<section>
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
+    </li>
+    <section class="mobile_summary">
+        <section class="mobile_group one">
+            <li class="mobile_group_heading one hvr-sweep-to-right">
+                <a>
+                    <span>Categories</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group one hidden">
+                {% for category in categories_three %}
+                    <li class="mobile_sub_group_heading">
+                        <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="mobile_group two">
+            <li class="mobile_group_heading two hvr-sweep-to-right">
+                <a>
+                    <span>Cuisines</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group two hidden">
+                {% for cuisine in cuisines_three %}
+                    <li class="mobile_sub_group_heading">
+                        <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="mobile_group three">
+            <li class="mobile_group_heading three hvr-sweep-to-right">
+                <a>
+                    <span>Allergens</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group three hidden">
+                {% for allergen in allergens_two %}
+                    <li class="mobile_sub_group_heading">
+                        <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
+    {% if username %}
+        <!-- Links to display if user in session/logged in or if not -->
+        <li>
+            <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
+                <span>{{ username }}</span>
+                <i class="fas fa-user"></i>
             </a>
         </li>
-        <ul class="mobile_sub_group one hidden">
-            {% for category in categories_three %}
-                <li class="mobile_sub_group_heading">
-                    <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="mobile_group two">
-        <li class="mobile_group_heading two hvr-sweep-to-right">
-            <a>
-                <span>Cuisines</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </a>
+        <li>
+            <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
         </li>
-        <ul class="mobile_sub_group two hidden">
-            {% for cuisine in cuisines_three %}
-                <li class="mobile_sub_group_heading">
-                    <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="mobile_group three">
-        <li class="mobile_group_heading three hvr-sweep-to-right">
-            <a>
-                <span>Allergens</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </a>
+    {% else %}
+        <li>
+            <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
+        </li> 
+        <li>
+            <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
         </li>
-        <ul class="mobile_sub_group three hidden">
-            {% for allergen in allergens_two %}
-                <li class="mobile_sub_group_heading">
-                    <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-{% if username %}
-    <!-- Links to display if user in session/logged in or if not -->
-    <li>
-        <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
-            <span>{{ username }}</span>
-            <i class="fas fa-user"></i>
-        </a>
-    </li>
-    <li>
-        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
-    </li>
-{% else %}
-    <li>
-        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
-    </li> 
-    <li>
-        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
-    </li>
-    <!-- -->
-{% endif %} 
+        <!-- -->
+    {% endif %} 
+</section>
 <!-- -->
 {% endblock %} 
 
 {% block content %}
-<div class="container all_recipes">
+<section class="container all_recipes">
     <!-- Main content -->
-    <div class="row">
+    <article class="row">
         <h1>Recipes</h1>
-        <div class="col s12 top">
-            <div class="section filters">
+        <section class="col s12 top">
+            <section class="section filters">
                 <!-- Filtering-->
                 <form action="{{ url_for('filter_recipes') }}" method="GET">
                     <!-- Inputs for filtering the recipes -->
@@ -199,7 +205,7 @@
                     </div>
                     <!-- -->
                 </form>
-                <div class="input-field col s12 search_and_count">
+                <section class="input-field col s12 search_and_count">
                     <!-- Displays selected filter options and the count of recipes returned -->
                     <p>Search: 
                         <span>{{ title }} {{ category_name }} {{ cuisine_name }} {{ ingredient }} {{ allergen_name }}</span>
@@ -208,13 +214,13 @@
                         <span>{{ recipes_count }} out of {{ all_recipes_count }}</span>
                     </p>
                     <!-- -->
-                </div>
+                </section>
                 <!-- -->
-            </div>
-        </div>
-        <div class="col s12 bottom">
+            </section>
+        </section>
+        <section class="col s12 bottom">
             <!-- Sorting options and displays recipes -->
-            <div class="col s12 sort">
+            <section class="col s12 sort">
                 <!-- Sorting options -->
                 <form action="{{ url_for('all_recipes',
                                         title_input=title,
@@ -233,57 +239,56 @@
                     </div>
                 </form>
                 <!-- -->
-            </div>
+            </section>
             {% for recipe in recipes%}
                 <!-- Displays recipe  -->
-                <div class="col s12 m6 l4 recipe">
-                        <div class="recipe_card">
-                            <div class="image">
+                <section class="col s12 m6 l4 recipe">
+                    <article class="recipe_card">
+                        <section class="image">
+                            <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
+                                <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
+                            </a>
+                        </section>
+                        <section class="card_info">
+                            <div>
                                 <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
-                                    <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
+                                    <p>{{ recipe.title }}</p>
                                 </a>
-                            </div>
-                            <div class="card_info">
-                                <div>
-                                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
-                                        <p>{{ recipe.title }}</p>
-                                    </a>
-                                    {% if username %}
-                                        <!-- 
-                                        Favourite button. Disabled for non-logged in users, if recipe not
-                                        favourited yet, its clickable otherwise if its already favourited the 
-                                        link is disabled and the start icon turns solid
-                                        -->
-                                        {% if recipe._id in user.favourite_recipes %}
-                                            <span>
-                                                <p>Favourited {{ recipe.favourited }} times</p>
-                                                <i class="fas fa-star"></i>
-                                            </span>
-                                        {% else %}
-                                            <span>
-                                                <p>Favourited {{ recipe.favourited }} times</p>
-                                                <a href="{{ url_for('favourite', recipe_id=recipe._id, page='all_recipes') }}">
-                                                    <i class="far fa-star not_favourited highlight"></i>
-                                                </a>
-                                            </span>
-                                        {% endif %}
+                                {% if username %}
+                                    <!-- 
+                                    Favourite button. Disabled for non-logged in users, if recipe not
+                                    favourited yet, its clickable otherwise if its already favourited the 
+                                    link is disabled and the start icon turns solid
+                                    -->
+                                    {% if recipe._id in user.favourite_recipes %}
+                                        <span>
+                                            <p>Favourited {{ recipe.favourited }} times</p>
+                                            <i class="fas fa-star"></i>
+                                        </span>
                                     {% else %}
                                         <span>
                                             <p>Favourited {{ recipe.favourited }} times</p>
-                                            <i class="far fa-star"></i>
+                                            <a href="{{ url_for('favourite', recipe_id=recipe._id, page='all_recipes') }}">
+                                                <i class="far fa-star not_favourited highlight"></i>
+                                            </a>
                                         </span>
-                                        <!-- -->
                                     {% endif %}
-                                    <p class="date">{{ recipes_dates[loop.index0] }}</p>
-                                </div>
+                                {% else %}
+                                    <span>
+                                        <p>Favourited {{ recipe.favourited }} times</p>
+                                        <i class="far fa-star"></i>
+                                    </span>
+                                    <!-- -->
+                                {% endif %}
+                                <p class="date">{{ recipes_dates[loop.index0] }}</p>
                             </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
+                        </section>
+                    </article>
+                </section>
+            {% endfor %}
+        </section>
         {% if number_of_pagination_links > 0 %}
-            <div class="col s12">
+            <section class="col s12">
                 <!-- Pagination -->
                 <ul class="pagination small">
                     <!-- For small/below 450px in width devices only -->
@@ -395,9 +400,9 @@
                     </li>
                     <!-- -->
                 </ul>
-            </div>
+            </section>
         {% endif %}
-    </div>
+    </section>
     <!-- -->
-</div>
+</section>
 {% endblock %}

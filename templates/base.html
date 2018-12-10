@@ -18,7 +18,7 @@
     <!-- -->
     <nav>
         <!-- Navigation -->
-        <div class="nav-wrapper">
+        <aside class="nav-wrapper">
             <a href="{{ url_for('index') }}" class="brand-logo hvr-underline-from-center"><span>Online</span><span> Cookbook</span></a>
             <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
@@ -26,7 +26,7 @@
                 {% block big_screen %} {% endblock %}
                 <!-- -->
             </ul>
-        </div>
+        </aside>
     </nav>
     <ul class="sidenav" id="nav-mobile">
         <!-- Navigation links for a screen smaller than 992px in width -->
@@ -40,10 +40,10 @@
     </main>
     <footer class="page-footer">
         <!-- Footer -->
-        <div class="footer-copyright">
+        <aside class="footer-copyright">
             <a href="">© 2018 Copyright</a>
             <a href="">Terms & Conditions</a>
-        </div>
+        </aside>
         <!-- -->
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

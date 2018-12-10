@@ -2,171 +2,177 @@
 
 {% block dropdown_content %}
 <!-- Content(links) of the summary dropdown menus -->
-<ul id="categories" class="dropdown-content">
-    {% for category in categories %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
-<ul id="cuisines" class="dropdown-content">
-    {% for cuisine in cuisines %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
-        </li>
-    {% endfor %}
-</ul>
-<ul id="allergens" class="dropdown-content">
-    {% for allergen in allergens %}
-        <li>
-            <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
-        </li>
-    {% endfor %}
-</ul>
+<section>
+    <ul id="categories" class="dropdown-content">
+        {% for category in categories %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul id="cuisines" class="dropdown-content">
+        {% for cuisine in cuisines %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <ul id="allergens" class="dropdown-content">
+        {% for allergen in allergens %}
+            <li>
+                <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
 <!-- -->
 {% endblock %}
 
 {% block big_screen %}
 <!-- Navigation links for a screen larger than 992px in width. -->
-<li>
-    <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
-</li>
-<li>
-    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="categories">Categories
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="cuisines">Cuisines
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-<li>
-    <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
-        href="#!" 
-        data-target="allergens">Allergens
-        <i class="material-icons right">arrow_drop_down</i>
-    </a>
-</li>
-
-{% if username %}
-    <!-- Links to display if user in session/logged in or if not -->
+<section>
     <li>
-        <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
-            <i class="fas fa-user"></i>
-            <span>{{ username }}</span>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Home</a>
+    </li>
+    <li>
+        <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-top">All recipes</a>
+    </li>
+    <li>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="categories">Categories
+            <i class="material-icons right">arrow_drop_down</i>
         </a>
     </li>
     <li>
-        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="cuisines">Cuisines
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
     </li>
-{% else %}
     <li>
-        <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
+        <a class="dropdown-trigger dropdown_heading hvr-sweep-to-top" 
+            href="#!" 
+            data-target="allergens">Allergens
+            <i class="material-icons right">arrow_drop_down</i>
+        </a>
     </li>
-    <li>
-        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
-    </li>
-    <!-- -->
-{% endif %}
+    
+    {% if username %}
+        <!-- Links to display if user in session/logged in or if not -->
+        <li>
+            <a href="{{ url_for('account') }}" class="hvr-sweep-to-top">
+                <i class="fas fa-user"></i>
+                <span>{{ username }}</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url_for('logout') }}" class="hvr-sweep-to-top">Logout</a>
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ url_for('index') }}" class="hvr-sweep-to-top">Login</a>
+        </li>
+        <li>
+            <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-top">Register</a>
+        </li>
+        <!-- -->
+    {% endif %}
+</section>
 <!-- -->
 {% endblock %}
 
 {% block small_screen %}
 <!-- Navigation links for screens smaller than 992px in width. -->
-<li>
-    <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
-</li>
-<li>
-    <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a>
-</li>
-<div class="mobile_summary">
-    <div class="mobile_group one">
-        <li class="mobile_group_heading one">
-            <a class="hvr-sweep-to-right">
-                <span>Categories</span>
-                <i class="material-icons">arrow_drop_down</i>
+<section>
+    <li>
+        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Home</a>
+    </li>
+    <li>
+        <a href="{{ url_for('all_recipes') }}" class="hvr-sweep-to-right">All recipes</a>
+    </li>
+    <section class="mobile_summary">
+        <section class="mobile_group one">
+            <li class="mobile_group_heading one">
+                <a class="hvr-sweep-to-right">
+                    <span>Categories</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group one hidden">
+                {% for category in categories_two %}
+                    <li class="mobile_sub_group_heading hvr-sweep-to-right">
+                        <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="mobile_group two">
+            <li class="mobile_group_heading two">
+                <a class="hvr-sweep-to-right">
+                    <span>Cuisines</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group two hidden">
+                {% for cuisine in cuisines_two %}
+                    <li class="mobile_sub_group_heading hvr-sweep-to-right">
+                        <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <section class="mobile_group three">
+            <li class="mobile_group_heading three">
+                <a class="hvr-sweep-to-right">
+                    <span>Allergens</span>
+                    <i class="material-icons">arrow_drop_down</i>
+                </a>
+            </li>
+            <ul class="mobile_sub_group three hidden">
+                {% for allergen in allergens %}
+                    <li class="mobile_sub_group_heading hvr-sweep-to-right">
+                        <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </section>
+    {% if username %}
+        <!-- Links to display if user in session/logged in or if not -->
+        <li>
+            <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
+                <span>{{ username }}</span>
+                <i class="fas fa-user"></i>
             </a>
         </li>
-        <ul class="mobile_sub_group one hidden">
-            {% for category in categories_two %}
-                <li class="mobile_sub_group_heading hvr-sweep-to-right">
-                    <a href="{{ url_for('summary_display', selected_category=category._id) }}">{{ category.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="mobile_group two">
-        <li class="mobile_group_heading two">
-            <a class="hvr-sweep-to-right">
-                <span>Cuisines</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </a>
+        <li>
+            <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
         </li>
-        <ul class="mobile_sub_group two hidden">
-            {% for cuisine in cuisines_two %}
-                <li class="mobile_sub_group_heading hvr-sweep-to-right">
-                    <a href="{{ url_for('summary_display', selected_cuisine=cuisine._id) }}">{{ cuisine.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-    <div class="mobile_group three">
-        <li class="mobile_group_heading three">
-            <a class="hvr-sweep-to-right">
-                <span>Allergens</span>
-                <i class="material-icons">arrow_drop_down</i>
-            </a>
+    {% else %}
+        <li>
+            <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
         </li>
-        <ul class="mobile_sub_group three hidden">
-            {% for allergen in allergens %}
-                <li class="mobile_sub_group_heading hvr-sweep-to-right">
-                    <a href="{{ url_for('summary_display', selected_allergen=allergen) }}">{{ allergen }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-{% if username %}
-    <!-- Links to display if user in session/logged in or if not -->
-    <li>
-        <a href="{{ url_for('account') }}" class="hvr-sweep-to-right">
-            <span>{{ username }}</span>
-            <i class="fas fa-user"></i>
-        </a>
-    </li>
-    <li>
-        <a href="{{ url_for('logout') }}" class="hvr-sweep-to-right">Logout</a>
-    </li>
-{% else %}
-    <li>
-        <a href="{{ url_for('index') }}" class="hvr-sweep-to-right">Login</a>
-    </li>
-    <li>
-        <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
-    </li>
-    <!-- -->
-{% endif %}
+        <li>
+            <a href="{{ url_for('register_user') }}" class="hvr-sweep-to-right">Register</a>
+        </li>
+        <!-- -->
+    {% endif %}
+</section>
 <!-- -->
 {% endblock %} 
 
 {% block content %}
 
-<div class="container summary_container">
+<section class="container summary_container">
     <!-- Main content -->
-    <div class="row">
-        <div class="col s12 summary_display">
-            <div class="col s12 count_sort">
+    <section class="row">
+        <section class="col s12 summary_display">
+            <section class="col s12 count_sort">
                 <!-- Count of recipes and sorting options -->
-                <div class="col s12 count">
-                    <div class="col s12">
+                <section class="col s12 count">
+                    <section class="col s12">
                         {% if recipes_count == 1 %}
                             <!-- In case there is only 1 recipes, use the singular form of recipes -->
                             {% set of_this = "recipe" %}
@@ -182,14 +188,14 @@
                             <p><strong>{{ recipes_count }}</strong> {{ of_this }} in {{ cuisine.name }} {{ category.name }}</p>
                             <!-- -->
                         {% endif %}
-                    </div>
-                </div>
+                    </section>
+                </section>
                 <!-- -->
-                <div class="col s12 sort">
+                <section class="col s12 sort">
                     <form action="{{ url_for('summary_display', selected_category=category._id, 
                                                                 selected_cuisine=cuisine._id, 
                                                                 selected_allergen=allergen) }}" method="POST">
-                        <div class="input-field col s12 m6 l4">
+                        <section class="input-field col s12 m6 l4">
                             <select id="sort" name="sort" onchange="this.form.submit()">
                                 <option selected disabled>Sort by</option>
                                 <option value="newest">Newest</option>
@@ -197,21 +203,21 @@
                                 <option value="most_popular">Most popular</option>
                                 <option value="least_popular">Least popular</option>
                             </select>
-                        </div>
+                        </section>
                     </form>
-                </div>
+                </section>
                 <!-- -->
-            </div>
+            </section>
             {% for recipe in recipes %}
                  <!-- Recipe display -->
-                <div class="col s12 m6 l4 recipe">
-                    <div class="recipe_card">
-                        <div class="image">
+                <section class="col s12 m6 l4 recipe">
+                    <article class="recipe_card">
+                        <section class="image">
                             <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                 <img src="{{ recipe.image }}" alt="{{ recipe.title }}">    
                             </a>
-                        </div>
-                        <div class="card_info">
+                        </section>
+                        <section class="card_info">
                             <div>
                                 <a href="{{ url_for('recipe_details', recipe_id=recipe._id) }}">
                                     <p>{{ recipe.title }}</p>
@@ -244,12 +250,12 @@
                                 {% endif %}
                                 <p class="date">{{ recipes_dates[loop.index0] }}</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </section>
+                    </article>
+                </section>
             {% endfor %}
             {% if number_of_links > 0 %}
-                <div class="col s12">
+                <section class="col s12">
                     <!-- Pagination -->
                     <ul class="pagination small">
                         <!-- For small/below 450px in width devices only -->
@@ -348,10 +354,10 @@
                         <!-- -->
                     </ul>
                     <!-- -->
-                </div>
+                </section>
             {% endif %}
-        </div>
-    </div>
+        </section>
+    </section>
     <!-- -->
-</div>
+</section>
 {% endblock %}
