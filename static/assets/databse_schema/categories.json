@@ -1,0 +1,6 @@
+{
+    "_id": {
+        "$oid": "category_id"
+    },
+    "name": "name"
+}

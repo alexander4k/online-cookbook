@@ -1,0 +1,38 @@
+{
+    "_id": {
+        "$oid": "recipe_id"
+    },
+    "title": "title",
+    "image": "image_url",
+    "author": {
+        "$oid": "user_id"
+    },
+    "creation_date": 0,
+    "description": "description",
+    "category": {
+        "$oid": "category_id"
+    },
+    "cuisine": {
+        "$oid": "cuisine_id"
+    },
+    "servings": "0",
+    "favourited": 0,
+    "difficulty": "difficulty",
+    "time": {
+        "cook": "0 unit",
+        "prep": "0 unit"
+    },
+    "allergens": ["allegen"],
+    "ingredients": ["ingredient"],
+    "instructions": ["instruction"],
+    "nutritional": {
+        "calories": "0",
+        "fat": "0 unit",
+        "saturates": "0 unit",
+        "carbs": "0 unit",
+        "sugars": "0 unit",
+        "fibre": "0 unit",
+        "protein": "0 unit",
+        "salt": "0 unit"
+    }
+}

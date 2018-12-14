@@ -1,0 +1,12 @@
+{
+    "_id": {
+        "$oid": "user_id"
+    },
+    "username": "username",
+    "password": "password",
+    "favourite_recipes": [
+        {
+            "$oid": "recipe_id"
+        }
+    ]
+}

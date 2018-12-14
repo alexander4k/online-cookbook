@@ -1,0 +1,6 @@
+{
+    "_id": {
+        "$oid": "cuisine_id"
+    },
+    "name": "name"
+}
