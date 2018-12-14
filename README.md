@@ -263,7 +263,7 @@ Details on the finalized database schema can be found here [Schema](static/asset
 
 ## Deployment 
 
-Deployed on Heroku at [Guess The Flag](https://guess-the-country-by-flag.herokuapp.com/).
+Deployed on Heroku at [Online Cookbook](https://online-cook-book.herokuapp.com/).
 
 * Clone the repository by copying the clone url
 * In the terminal type `git clone` followed by the copied url
@@ -271,8 +271,9 @@ Deployed on Heroku at [Guess The Flag](https://guess-the-country-by-flag.herokua
 * In the terminal type `pip3 install -r requirements.txt` to install all the dependencies 
 * Create an account on Heroku if you don't have one yet and create a new app
 * In the terminal, type `echo "web: python main.py" > Procfile`
-* Create a new folder inside the apps directory called secret_settings and in it a .env file
-* In the .env file set DBNAME, URI and SECRET_KEY
+* Create a new folder inside the apps directory called `secret_settings` and in it a `.env` file or 
+change path in `app_setup.py` and create the `.env` file anywhere you'd like
+* In the `.env` file set DBNAME, URI and SECRET_KEY
 * In the terminal, `heroku login`
 * `git init` to create a new repository
 * `heroku git:remote -a (name of your heroku app, no brackets)`
@@ -281,7 +282,7 @@ Deployed on Heroku at [Guess The Flag](https://guess-the-country-by-flag.herokua
 * `git push heroku master`
 * `heroku ps:scale web=1`
 * In your heroku app navigate to settings and reveal config vars, set IP = 0.0.0.0, PORT = 5000, DBNAME, URI and SECRET_KEY
-* `restart all dynos and open your heroku app`
+* restart all dynos and open your heroku app
 
 ## Credits
 
@@ -300,7 +301,6 @@ Deployed on Heroku at [Guess The Flag](https://guess-the-country-by-flag.herokua
 
 #### Fonts
 
-* Roboto - [Google Fonts](https://fonts.google.com/)
 * Font Awesome - [Font Awesome](https://fontawesome.com/?from=io)
 
 
