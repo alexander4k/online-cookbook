@@ -267,7 +267,7 @@ Deployed on Heroku at [Online Cookbook](https://online-cook-book.herokuapp.com/)
 
 * Clone the repository by copying the clone url
 * In the terminal type `git clone` followed by the copied url
-* `cd` into `guess-the-flag`
+* `cd` into `online-cookbook`
 * In the terminal type `pip3 install -r requirements.txt` to install all the dependencies 
 * Create an account on Heroku if you don't have one yet and create a new app
 * In the terminal, type `echo "web: python main.py" > Procfile`
